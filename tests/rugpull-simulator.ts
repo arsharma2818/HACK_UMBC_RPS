@@ -42,6 +42,7 @@ describe("Rugpull Simulator", () => {
   let wsolMint: anchor.web3.PublicKey;
   let poolPda: anchor.web3.PublicKey;
   let bump: number;
+  const POOL_ID = 0; // use pool 0 for tests (supports 0,1,2)
 
   // Vault accounts
   let scamVault: anchor.web3.PublicKey;
@@ -102,7 +103,7 @@ describe("Rugpull Simulator", () => {
 
   it("Initialize pool", async () => {
     [poolPda, bump] = anchor.web3.PublicKey.findProgramAddressSync(
-      [Buffer.from("pool")],
+      [Buffer.from("pool"), Buffer.from([POOL_ID])],
       program.programId
     );
 
@@ -115,7 +116,7 @@ describe("Rugpull Simulator", () => {
 
     // Call initialize with the vault keypairs
     await program.methods
-      .initializePool()
+      .initializePool(POOL_ID)
       .accounts({
         pool: poolPda,
         scamVault,
@@ -147,7 +148,7 @@ describe("Rugpull Simulator", () => {
 
   it("Swap WSOL → Scam Tokens", async () => {
     await program.methods
-      .swap(true, new anchor.BN(1))
+      .swap(POOL_ID, true, new anchor.BN(1))
       .accounts({
         pool: poolPda,
         scamVault,
@@ -172,7 +173,7 @@ describe("Rugpull Simulator", () => {
 
   it("Rug Pull 💀", async () => {
     await program.methods
-      .rugPull()
+      .rugPull(POOL_ID)
       .accounts({
         pool: poolPda,
         scamVault,
