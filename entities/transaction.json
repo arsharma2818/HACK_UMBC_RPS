@@ -1,0 +1,48 @@
+{
+    "name": "Transaction",
+    "type": "object",
+    "properties": {
+      "pool_id": {
+        "type": "string",
+        "description": "Associated pool ID"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "swap",
+          "add_liquidity",
+          "remove_liquidity",
+          "rug_pull"
+        ],
+        "description": "Transaction type"
+      },
+      "token_amount": {
+        "type": "number",
+        "description": "Token amount involved"
+      },
+      "base_amount": {
+        "type": "number",
+        "description": "Base currency amount"
+      },
+      "price_impact": {
+        "type": "number",
+        "description": "Price impact percentage"
+      },
+      "reserves_after": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "number"
+          },
+          "base": {
+            "type": "number"
+          }
+        },
+        "description": "Pool reserves after transaction"
+      }
+    },
+    "required": [
+      "pool_id",
+      "type"
+    ]
+  }
