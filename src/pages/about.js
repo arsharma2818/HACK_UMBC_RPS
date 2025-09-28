@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Shield, Users, BookOpen, Heart } from 'lucide-react';
+import { Card, CardContent } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Shield, Users, BookOpen, Heart, Github, Target } from 'lucide-react';
 
 export default function About() {
   const team = [
@@ -28,132 +29,133 @@ export default function About() {
       description: "Built by educators, for educators, with the community's needs in mind."
     },
     {
-      icon: Heart,
-      title: "Empowering Users",
-      description: "We believe knowledge is power in the complex world of DeFi."
+      icon: Target,
+      title: "Evidence Based",
+      description: "Content grounded in real data and documented scam patterns."
     }
   ];
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-16 pb-24 bg-gradient-to-br from-slate-50 to-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-blue-600">RugGuard</span>
+      {/* Hero Section - dark / glassy */}
+      <section className="relative pt-16 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/5 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl" />
+        </div>
+        <div className="absolute inset-0 bg-white/5 backdrop-blur-sm" />
+
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white border border-white/20 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <Heart className="w-4 h-4" />
+            Made with Purpose
+          </div>
+          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">RugGuard</span>
           </h1>
-          <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-            An educational platform designed to help users understand cryptocurrency scams 
-            through safe, hands-on simulations.
+          <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto">
+            We protect cryptocurrency investors through education and hands-on, risk-free simulations.
           </p>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              Our Mission
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              To democratize DeFi education by providing a safe environment where users can 
-              learn about cryptocurrency risks without financial exposure.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <Card key={index} className="text-center border-0 shadow-sm hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="w-8 h-8 text-sky-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-4">
-                    {value.title}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    {value.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Story Section */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              Why We Built This
-            </h2>
-          </div>
-
-          <div className="prose prose-lg max-w-none text-slate-600">
-            <p className="text-lg leading-relaxed mb-6">
-              The cryptocurrency space has seen explosive growth, but with it comes significant risks. 
-              In 2024 alone, over $2.8 billion was lost to DeFi scams, with rug pulls accounting for 
-              37% of these losses.
-            </p>
-            
-            <p className="text-lg leading-relaxed mb-6">
-              We recognized that traditional educational methods weren't enough. Reading about scams 
-              in articles doesn't prepare you for the psychological and technical realities of 
-              encountering them in real-time.
-            </p>
-            
-            <p className="text-lg leading-relaxed mb-6">
-              RugGuard was created to bridge this gap. By providing a safe, controlled environment 
-              where users can experience these scenarios firsthand, we help build the muscle memory 
-              and pattern recognition needed to stay safe in the real world.
-            </p>
-
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 mt-8">
-              <p className="text-amber-800 font-medium mb-2">
-                ⚠️ Important Disclaimer
-              </p>
-              <p className="text-amber-700">
-                RugGuard is purely educational. It does not provide investment advice, and all 
-                simulations are completely safe with no real cryptocurrency involved.
-              </p>
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70">
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-cyan-300" />
+              No Real Money
+            </div>
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-cyan-300" />
+              100% Educational
+            </div>
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-cyan-300" />
+              Community Driven
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              Our Team
-            </h2>
-            <p className="text-xl text-slate-600">
-              Committed to making DeFi education accessible and safe
+      {/* Mission Section - glassy cards */}
+      <section className="relative py-20 bg-gradient-to-b from-slate-900 to-slate-800 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/6 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/6 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
+        </div>
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Our Mission</h2>
+            <p className="text-white/80 max-w-2xl mx-auto">
+              Empowering investors with practical knowledge to identify and avoid scams
             </p>
           </div>
 
-          <div className="grid md:grid-cols-1 gap-8">
-            {team.map((member, index) => (
-              <Card key={index} className="text-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, index) => (
+              <Card
+                key={index}
+                className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 transition-all duration-300 shadow-2xl text-center"
+              >
                 <CardContent className="p-8">
-                  <div className="w-24 h-24 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Users className="w-12 h-12 text-sky-600" />
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/30">
+                    <value.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                    {member.name}
-                  </h3>
-                  <p className="text-sky-600 font-medium mb-4">
-                    {member.role}
-                  </p>
-                  <p className="text-slate-600 leading-relaxed">
-                    {member.description}
-                  </p>
+                  <h3 className="text-lg font-semibold text-white mb-3">{value.title}</h3>
+                  <p className="text-white/80 text-sm leading-relaxed">{value.description}</p>
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Story Section - highlighted notice */}
+      <section className="py-20 bg-gradient-to-b from-slate-800 to-slate-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Why We Built This</h2>
+          </div>
+          <Card className="border border-amber-400/30 bg-amber-500/10 backdrop-blur-md">
+            <CardContent className="p-8">
+              <p className="text-amber-100 text-lg leading-relaxed mb-6">
+                In 2024, investors lost over <strong className="text-white">$2.8 billion</strong> to DeFi scams. Rug pulls accounted for a
+                significant portion of those losses. Behind each statistic are real people who lost their savings.
+              </p>
+              <p className="text-amber-100 text-lg leading-relaxed mb-6">
+                The best defense is understanding. We show exactly how scams work so you can recognize the warning signs.
+              </p>
+              <p className="text-amber-100 text-lg leading-relaxed">
+                RugGuard provides a safe environment to experience DeFi mechanics firsthand, without risking real money.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Team Section removed per request */}
+
+      {/* Open Source & Contact */}
+      <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl" />
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">Open Source & Community</h2>
+          <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
+            RugGuard is open source and community-driven. Security education should be transparent and accessible to everyone.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            <Button className="bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30">
+              <Github className="w-5 h-5 mr-2" />
+              View on GitHub
+            </Button>
+          </div>
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-left max-w-2xl mx-auto">
+            <h3 className="text-lg font-semibold text-white mb-3">Disclaimer</h3>
+            <p className="text-white/80 text-sm leading-relaxed">
+              RugGuard is an educational tool only. No real cryptocurrency transactions occur on this platform. This tool is
+              designed for learning purposes and should not be considered financial advice. Always do your own research before
+              making investment decisions.
+            </p>
           </div>
         </div>
       </section>

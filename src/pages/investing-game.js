@@ -491,37 +491,6 @@ export default function InvestingGame() {
                             </div>
                         </div>
 
-                        {/* Premium CTA with Advanced Effects */}
-                        <div className="space-y-8 text-center">
-                            <div className="relative group">
-                                <div className="absolute inset-0 rounded-3xl blur-lg opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
-                                <Button
-                                    onClick={startGame}
-                                    size="lg"
-                                    className={`relative bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 px-16 py-6 text-xl font-semibold rounded-3xl shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 ${tutorialActive && tutorialStep === 0 ? 'ring-4 ring-cyan-400/70' : ''}`}
-                                >
-                                    <Play className="w-7 h-7 mr-4" />
-                                    Begin Your Journey
-                                </Button>
-                                    </div>
-
-                            <div className="flex items-center justify-center gap-8 text-sm text-white/60 font-medium">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
-                                    <span>8 Strategic Rounds</span>
-                                            </div>
-                                <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-                                <div className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
-                                    <span>5-10 Minutes</span>
-                                                </div>
-                                <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-                                <div className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
-                                    <span>100% Safe</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     </div>
