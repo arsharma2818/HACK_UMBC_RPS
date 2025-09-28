@@ -112,9 +112,11 @@ Current state:
 
 Predict this round's market behavior. Consider:
 - Rugpull risk (ScamCoin is suspicious, could happen any round 3+)
-- MemeCoin volatility (social media driven, highly unpredictable)
+- MemeCoin EXTREME volatility (social media chaos, can moon or crash violently)
 - Tether stability (bond-like returns)
 - Market psychology and contagion effects
+
+IMPORTANT: MemeCoin should be WILDLY volatile - it can surge 300%+ or crash 80%+ based on viral trends, influencer tweets, or market sentiment. Make it truly chaotic!
 
 Return JSON:
 {
@@ -122,7 +124,7 @@ Return JSON:
   "eventType": "pump|dump|meme|stable|rugpull",
   "marketMultipliers": {
     "SCAM": number (0.001-3.0),
-    "MEME": number (0.3-2.5), 
+    "MEME": number (0.1-4.0), 
     "TETHER": number (0.999-1.003)
   },
   "reasoning": "Brief explanation (50 chars max)"
@@ -152,10 +154,10 @@ Return JSON:
 
     const eventType = shouldRugpull ? 'rugpull' : eventTypes[Math.floor(Math.random() * eventTypes.length)];
 
-    // Basic multipliers for fallback
+    // Basic multipliers for fallback with extreme MemeCoin volatility
     const multipliers = {
       SCAM: shouldRugpull ? 0.005 : (0.8 + Math.random() * 1.2),
-      MEME: 0.6 + Math.random() * 1.4,
+      MEME: 0.1 + Math.random() * 3.9, // Extreme volatility: 0.1x to 4.0x
       TETHER: 0.999 + Math.random() * 0.003
     };
 
