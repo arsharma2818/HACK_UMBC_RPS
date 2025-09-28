@@ -254,59 +254,163 @@ export default function InvestingGame() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-6">
             <div className="max-w-7xl mx-auto">
-                {/* Header */}
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                        🎮 Rugpull Simulator: The Investing Game
-                    </h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-                        Learn investing fundamentals in a safe environment. Experience the thrill of crypto trading
-                        and the harsh reality of rug pulls without risking real money!
-                    </p>
+                {/* Hero Section - Apple 2025 Vision Pro Inspired */}
+                {!gameStarted ? (
+                    <div className="relative min-h-screen overflow-hidden">
+                        {/* Dynamic Background with Multiple Layers */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900"></div>
+                        
+                        {/* Animated Background Orbs */}
+                        <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-blue-400/20 via-purple-400/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
+                        <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-indigo-400/20 via-cyan-400/10 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+                        
+                        
+                        {/* Subtle Grid Pattern (viewport-centered, not container-centered) */}
+                        <div
+                            className="
+                                pointer-events-none fixed z-0
+                                left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                                w-[200vw] h-[200vh]
+                                [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)]
+                                [background-size:50px_50px]
+                                [background-position:calc(50%-25px)_calc(50%-25px),calc(50%-25px)_calc(50%-25px)]
+                            "
+                        ></div>
 
-                    <div className="flex gap-4 justify-center">
-                        {!gameStarted ? (
-                            <Button onClick={startGame} size="lg" className="bg-green-600 hover:bg-green-700">
-                                <Play className="w-5 h-5 mr-2" />
-                                Start Game
-                            </Button>
-                        ) : (
-                            <>
-                                <Button
-                                    onClick={nextRound}
-                                    disabled={currentRound >= TOTAL_ROUNDS || isGeneratingEvent}
-                                    size="lg"
-                                    className="bg-blue-600 hover:bg-blue-700"
-                                >
-                                    {isGeneratingEvent ? (
-                                        <>
-                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                            Generating Event...
-                                        </>
-                                    ) : currentRound >= TOTAL_ROUNDS ? 'Game Over' : `Next Round (${currentRound + 1}/${TOTAL_ROUNDS})`}
-                                </Button>
-                                <Button onClick={resetGame} variant="outline" size="lg">
-                                    <RotateCcw className="w-5 h-5 mr-2" />
-                                    Reset
-                                </Button>
-                            </>
-                        )}
+                        
+                        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-20">
+                            {/* Floating Icon with Advanced Effects */}
+                            <div className="relative mb-12"
+                                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 rounded-[2rem] blur-xl opacity-60 scale-110"></div>
+                                <div className="relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 rounded-[2rem] shadow-2xl shadow-blue-500/30">
+                                    <TrendingUp className="w-12 h-12 text-white drop-shadow-lg" />
+                                </div>
+                                {/* Floating particles around icon */}
+                                <div className="absolute -top-2 -right-2 w-3 h-3 bg-blue-400 rounded-full animate-ping"></div>
+                                <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-purple-400 rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
+                            </div>
+
+                            {/* Main Title with Advanced Typography */}
+                            <div className="text-center mb-16 max-w-6xl mx-auto px-4">
+                                <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-black text-white mb-6 leading-[0.85] tracking-tight break-words">
+                                Coin Risk
+                                </h1>
+                                <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-black text-white mb-8 leading-[0.85] tracking-tight break-words">
+                                    Arena
+                                </h1>
+                                <div className="inline-block">
+                                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-white/80 mb-4 tracking-wide">
+                                        The Future of
+                                    </h2>
+                                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-white/90 tracking-wide">
+                                        Investment Education
+                                    </h2>
+                                </div>
+                            </div>
+
+                            {/* Enhanced Description with Micro-interactions */}
+                            <div className="max-w-4xl mx-auto mb-16 text-center">
+                                <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-8 font-light">
+                                    Experience the cutting edge of financial education. Master cryptocurrency investing through 
+                                    <span className="font-semibold text-white"> AI-powered market simulation</span> and 
+                                    <span className="font-semibold text-white"> real-time risk assessment</span>.
+                                </p>
+                                
+                                {/* Feature Tiles aligned in a perfect grid */}
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 max-w-5xl mx-auto">
+                                    <div className="group aspect-square min-h-[140px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/30 text-white shadow-lg hover:bg-white/15 hover:border-white/40 hover:shadow-xl transition-all duration-300 flex items-center justify-center">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full shadow-sm"></div>
+                                            <span className="text-sm font-medium">Zero Risk Learning</span>
+                                        </div>
+                                    </div>
+                                    <div className="group aspect-square min-h-[140px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/30 text-white shadow-lg hover:bg-white/15 hover:border-white/40 hover:shadow-xl transition-all duration-300 flex items-center justify-center">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full shadow-sm"></div>
+                                            <span className="text-sm font-medium">AI Market Events</span>
+                                        </div>
+                                    </div>
+                                    <div className="group aspect-square min-h-[140px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/30 text-white shadow-lg hover:bg-white/15 hover:border-white/40 hover:shadow-xl transition-all duration-300 flex items-center justify-center">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full shadow-sm"></div>
+                                            <span className="text-sm font-medium">Real-time Analytics</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Premium CTA with Advanced Effects */}
+                            <div className="space-y-8 text-center">
+                                <div className="relative group">
+                                    <div className="absolute inset-0 rounded-3xl blur-lg opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+                                    <Button 
+                                        onClick={startGame} 
+                                        size="lg" 
+                                        className="relative bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 px-16 py-6 text-xl font-semibold rounded-3xl shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1"
+                                    >
+                                        <Play className="w-7 h-7 mr-4" />
+                                        Begin Your Journey
+                                    </Button>
+                                </div>
+                                
+                                <div className="flex items-center justify-center gap-8 text-sm text-white/60 font-medium">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+                                        <span>8 Strategic Rounds</span>
+                                    </div>
+                                    <div className="w-1 h-1 bg-white/40 rounded-full"></div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+                                        <span>5-10 Minutes</span>
+                                    </div>
+                                    <div className="w-1 h-1 bg-white/40 rounded-full"></div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+                                        <span>100% Safe</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
+                ) : (
+                    /* Game Controls - Only show when game is started */
+                    <div className="text-center mb-8">
+                        <div className="flex gap-4 justify-center">
+                            <Button
+                                onClick={nextRound}
+                                disabled={currentRound >= TOTAL_ROUNDS || isGeneratingEvent}
+                                size="lg"
+                                className="bg-blue-600 hover:bg-blue-700"
+                            >
+                                {isGeneratingEvent ? (
+                                    <>
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                        Generating Event...
+                                    </>
+                                ) : currentRound >= TOTAL_ROUNDS ? 'Game Over' : `Next Round (${currentRound + 1}/${TOTAL_ROUNDS})`}
+                            </Button>
+                            <Button onClick={resetGame} variant="outline" size="lg">
+                                <RotateCcw className="w-5 h-5 mr-2" />
+                                Reset
+                            </Button>
+                        </div>
+                    </div>
+                )}
 
                 {gameStarted && (
                     <>
                         {/* Portfolio Overview */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                            <Card className="lg:col-span-2">
+                            <Card className="lg:col-span-2 bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
+                                    <CardTitle className="flex items-center gap-2 text-white">
                                         <BarChart3 className="w-5 h-5" />
                                         Portfolio Performance
                                     </CardTitle>
-                                    <CardDescription>
+                                    <CardDescription className="text-white/70">
                                         Track your investment journey over {TOTAL_ROUNDS} rounds
                                     </CardDescription>
                                 </CardHeader>
@@ -314,20 +418,20 @@ export default function InvestingGame() {
                                     {portfolioHistory.length > 1 && (
                                         <ResponsiveContainer width="100%" height={250}>
                                             <LineChart data={portfolioHistory}>
-                                                <CartesianGrid strokeDasharray="3 3" />
-                                                <XAxis dataKey="round" />
-                                                <YAxis />
-                                                <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Portfolio Value']} />
-                                                <Line type="monotone" dataKey="value" stroke="#3b82f6" strokeWidth={3} />
+                                                <CartesianGrid stroke="rgba(255,255,255,0.1)" strokeDasharray="3 3" />
+                                                <XAxis dataKey="round" stroke="#cbd5e1" tick={{ fill: '#cbd5e1' }} />
+                                                <YAxis stroke="#cbd5e1" tick={{ fill: '#cbd5e1' }} />
+                                                <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Portfolio Value']} contentStyle={{ backgroundColor: 'rgba(2,6,23,0.9)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, color: '#fff' }} />
+                                                <Line type="monotone" dataKey="value" stroke="#60a5fa" strokeWidth={3} />
                                             </LineChart>
                                         </ResponsiveContainer>
                                     )}
                                 </CardContent>
                             </Card>
 
-                            <Card>
+                            <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
+                                    <CardTitle className="flex items-center gap-2 text-white">
                                         <PieChartIcon className="w-5 h-5" />
                                         Holdings Distribution
                                     </CardTitle>
@@ -348,11 +452,11 @@ export default function InvestingGame() {
                                                         <Cell key={`cell-${index}`} fill={entry.color} />
                                                     ))}
                                                 </Pie>
-                                                <Tooltip formatter={(value) => `$${value.toFixed(2)}`} />
+                                                <Tooltip formatter={(value) => `$${value.toFixed(2)}`} contentStyle={{ backgroundColor: 'rgba(2,6,23,0.9)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, color: '#fff' }} />
                                             </PieChart>
                                         </ResponsiveContainer>
                                     ) : (
-                                        <div className="h-[250px] flex items-center justify-center text-gray-500">
+                                        <div className="h-[250px] flex items-center justify-center text-white/60">
                                             No investments yet
                                         </div>
                                     )}
@@ -362,55 +466,55 @@ export default function InvestingGame() {
 
                         {/* Portfolio Summary */}
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                            <Card>
+                            <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardContent className="p-4">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-sm text-gray-600">Portfolio Value</p>
-                                            <p className="text-2xl font-bold">${portfolioValue.toFixed(2)}</p>
+                                            <p className="text-sm text-white/70">Portfolio Value</p>
+                                            <p className="text-2xl font-bold text-white">${portfolioValue.toFixed(2)}</p>
                                         </div>
-                                        <DollarSign className="w-8 h-8 text-green-600" />
+                                        <DollarSign className="w-8 h-8 text-cyan-400" />
                                     </div>
                                 </CardContent>
                             </Card>
 
-                            <Card>
+                            <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardContent className="p-4">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-sm text-gray-600">Cash Balance</p>
-                                            <p className="text-2xl font-bold">${cashBalance.toFixed(2)}</p>
+                                            <p className="text-sm text-white/70">Cash Balance</p>
+                                            <p className="text-2xl font-bold text-white">${cashBalance.toFixed(2)}</p>
                                         </div>
-                                        <DollarSign className="w-8 h-8 text-blue-600" />
+                                        <DollarSign className="w-8 h-8 text-blue-400" />
                                     </div>
                                 </CardContent>
                             </Card>
 
-                            <Card>
+                            <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardContent className="p-4">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-sm text-gray-600">Total Return</p>
-                                            <p className={`text-2xl font-bold ${portfolioValue >= 100 ? 'text-green-600' : 'text-red-600'}`}>
+                                            <p className="text-sm text-white/70">Total Return</p>
+                                            <p className={`text-2xl font-bold ${portfolioValue >= 100 ? 'text-green-400' : 'text-rose-400'}`}>
                                                 {portfolioValue >= 100 ? '+' : ''}${(portfolioValue - 100).toFixed(2)}
                                             </p>
                                         </div>
                                         {portfolioValue >= 100 ?
-                                            <TrendingUp className="w-8 h-8 text-green-600" /> :
-                                            <TrendingDown className="w-8 h-8 text-red-600" />
+                                            <TrendingUp className="w-8 h-8 text-green-400" /> :
+                                            <TrendingDown className="w-8 h-8 text-rose-400" />
                                         }
                                     </div>
                                 </CardContent>
                             </Card>
 
-                            <Card>
+                            <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardContent className="p-4">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-sm text-gray-600">Round</p>
-                                            <p className="text-2xl font-bold">{currentRound}/{TOTAL_ROUNDS}</p>
+                                            <p className="text-sm text-white/70">Round</p>
+                                            <p className="text-2xl font-bold text-white">{currentRound}/{TOTAL_ROUNDS}</p>
                                         </div>
-                                        <Badge variant="outline" className="text-lg px-3 py-1">
+                                        <Badge variant="outline" className="text-lg px-3 py-1 bg-white/10 border-white/30 text-white">
                                             {currentRound >= TOTAL_ROUNDS ? 'Finished' : 'Active'}
                                         </Badge>
                                     </div>
@@ -421,10 +525,10 @@ export default function InvestingGame() {
                         {/* Token Trading Interface */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {/* Trading Panel */}
-                            <Card>
+                            <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardHeader>
-                                    <CardTitle>Token Trading</CardTitle>
-                                    <CardDescription>
+                                    <CardTitle className="text-white">Token Trading</CardTitle>
+                                    <CardDescription className="text-white/70">
                                         Buy and sell tokens. Choose wisely - some may not end well!
                                     </CardDescription>
                                 </CardHeader>
@@ -434,31 +538,31 @@ export default function InvestingGame() {
                                         const holdingValue = holdings[token.id] * tokenPrices[token.id];
 
                                         return (
-                                            <div key={token.id} className="border rounded-lg p-4">
+                                            <div key={token.id} className="border border-white/20 rounded-lg p-4 bg-white/5">
                                                 <div className="flex items-center justify-between mb-3">
                                                     <div className="flex items-center gap-3">
                                                         <Icon className="w-6 h-6" style={{ color: token.color }} />
                                                         <div>
-                                                            <h4 className="font-semibold">{token.name}</h4>
-                                                            <p className="text-sm text-gray-600">{token.description}</p>
+                                                            <h4 className="font-semibold text-white">{token.name}</h4>
+                                                            <p className="text-sm text-white/70">{token.description}</p>
                                                         </div>
                                                     </div>
                                                     <Badge
                                                         variant="outline"
                                                         className={
-                                                            token.riskLevel === 'High' ? 'border-red-500 text-red-700' :
-                                                                token.riskLevel === 'Medium' ? 'border-yellow-500 text-yellow-700' :
-                                                                    'border-green-500 text-green-700'
+                                                            token.riskLevel === 'High' ? 'border-rose-400 text-rose-300 bg-rose-500/10' :
+                                                                token.riskLevel === 'Medium' ? 'border-amber-400 text-amber-300 bg-amber-500/10' :
+                                                                    'border-emerald-400 text-emerald-300 bg-emerald-500/10'
                                                         }
                                                     >
                                                         {token.riskLevel} Risk
                                                     </Badge>
                                                 </div>
 
-                                                <div className="grid grid-cols-2 gap-4 mb-3 text-sm">
-                                                    <div>Price: <span className="font-mono">${tokenPrices[token.id].toFixed(4)}</span></div>
-                                                    <div>Owned: <span className="font-mono">{holdings[token.id].toFixed(4)}</span></div>
-                                                    <div>Value: <span className="font-mono">${holdingValue.toFixed(2)}</span></div>
+                                                <div className="grid grid-cols-2 gap-4 mb-3 text-sm text-white/80">
+                                                    <div>Price: <span className="font-mono text-white">${tokenPrices[token.id].toFixed(4)}</span></div>
+                                                    <div>Owned: <span className="font-mono text-white">{holdings[token.id].toFixed(4)}</span></div>
+                                                    <div>Value: <span className="font-mono text-white">${holdingValue.toFixed(2)}</span></div>
                                                 </div>
 
                                                 <div className="flex gap-2">
@@ -467,7 +571,7 @@ export default function InvestingGame() {
                                                         placeholder="$ Amount"
                                                         value={buyAmounts[token.id]}
                                                         onChange={(e) => setBuyAmounts(prev => ({ ...prev, [token.id]: e.target.value }))}
-                                                        className="flex-1 px-3 py-2 border rounded-md text-sm"
+                                                        className="flex-1 px-3 py-2 border rounded-md text-sm bg-white/5 border-white/20 text-white placeholder-white/60"
                                                         min="0"
                                                         max={cashBalance}
                                                         step="0.01"
@@ -476,7 +580,7 @@ export default function InvestingGame() {
                                                         onClick={() => buyToken(token.id)}
                                                         disabled={!buyAmounts[token.id] || parseFloat(buyAmounts[token.id]) <= 0 || parseFloat(buyAmounts[token.id]) > cashBalance}
                                                         size="sm"
-                                                        className="bg-green-600 hover:bg-green-700"
+                                                        className="bg-emerald-600 hover:bg-emerald-700 text-white"
                                                     >
                                                         Buy
                                                     </Button>
@@ -496,10 +600,10 @@ export default function InvestingGame() {
                             </Card>
 
                             {/* Event Feed */}
-                            <Card>
+                            <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardHeader>
-                                    <CardTitle>Market News & Events</CardTitle>
-                                    <CardDescription>
+                                    <CardTitle className="text-white">Market News & Events</CardTitle>
+                                    <CardDescription className="text-white/70">
                                         Stay updated with the latest market developments
                                     </CardDescription>
                                 </CardHeader>
@@ -509,16 +613,16 @@ export default function InvestingGame() {
                                             <div
                                                 key={event.id}
                                                 className={`p-3 rounded-lg border-l-4 ${
-                                                    event.type === 'danger' ? 'border-red-500 bg-red-50' :
-                                                    event.type === 'success' ? 'border-green-500 bg-green-50' :
-                                                    event.type === 'trade' ? 'border-blue-500 bg-blue-50' :
-                                                    event.type === 'tip' ? 'border-yellow-500 bg-yellow-50' :
-                                                    'border-gray-500 bg-gray-50'
+                                                    event.type === 'danger' ? 'border-rose-400 bg-white/10' :
+                                                    event.type === 'success' ? 'border-emerald-400 bg-white/10' :
+                                                    event.type === 'trade' ? 'border-cyan-400 bg-white/10' :
+                                                    event.type === 'tip' ? 'border-amber-400 bg-white/10' :
+                                                    'border-white/30 bg-white/5'
                                                 }`}
                                             >
                                                 <div className="flex justify-between items-start">
-                                                    <p className="text-sm font-medium">{event.message}</p>
-                                                    <span className="text-xs text-gray-500">{event.timestamp}</span>
+                                                    <p className="text-sm font-medium text-white">{event.message}</p>
+                                                    <span className="text-xs text-white/60">{event.timestamp}</span>
                                                 </div>
                                             </div>
                                         ))}
