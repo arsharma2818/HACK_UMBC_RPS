@@ -425,7 +425,7 @@ export default function InvestingGame() {
                                 </h2>
                                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-white/90 tracking-wide">
                                     Investment Education
-                            </h2>
+                                </h2>
                             </div>
 
                             {/* Enhanced Description with Micro-interactions */}
