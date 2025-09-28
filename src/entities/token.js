@@ -15,14 +15,15 @@ class Token {
   static list(sortBy = '-created_date') {
     // In a real app, this would fetch from an API
     // For now, return mock data from localStorage or default data
-    const tokens = JSON.parse(localStorage.getItem('tokens') || '[]');
+    const tokensData = JSON.parse(localStorage.getItem('tokens') || '[]');
+    const tokens = tokensData.map(tokenData => new Token(tokenData));
     return Promise.resolve(tokens);
   }
 
   static get(id) {
-    const tokens = JSON.parse(localStorage.getItem('tokens') || '[]');
-    const token = tokens.find(t => t.id === id);
-    return Promise.resolve(token || null);
+    const tokensData = JSON.parse(localStorage.getItem('tokens') || '[]');
+    const tokenData = tokensData.find(t => t.id === id);
+    return Promise.resolve(tokenData ? new Token(tokenData) : null);
   }
 
   async save() {

@@ -21,14 +21,15 @@ class Transaction {
 
   static list(sortBy = '-timestamp', limit = 100) {
     // In a real app, this would fetch from an API
-    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+    const transactionsData = JSON.parse(localStorage.getItem('transactions') || '[]');
+    const transactions = transactionsData.map(transactionData => new Transaction(transactionData));
     return Promise.resolve(transactions.slice(0, limit));
   }
 
   static get(id) {
-    const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
-    const transaction = transactions.find(t => t.id === id);
-    return Promise.resolve(transaction || null);
+    const transactionsData = JSON.parse(localStorage.getItem('transactions') || '[]');
+    const transactionData = transactionsData.find(t => t.id === id);
+    return Promise.resolve(transactionData ? new Transaction(transactionData) : null);
   }
 
   async save() {

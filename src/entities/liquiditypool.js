@@ -17,14 +17,15 @@ class LiquidityPool {
 
   static list(sortBy = '-created_date') {
     // In a real app, this would fetch from an API
-    const pools = JSON.parse(localStorage.getItem('liquidityPools') || '[]');
+    const poolsData = JSON.parse(localStorage.getItem('liquidityPools') || '[]');
+    const pools = poolsData.map(poolData => new LiquidityPool(poolData));
     return Promise.resolve(pools);
   }
 
   static get(id) {
-    const pools = JSON.parse(localStorage.getItem('liquidityPools') || '[]');
-    const pool = pools.find(p => p.id === id);
-    return Promise.resolve(pool || null);
+    const poolsData = JSON.parse(localStorage.getItem('liquidityPools') || '[]');
+    const poolData = poolsData.find(p => p.id === id);
+    return Promise.resolve(poolData ? new LiquidityPool(poolData) : null);
   }
 
   async save() {

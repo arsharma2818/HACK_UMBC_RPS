@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { createPageUrl } from "../utils";
+import { createPageUrl } from "../utils/index";
 import { BookOpen, BarChart3, Coins, Shield, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -12,21 +12,21 @@ import {
 const navigationItems = [
   {
     title: "Home",
-    url: createPageUrl("Home"),
+    url: "/",
   },
   {
     title: "Simulator",
-    url: createPageUrl("Simulator"),
+    url: "/simulator",
     icon: BarChart3,
   },
   {
     title: "Learn",
-    url: createPageUrl("Learn"),
+    url: "/learn",
     icon: BookOpen,
   },
   {
     title: "About",
-    url: createPageUrl("About"),
+    url: "/about",
   },
 ];
 
@@ -58,7 +58,7 @@ export default function Layout({ children, currentPageName }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to={createPageUrl("Home")} className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
               <div className="w-8 h-8 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center">
                 <Shield className="w-5 h-5 text-white" />
               </div>
@@ -153,16 +153,16 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h3 className="font-semibold text-slate-900 mb-4">Learn</h3>
               <ul className="space-y-2 text-sm text-slate-600">
-                <li><Link to={createPageUrl("Learn")} className="hover:text-slate-900">What are Rug Pulls?</Link></li>
-                <li><Link to={createPageUrl("Learn")} className="hover:text-slate-900">How AMMs Work</Link></li>
-                <li><Link to={createPageUrl("Learn")} className="hover:text-slate-900">Safety Best Practices</Link></li>
-                <li><Link to={createPageUrl("Learn")} className="hover:text-slate-900">Red Flags to Watch</Link></li>
+                <li><Link to="/learn" className="hover:text-slate-900">What are Rug Pulls?</Link></li>
+                <li><Link to="/learn" className="hover:text-slate-900">How AMMs Work</Link></li>
+                <li><Link to="/learn" className="hover:text-slate-900">Safety Best Practices</Link></li>
+                <li><Link to="/learn" className="hover:text-slate-900">Red Flags to Watch</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold text-slate-900 mb-4">Resources</h3>
               <ul className="space-y-2 text-sm text-slate-600">
-                <li><Link to={createPageUrl("About")} className="hover:text-slate-900">About Us</Link></li>
+                <li><Link to="/about" className="hover:text-slate-900">About Us</Link></li>
                 <li><a href="#" className="hover:text-slate-900">Documentation</a></li>
                 <li><a href="#" className="hover:text-slate-900">Contact Support</a></li>
                 <li><a href="#" className="hover:text-slate-900">Privacy Policy</a></li>
