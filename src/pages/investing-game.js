@@ -76,6 +76,62 @@ export default function InvestingGame() {
     const [currentEvent, setCurrentEvent] = useState(null);
     const [isGeneratingEvent, setIsGeneratingEvent] = useState(false);
 
+    // Tutorial state
+    const [tutorialActive, setTutorialActive] = useState(false);
+    const [tutorialStep, setTutorialStep] = useState(0);
+    const hasBoughtOnceRef = React.useRef(false);
+
+    // Tutorial initialization
+    useEffect(() => {
+        const done = localStorage.getItem('tutorialDone');
+        if (!done) {
+            setTutorialActive(true);
+            setTutorialStep(0);
+        }
+    }, []);
+
+    // Tutorial auto-progression based on user actions
+    useEffect(() => {
+        if (!tutorialActive) return;
+        // Step 0: Start game
+        if (tutorialStep === 0 && gameStarted) {
+            setTutorialStep(1);
+        }
+        // Step 1: Buy MEME
+        if (tutorialStep === 1 && holdings.MEME > 0) {
+            hasBoughtOnceRef.current = true;
+            setTutorialStep(2);
+        }
+        // Step 2: Next Round
+        if (tutorialStep === 2 && currentRound > 1) {
+            setTutorialStep(3);
+        }
+        // Step 3: Sell MEME
+        if (tutorialStep === 3 && hasBoughtOnceRef.current && holdings.MEME === 0) {
+            setTutorialStep(4);
+        }
+    }, [tutorialActive, tutorialStep, gameStarted, holdings, currentRound]);
+
+    const completeTutorial = () => {
+        localStorage.setItem('tutorialDone', '1');
+        setTutorialActive(false);
+    };
+
+    const skipTutorial = () => {
+        completeTutorial();
+    };
+
+    // Tutorial navigation helpers
+    const onTutorialNext = () => {
+        if (tutorialStep === 0 && !gameStarted) {
+            // Start the simulation when user hits Next on step 0
+            startGame();
+            return;
+        }
+        setTutorialStep((s) => Math.min(4, s + 1));
+    };
+    const onTutorialBack = () => setTutorialStep((s) => Math.max(0, s - 1));
+
     // Calculate portfolio value
     const portfolioValue = cashBalance +
         Object.keys(holdings).reduce((total, tokenId) =>
@@ -124,7 +180,7 @@ export default function InvestingGame() {
         if (currentRound >= TOTAL_ROUNDS) return;
 
         setIsGeneratingEvent(true);
-
+        
         try {
             // Generate dynamic event using Gemini AI with current token prices for context
             const event = await geminiMarketService.generateRandomEvent(currentRound + 1, eventFeed, tokenPrices);
@@ -141,8 +197,8 @@ export default function InvestingGame() {
 
             // Add event to feed with dynamic typing
             const eventType = event.title.includes('💀') || event.title.includes('🚨') ? 'danger' :
-                event.title.includes('🚀') || event.title.includes('📈') ? 'success' :
-                    event.title.includes('📰') || event.title.includes('💰') ? 'trade' : 'info';
+                             event.title.includes('🚀') || event.title.includes('📈') ? 'success' :
+                             event.title.includes('📰') || event.title.includes('💰') ? 'trade' : 'info';
 
             const newEventFeedItem = {
                 id: Date.now(),
@@ -184,7 +240,7 @@ export default function InvestingGame() {
                 news: 'Markets continue trading with normal volatility',
                 effects: { SCAM: 0.95 + Math.random() * 0.1, MEME: 0.9 + Math.random() * 0.2, TETHER: 1.001 }
             };
-
+            
             setCurrentEvent(basicEvent);
             const newPrices = { ...tokenPrices };
             Object.keys(basicEvent.effects).forEach(tokenId => {
@@ -193,7 +249,7 @@ export default function InvestingGame() {
                 }
             });
             setTokenPrices(newPrices);
-
+            
             setEventFeed(prev => [{
                 id: Date.now(),
                 round: currentRound + 1,
@@ -262,6 +318,61 @@ export default function InvestingGame() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-6">
             <div className="max-w-7xl mx-auto">
+                {/* Global Tutorial Overlay */}
+                {tutorialActive && (
+                    <div className="pointer-events-none fixed inset-0 z-50">
+                        <div className={`absolute inset-0 ${tutorialStep === 0 ? 'bg-black/40 backdrop-blur-sm' : 'bg-transparent backdrop-blur-0'} pointer-events-none`}></div>
+                        <div className={`pointer-events-auto absolute left-1/2 ${tutorialStep === 2 || tutorialStep === 3 ? 'bottom-10 -translate-x-1/2' : 'top-10 -translate-x-1/2'} w-[min(720px,90vw)]`}>
+                            <div className="bg-white/90 text-slate-900 rounded-3xl shadow-2xl border border-white/60 overflow-hidden">
+                                <div className="px-6 py-5">
+                                    {tutorialStep === 0 && (
+                                        <>
+                                            <h3 className="text-xl font-semibold mb-2">Welcome to Coin Risk Arena</h3>
+                                            <p className="text-sm text-slate-700">This short interactive tour will help you get started. Click <span className="font-semibold">Begin Your Journey</span> or press <span className="font-semibold">Next</span> to start the simulation.</p>
+                                        </>
+                                    )}
+                                    {tutorialStep === 1 && (
+                                        <>
+                                            <h3 className="text-xl font-semibold mb-2">Make Your First Buy</h3>
+                                            <p className="text-sm text-slate-700">Enter an amount and press <span className="font-semibold">Buy</span> on <span className="font-semibold">MemeCoin</span>. Notice how your cash and holdings update.</p>
+                                        </>
+                                    )}
+                                    {tutorialStep === 2 && (
+                                        <>
+                                            <h3 className="text-xl font-semibold mb-2">Advance the Market</h3>
+                                            <p className="text-sm text-slate-700">Click <span className="font-semibold">Next Round</span> to generate AI-driven market events and update prices.</p>
+                                        </>
+                                    )}
+                                    {tutorialStep === 3 && (
+                                        <>
+                                            <h3 className="text-xl font-semibold mb-2">Try Taking Profit</h3>
+                                            <p className="text-sm text-slate-700">Use <span className="font-semibold">Sell All</span> on <span className="font-semibold">MemeCoin</span> to realize gains (or losses). Watch the event feed and charts.</p>
+                                        </>
+                                    )}
+                                    {tutorialStep === 4 && (
+                                        <>
+                                            <h3 className="text-xl font-semibold mb-2">News & Insights</h3>
+                                            <p className="text-sm text-slate-700">This panel shows market news, tips, and alerts. You’re ready to explore the full app now.</p>
+                                        </>
+                                    )}
+                                </div>
+                                <div className="px-6 py-4 bg-white/80 border-t border-white/60 flex items-center justify-between">
+                                    <button onClick={skipTutorial} className="text-sm text-slate-600 hover:text-slate-900">Skip tutorial</button>
+                                    <div className="flex items-center gap-2">
+                                        {tutorialStep > 0 && tutorialStep < 4 && (
+                                            <button onClick={onTutorialBack} className="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 hover:bg-slate-300">Back</button>
+                                        )}
+                                        {tutorialStep < 4 ? (
+                                            <button onClick={() => { if (tutorialStep === 2) { nextRound(); } else { onTutorialNext(); } }} className="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-white hover:bg-black/90">Next</button>
+                                        ) : (
+                                            <button onClick={completeTutorial} className="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-white hover:bg-black/90">Finish</button>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 {/* Hero Section - Apple 2025 Vision Pro Inspired */}
                 {!gameStarted ? (
                     <div className="relative min-h-screen overflow-hidden">
@@ -286,7 +397,7 @@ export default function InvestingGame() {
                         ></div>
 
 
-                        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-20">
+                        <div className={`relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-20 ${tutorialActive && tutorialStep === 0 ? 'ring-2 ring-cyan-300/50 rounded-3xl' : ''} ${tutorialActive ? 'pointer-events-auto' : ''}`}>
                             {/* Floating Icon with Advanced Effects */}
                             <div className="relative mb-12">
                                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 rounded-[2rem] blur-xl opacity-60 scale-110"></div>
@@ -298,6 +409,7 @@ export default function InvestingGame() {
                                 <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
                             </div>
 
+<<<<<<< HEAD
                             {/* Main Title with Advanced Typography */}
                             <div className="text-center mb-16 max-w-6xl mx-auto px-4">
                                 <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-black text-white mb-6 leading-[0.85] tracking-tight break-words">
@@ -314,6 +426,25 @@ export default function InvestingGame() {
                                         Investment Education
                                     </h2>
                                 </div>
+=======
+                        
+
+                        {/* Main Title with Advanced Typography */}
+                        <div className="text-center mb-16 max-w-6xl mx-auto px-4">
+                            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-black text-white mb-6 leading-[0.85] tracking-tight break-words">
+                                Coin Risk
+                            </h1>
+                            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-black text-white mb-8 leading-[0.85] tracking-tight break-words">
+                                Arena
+                            </h1>
+                            <div className="inline-block">
+                                <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-white/80 mb-4 tracking-wide">
+                                    The Future of
+                                </h2>
+                                <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-white/90 tracking-wide">
+                                    Investment Education
+                            </h2>
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                             </div>
 
                             {/* Enhanced Description with Micro-interactions */}
@@ -379,6 +510,7 @@ export default function InvestingGame() {
                             </div>
                         </div>
 
+<<<<<<< HEAD
                     </div>
                 ) : (
                     /* Game Controls - Only show when game is started */
@@ -403,12 +535,72 @@ export default function InvestingGame() {
                             </Button>
                         </div>
                     </div>
+=======
+                        {/* Premium CTA with Advanced Effects */}
+                        <div className="space-y-8 text-center">
+                            <div className="relative group">
+                                <div className="absolute inset-0 rounded-3xl blur-lg opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+                                <Button
+                                    onClick={startGame}
+                                    size="lg"
+                                    className={`relative bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 px-16 py-6 text-xl font-semibold rounded-3xl shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 ${tutorialActive && tutorialStep === 0 ? 'ring-4 ring-cyan-400/70' : ''}`}
+                                >
+                                    <Play className="w-7 h-7 mr-4" />
+                                    Begin Your Journey
+                                </Button>
+                                    </div>
+
+                            <div className="flex items-center justify-center gap-8 text-sm text-white/60 font-medium">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+                                    <span>8 Strategic Rounds</span>
+                                            </div>
+                                <div className="w-1 h-1 bg-white/40 rounded-full"></div>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+                                    <span>5-10 Minutes</span>
+                                                </div>
+                                <div className="w-1 h-1 bg-white/40 rounded-full"></div>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+                                    <span>100% Safe</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                ) : (
+            /* Game Controls - Only show when game is started */
+                    <div className={`text-center mb-8 ${tutorialActive && tutorialStep === 2 ? 'ring-2 ring-cyan-300/50 rounded-2xl p-2' : ''}`}>
+                <div className="flex gap-4 justify-center">
+                    <Button
+                        onClick={nextRound}
+                        disabled={currentRound >= TOTAL_ROUNDS || isGeneratingEvent}
+                        size="lg"
+                                className={`bg-blue-600 hover:bg-blue-700 ${tutorialActive && tutorialStep === 2 ? 'ring-4 ring-cyan-400/70' : ''}`}
+                    >
+                        {isGeneratingEvent ? (
+                            <>
+                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                Generating Event...
+                            </>
+                        ) : currentRound >= TOTAL_ROUNDS ? 'Game Over' : `Next Round (${currentRound + 1}/${TOTAL_ROUNDS})`}
+                    </Button>
+                    <Button onClick={resetGame} variant="outline" size="lg">
+                        <RotateCcw className="w-5 h-5 mr-2" />
+                        Reset
+                    </Button>
+                </div>
+            </div>
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                 )}
 
                 {gameStarted && (
                     <>
                         {/* Portfolio Overview */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+<<<<<<< HEAD
                             <Card className="lg:col-span-2 bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2 text-white">
@@ -416,6 +608,15 @@ export default function InvestingGame() {
                                         Portfolio Performance
                                     </CardTitle>
                                     <CardDescription className="text-white/70">
+=======
+                        <Card className="lg:col-span-2 bg-white/10 backdrop-blur-md border border-white/20 text-white">
+                                <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-white">
+                                        <BarChart3 className="w-5 h-5" />
+                                        Portfolio Performance
+                                    </CardTitle>
+                                <CardDescription className="text-white/70">
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                                         Track your investment journey over {TOTAL_ROUNDS} rounds
                                     </CardDescription>
                                 </CardHeader>
@@ -423,20 +624,34 @@ export default function InvestingGame() {
                                     {portfolioHistory.length > 1 && (
                                         <ResponsiveContainer width="100%" height={250}>
                                             <LineChart data={portfolioHistory}>
+<<<<<<< HEAD
                                                 <CartesianGrid stroke="rgba(255,255,255,0.1)" strokeDasharray="3 3" />
                                                 <XAxis dataKey="round" stroke="#cbd5e1" tick={{ fill: '#cbd5e1' }} />
                                                 <YAxis stroke="#cbd5e1" tick={{ fill: '#cbd5e1' }} />
                                                 <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Portfolio Value']} contentStyle={{ backgroundColor: 'rgba(2,6,23,0.9)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, color: '#fff' }} />
                                                 <Line type="monotone" dataKey="value" stroke="#60a5fa" strokeWidth={3} />
+=======
+                                            <CartesianGrid stroke="rgba(255,255,255,0.1)" strokeDasharray="3 3" />
+                                            <XAxis dataKey="round" stroke="#cbd5e1" tick={{ fill: '#cbd5e1' }} />
+                                            <YAxis stroke="#cbd5e1" tick={{ fill: '#cbd5e1' }} />
+                                            <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Portfolio Value']} contentStyle={{ backgroundColor: 'rgba(2,6,23,0.9)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, color: '#fff' }} />
+                                            <Line type="monotone" dataKey="value" stroke="#60a5fa" strokeWidth={3} />
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                                             </LineChart>
                                         </ResponsiveContainer>
                                     )}
                                 </CardContent>
                             </Card>
 
+<<<<<<< HEAD
                             <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2 text-white">
+=======
+                        <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
+                                <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-white">
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                                         <PieChartIcon className="w-5 h-5" />
                                         Holdings Distribution
                                     </CardTitle>
@@ -457,17 +672,26 @@ export default function InvestingGame() {
                                                         <Cell key={`cell-${index}`} fill={entry.color} />
                                                     ))}
                                                 </Pie>
+<<<<<<< HEAD
                                                 <Tooltip formatter={(value) => `$${value.toFixed(2)}`} contentStyle={{ backgroundColor: 'rgba(2,6,23,0.9)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, color: '#fff' }} />
                                             </PieChart>
                                         </ResponsiveContainer>
                                     ) : (
                                         <div className="h-[250px] flex items-center justify-center text-white/60">
+=======
+                                            <Tooltip formatter={(value) => `$${value.toFixed(2)}`} contentStyle={{ backgroundColor: 'rgba(2,6,23,0.9)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 12, color: '#fff' }} />
+                                            </PieChart>
+                                        </ResponsiveContainer>
+                                    ) : (
+                                    <div className="h-[250px] flex items-center justify-center text-white/60">
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                                             No investments yet
                                         </div>
                                     )}
                                 </CardContent>
                             </Card>
                         </div>
+<<<<<<< HEAD
 
                         {/* Rug Pull Status Alert */}
                         {currentRound >= 3 && !geminiMarketService.rugPullHappened && (
@@ -646,11 +870,192 @@ export default function InvestingGame() {
                                 <CardHeader>
                                     <CardTitle className="text-white">Market News & Events</CardTitle>
                                     <CardDescription className="text-white/70">
+=======
+
+                    {/* Rug Pull Status Alert */}
+                    {currentRound >= 4 && !geminiMarketService.rugPullHappened && (
+                        <Card className="mb-4 border-orange-200 bg-orange-50">
+                            <CardContent className="p-4">
+                                <div className="flex items-center gap-3">
+                                    <AlertTriangle className="w-5 h-5 text-orange-600" />
+                                    <div>
+                                        <p className="text-sm font-medium text-orange-800">
+                                            ⚠️ Rug Pull Risk Zone: {Math.round(geminiMarketService.calculateRugPullProbability(currentRound) * 100)}% chance this round
+                                        </p>
+                                        <p className="text-xs text-orange-600">
+                                            ScamCoin could rugpull at any moment. Consider your risk exposure!
+                                        </p>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
+
+                    {geminiMarketService.rugPullHappened && (
+                        <Card className="mb-4 border-red-200 bg-red-50">
+                            <CardContent className="p-4">
+                                <div className="flex items-center gap-3">
+                                    <AlertTriangle className="w-5 h-5 text-red-600" />
+                                    <div>
+                                        <p className="text-sm font-medium text-red-800">
+                                            💀 RUG PULL EXECUTED! ScamCoin collapsed in round {geminiMarketService.rugPullRound}
+                                        </p>
+                                        <p className="text-xs text-red-600">
+                                            Market contagion may affect other tokens. Flight to safety expected.
+                                        </p>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
+
+                        {/* Portfolio Summary */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                        <p className="text-sm text-white/70">Portfolio Value</p>
+                                        <p className="text-2xl font-bold text-white">${portfolioValue.toFixed(2)}</p>
+                                    </div>
+                                    <DollarSign className="w-8 h-8 text-cyan-400" />
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                        <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                        <p className="text-sm text-white/70">Cash Balance</p>
+                                        <p className="text-2xl font-bold text-white">${cashBalance.toFixed(2)}</p>
+                                    </div>
+                                    <DollarSign className="w-8 h-8 text-blue-400" />
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                        <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                        <p className="text-sm text-white/70">Total Return</p>
+                                        <p className={`text-2xl font-bold ${portfolioValue >= 100 ? 'text-green-400' : 'text-rose-400'}`}>
+                                                {portfolioValue >= 100 ? '+' : ''}${(portfolioValue - 100).toFixed(2)}
+                                            </p>
+                                        </div>
+                                        {portfolioValue >= 100 ?
+                                        <TrendingUp className="w-8 h-8 text-green-400" /> :
+                                        <TrendingDown className="w-8 h-8 text-rose-400" />
+                                        }
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                        <Card className="bg-white/10 backdrop-blur-md border border-white/20 text-white">
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                        <p className="text-sm text-white/70">Round</p>
+                                        <p className="text-2xl font-bold text-white">{currentRound}/{TOTAL_ROUNDS}</p>
+                                        </div>
+                                    <Badge variant="outline" className="text-lg px-3 py-1 bg-white/10 border-white/30 text-white">
+                                            {currentRound >= TOTAL_ROUNDS ? 'Finished' : 'Active'}
+                                        </Badge>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+
+                        {/* Token Trading Interface */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {/* Trading Panel */}
+                        <Card className={`bg-white/10 backdrop-blur-md border border-white/20 text-white ${tutorialActive && (tutorialStep === 1 || tutorialStep === 3) ? 'ring-2 ring-cyan-300/50' : ''}`}>
+                                <CardHeader>
+                                <CardTitle className="text-white">Token Trading</CardTitle>
+                                <CardDescription className="text-white/70">
+                                        Buy and sell tokens. Choose wisely - some may not end well!
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    {Object.values(TOKENS).map(token => {
+                                        const Icon = token.icon;
+                                        const holdingValue = holdings[token.id] * tokenPrices[token.id];
+
+                                        return (
+                                        <div key={token.id} className={`border border-white/20 rounded-lg p-4 bg-white/5 ${tutorialActive && tutorialStep === 1 && token.id === 'MEME' ? 'ring-4 ring-cyan-400/70' : ''} ${tutorialActive && tutorialStep === 3 && token.id === 'MEME' ? 'ring-4 ring-cyan-400/70' : ''}`}>
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <div className="flex items-center gap-3">
+                                                        <Icon className="w-6 h-6" style={{ color: token.color }} />
+                                                        <div>
+                                                        <h4 className="font-semibold text-white">{token.name}</h4>
+                                                        <p className="text-sm text-white/70">{token.description}</p>
+                                                    </div>
+                                                    </div>
+                                                    <Badge
+                                                        variant="outline"
+                                                        className={
+                                                        token.riskLevel === 'High' ? 'border-rose-400 text-rose-300 bg-rose-500/10' :
+                                                            token.riskLevel === 'Medium' ? 'border-amber-400 text-amber-300 bg-amber-500/10' :
+                                                                'border-emerald-400 text-emerald-300 bg-emerald-500/10'
+                                                        }
+                                                    >
+                                                        {token.riskLevel} Risk
+                                                    </Badge>
+                                                </div>
+
+                                            <div className="grid grid-cols-2 gap-4 mb-3 text-sm text-white/80">
+                                                <div>Price: <span className="font-mono text-white">${tokenPrices[token.id].toFixed(4)}</span></div>
+                                                <div>Owned: <span className="font-mono text-white">{holdings[token.id].toFixed(4)}</span></div>
+                                                <div>Value: <span className="font-mono text-white">${holdingValue.toFixed(2)}</span></div>
+                                                </div>
+
+                                                <div className="flex gap-2">
+                                                    <input
+                                                        type="number"
+                                                        placeholder="$ Amount"
+                                                        value={buyAmounts[token.id]}
+                                                        onChange={(e) => setBuyAmounts(prev => ({ ...prev, [token.id]: e.target.value }))}
+                                                        className={`flex-1 px-3 py-2 border rounded-md text-sm bg-white/5 border-white/20 text-white placeholder-white/60 ${tutorialActive && tutorialStep === 1 && token.id === 'MEME' ? 'ring-2 ring-cyan-300/70' : ''}`}
+                                                        min="0"
+                                                        max={cashBalance}
+                                                        step="0.01"
+                                                    />
+                                                    <Button
+                                                        onClick={() => buyToken(token.id)}
+                                                        disabled={!buyAmounts[token.id] || parseFloat(buyAmounts[token.id]) <= 0 || parseFloat(buyAmounts[token.id]) > cashBalance}
+                                                        size="sm"
+                                                        className={`bg-emerald-600 hover:bg-emerald-700 text-white ${tutorialActive && tutorialStep === 1 && token.id === 'MEME' ? 'ring-4 ring-cyan-400/70' : ''}`}
+                                                    >
+                                                        Buy
+                                                    </Button>
+                                                    <Button
+                                                        onClick={() => sellToken(token.id)}
+                                                        disabled={holdings[token.id] <= 0}
+                                                        size="sm"
+                                                        variant="outline"
+                                                    >
+                                                        Sell All
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </CardContent>
+                            </Card>
+
+                            {/* Event Feed */}
+                        <Card className={`bg-white/10 backdrop-blur-md border border-white/20 text-white ${tutorialActive && tutorialStep === 4 ? 'ring-2 ring-cyan-300/50' : ''}`}>
+                                <CardHeader>
+                                <CardTitle className="text-white">Market News & Events</CardTitle>
+                                <CardDescription className="text-white/70">
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                                         Stay updated with the latest market developments
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
                                     <div className="space-y-3 max-h-96 overflow-y-auto">
+<<<<<<< HEAD
                                         {eventFeed.map(event => (
                                             <div
                                                 key={event.id}
@@ -667,6 +1072,25 @@ export default function InvestingGame() {
                                                 </div>
                                             </div>
                                         ))}
+=======
+                                    {eventFeed.map(event => (
+                                        <div
+                                            key={event.id}
+                                            className={`p-3 rounded-lg border-l-4 ${
+                                                event.type === 'danger' ? 'border-rose-400 bg-rose-500/10' :
+                                                event.type === 'success' ? 'border-emerald-400 bg-emerald-500/10' :
+                                                event.type === 'trade' ? 'border-cyan-400 bg-cyan-500/10' :
+                                                event.type === 'tip' ? 'border-amber-400 bg-amber-500/10' :
+                                                'border-white/30 bg-white/5'
+                                            }`}
+                                        >
+                                            <div className="flex justify-between items-start">
+                                                <p className="text-sm font-medium text-white">{event.message}</p>
+                                                <span className="text-xs text-white/70">{event.timestamp}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                                     </div>
                                 </CardContent>
                             </Card>
@@ -681,6 +1105,7 @@ export default function InvestingGame() {
                                         <p><strong>Risk vs Return:</strong> Higher risk tokens like ScamCoin offered huge gains but devastating losses.</p>
                                         <p><strong>Diversification:</strong> Spreading investments across different assets can reduce risk.</p>
                                         <p><strong>Due Diligence:</strong> Research projects thoroughly - if it seems too good to be true, it probably is!</p>
+<<<<<<< HEAD
                                         <p><strong>Unpredictable Timing:</strong> Rug pulls can happen anytime from round 4+. Risk management is crucial!</p>
                                         <p><strong>Market Contagion:</strong> When major tokens collapse, fear spreads to other assets.</p>
                                         <p><strong>Stable Assets:</strong> Bond-backed tokens like Tether provide steady returns during volatility.</p>
@@ -690,6 +1115,17 @@ export default function InvestingGame() {
                                         {!geminiMarketService.rugPullHappened && (
                                             <p><strong>Lucky Escape:</strong> ScamCoin didn't rugpull this time - but it could have!</p>
                                         )}
+=======
+                                    <p><strong>Unpredictable Timing:</strong> Rug pulls can happen anytime from round 4+. Risk management is crucial!</p>
+                                    <p><strong>Market Contagion:</strong> When major tokens collapse, fear spreads to other assets.</p>
+                                    <p><strong>Stable Assets:</strong> Bond-backed tokens like Tether provide steady returns during volatility.</p>
+                                    {geminiMarketService.rugPullHappened && (
+                                        <p><strong>Rug Pull Impact:</strong> ScamCoin rugpulled in round {geminiMarketService.rugPullRound}. Did you see it coming?</p>
+                                    )}
+                                    {!geminiMarketService.rugPullHappened && (
+                                        <p><strong>Lucky Escape:</strong> ScamCoin didn't rugpull this time - but it could have!</p>
+                                    )}
+>>>>>>> b0c30b1 (feat: update simulator views, add components and about page; tweak liquidity pool and game logic)
                                         <p><strong>Final Portfolio Value:</strong> ${portfolioValue.toFixed(2)} (Started with $100.00)</p>
                                     </div>
                                 </CardContent>

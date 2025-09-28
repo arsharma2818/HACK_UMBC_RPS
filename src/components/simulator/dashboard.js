@@ -51,53 +51,53 @@ export default function Dashboard({ tokens, pools, transactions, onRefresh }) {
     <div className="space-y-6">
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-white">Total Tokens</CardTitle>
-            <Coins className="h-4 w-4 text-white/60" />
+            <CardTitle className="text-sm font-medium text-white group-hover:text-cyan-200 transition-colors duration-300">Total Tokens</CardTitle>
+            <Coins className="h-4 w-4 text-white/60 group-hover:text-cyan-300 transition-colors duration-300" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-white">{totalTokens}</div>
-            <p className="text-xs text-white/60">
+            <div className="text-2xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300">{totalTokens}</div>
+            <p className="text-xs text-white/60 group-hover:text-white/80 transition-colors duration-300">
               {totalTokens > 0 ? `${totalTokens} tokens created` : 'No tokens yet'}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 group">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-white">Liquidity Pools</CardTitle>
-            <Droplets className="h-4 w-4 text-white/60" />
+            <CardTitle className="text-sm font-medium text-white group-hover:text-blue-200 transition-colors duration-300">Liquidity Pools</CardTitle>
+            <Droplets className="h-4 w-4 text-white/60 group-hover:text-blue-300 transition-colors duration-300" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-white">{totalPools}</div>
-            <p className="text-xs text-white/60">
+            <div className="text-2xl font-bold text-white group-hover:text-blue-100 transition-colors duration-300">{totalPools}</div>
+            <p className="text-xs text-white/60 group-hover:text-white/80 transition-colors duration-300">
               {rugPulls > 0 ? `${rugPulls} rugged` : 'All pools active'}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 group">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-white">Total Value Locked</CardTitle>
-            <TrendingUp className="h-4 w-4 text-white/60" />
+            <CardTitle className="text-sm font-medium text-white group-hover:text-green-200 transition-colors duration-300">Total Value Locked</CardTitle>
+            <TrendingUp className="h-4 w-4 text-white/60 group-hover:text-green-300 transition-colors duration-300" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-white">{formatCurrency(totalTVL)}</div>
-            <p className="text-xs text-white/60">
+            <div className="text-2xl font-bold text-white group-hover:text-green-100 transition-colors duration-300">{formatCurrency(totalTVL)}</div>
+            <p className="text-xs text-white/60 group-hover:text-white/80 transition-colors duration-300">
               Across all pools
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 group">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-white">Transactions</CardTitle>
-            <Activity className="h-4 w-4 text-white/60" />
+            <CardTitle className="text-sm font-medium text-white group-hover:text-purple-200 transition-colors duration-300">Transactions</CardTitle>
+            <Activity className="h-4 w-4 text-white/60 group-hover:text-purple-300 transition-colors duration-300" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-white">{totalTransactions}</div>
-            <p className="text-xs text-white/60">
+            <div className="text-2xl font-bold text-white group-hover:text-purple-100 transition-colors duration-300">{totalTransactions}</div>
+            <p className="text-xs text-white/60 group-hover:text-white/80 transition-colors duration-300">
               Total transactions
             </p>
           </CardContent>
@@ -107,16 +107,16 @@ export default function Dashboard({ tokens, pools, transactions, onRefresh }) {
       {/* Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Transactions */}
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300 group">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-white">Recent Transactions</CardTitle>
+              <CardTitle className="text-white group-hover:text-indigo-200 transition-colors duration-300">Recent Transactions</CardTitle>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={onRefresh} className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                <Button variant="outline" size="sm" onClick={onRefresh} className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:shadow-md hover:shadow-cyan-500/20 transition-all duration-300">
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Refresh
                 </Button>
-                <Button variant="destructive" size="sm" onClick={resetAllData} className="bg-red-500/20 border-red-400/30 text-red-200 hover:bg-red-500/30">
+                <Button variant="destructive" size="sm" onClick={resetAllData} className="bg-red-500/20 border-red-400/30 text-red-200 hover:bg-red-500/30 hover:shadow-md hover:shadow-red-500/20 transition-all duration-300">
                   <AlertTriangle className="h-4 w-4 mr-2" />
                   Reset All
                 </Button>
@@ -127,23 +127,23 @@ export default function Dashboard({ tokens, pools, transactions, onRefresh }) {
             <div className="space-y-4">
               {recentTransactions.length > 0 ? (
                 recentTransactions.map((tx) => (
-                  <div key={tx.id} className="flex items-center justify-between p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+                  <div key={tx.id} className="flex items-center justify-between p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-md hover:shadow-indigo-500/10 transition-all duration-200 group/item">
                     <div className="flex items-center space-x-3">
                       <div className={`w-2 h-2 rounded-full ${
                         tx.type === 'rug_pull' ? 'bg-red-400' : 
                         tx.type === 'swap' ? 'bg-blue-400' : 'bg-green-400'
                       }`} />
                       <div>
-                        <p className="font-medium text-sm text-white">{tx.getTypeDisplay?.() || tx.type}</p>
-                        <p className="text-xs text-white/60">{tx.tokenSymbol}</p>
+                        <p className="font-medium text-sm text-white group-hover/item:text-indigo-100 transition-colors duration-200">{tx.getTypeDisplay?.() || tx.type}</p>
+                        <p className="text-xs text-white/60 group-hover/item:text-white/80 transition-colors duration-200">{tx.tokenSymbol}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium text-white">
+                      <p className="text-sm font-medium text-white group-hover/item:text-indigo-100 transition-colors duration-200">
                         {tx.type === 'swap' ? `${formatNumber(tx.amountIn)} → ${formatNumber(tx.amountOut)}` : 
                          tx.type === 'rug_pull' ? 'Rug Pull' : formatNumber(tx.amountIn)}
                       </p>
-                      <p className="text-xs text-white/60">{formatDate(tx.timestamp)}</p>
+                      <p className="text-xs text-white/60 group-hover/item:text-white/80 transition-colors duration-200">{formatDate(tx.timestamp)}</p>
                     </div>
                   </div>
                 ))
@@ -159,9 +159,9 @@ export default function Dashboard({ tokens, pools, transactions, onRefresh }) {
         </Card>
 
         {/* Token Overview */}
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
           <CardHeader>
-            <CardTitle className="text-white">Token Overview</CardTitle>
+            <CardTitle className="text-white group-hover:text-cyan-200 transition-colors duration-300">Token Overview</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -169,14 +169,14 @@ export default function Dashboard({ tokens, pools, transactions, onRefresh }) {
                 tokens.slice(0, 5).map((token) => {
                   const priceChange = getTokenPriceChange(token);
                   return (
-                    <div key={token.id} className="flex items-center justify-between p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+                    <div key={token.id} className="flex items-center justify-between p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-md hover:shadow-cyan-500/10 transition-all duration-200 group/item">
                       <div>
-                        <p className="font-medium text-sm text-white">{token.symbol}</p>
-                        <p className="text-xs text-white/60">{token.name}</p>
+                        <p className="font-medium text-sm text-white group-hover/item:text-cyan-100 transition-colors duration-200">{token.symbol}</p>
+                        <p className="text-xs text-white/60 group-hover/item:text-white/80 transition-colors duration-200">{token.name}</p>
                       </div>
                       <div className="text-right">
                         <div className="flex items-center space-x-2">
-                          <span className="text-sm font-medium text-white">
+                          <span className="text-sm font-medium text-white group-hover/item:text-cyan-100 transition-colors duration-200">
                             {formatNumber(token.totalSupply)}
                           </span>
                           {priceChange !== 0 && (
@@ -186,7 +186,7 @@ export default function Dashboard({ tokens, pools, transactions, onRefresh }) {
                             </Badge>
                           )}
                         </div>
-                        <p className="text-xs text-white/60">{formatDate(token.created_date)}</p>
+                        <p className="text-xs text-white/60 group-hover/item:text-white/80 transition-colors duration-200">{formatDate(token.created_date)}</p>
                       </div>
                     </div>
                   );

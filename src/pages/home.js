@@ -3,18 +3,16 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils/index";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
-import {
-  Shield,
-  BookOpen,
-  BarChart3,
+import { 
+  Shield, 
+  BookOpen, 
+  BarChart3, 
   AlertTriangle,
   TrendingUp,
   Users,
   CheckCircle,
   ArrowRight,
-  Play,
-  Gamepad2,
-  Zap
+  Play
 } from "lucide-react";
 
 export default function Home() {
@@ -44,7 +42,7 @@ export default function Home() {
       icon: Users
     },
     {
-      number: "02",
+      number: "02", 
       title: "Set Up Liquidity",
       description: "Create a liquidity pool and observe market dynamics",
       icon: BarChart3
@@ -67,10 +65,10 @@ export default function Home() {
           <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl" />
         </div>
-
+        
         {/* Glassy overlay */}
         <div className="absolute inset-0 bg-white/5 backdrop-blur-sm" />
-
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
             <div className="mb-16 lg:mb-0 relative z-10">
@@ -78,17 +76,17 @@ export default function Home() {
                 <Shield className="w-4 h-4" />
                 Educational Simulation Platform
               </div>
-
+              
               <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Learn About
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"> Crypto Scams</span>
                 <br />Without Getting Burned
               </h1>
-
+              
               <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-xl">
                 Understand how rug pulls and other cryptocurrency scams work through hands-on simulations in a completely safe environment.
               </p>
-
+              
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/simulator">
                   <Button size="lg" className="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white border border-white/30 px-8 py-3">
@@ -103,7 +101,7 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-
+              
               <div className="mt-8 flex items-center gap-6 text-sm text-white/70">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-400" />
@@ -119,20 +117,20 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
+            
             <MouseFollowCard />
           </div>
         </div>
-
-        {/* Scroll indicator */}
+        
+         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce select-none pointer-events-none">
-          <div className="flex flex-col items-center gap-2 text-white/60">
-            <span className="text-sm font-medium text-center">Scroll to explore</span>
-            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-center justify-center backdrop-blur-sm bg-white/5">
-              <div className="w-1 h-3 bg-white/60 rounded-full animate-pulse" />
-            </div>
-          </div>
-        </div>
+           <div className="flex flex-col items-center gap-2 text-white/60">
+             <span className="text-sm font-medium text-center">Scroll to explore</span>
+             <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-center justify-center backdrop-blur-sm bg-white/5">
+               <div className="w-1 h-3 bg-white/60 rounded-full animate-pulse" />
+             </div>
+           </div>
+         </div>
       </section>
 
       {/* Features Section */}
@@ -142,18 +140,18 @@ export default function Home() {
           <div className="absolute top-1/4 left-1/6 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/6 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
         </div>
-
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Why RugGuard Works
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              The best way to understand cryptocurrency scams is to see them in action.
+              The best way to understand cryptocurrency scams is to see them in action. 
               Our simulator provides hands-on experience without the financial risk.
             </p>
           </div>
-
+          
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <Card key={index} className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 transition-all duration-300 shadow-2xl">
@@ -181,7 +179,7 @@ export default function Home() {
           <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
         </div>
-
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
@@ -204,7 +202,7 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/3 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
         </div>
-
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
@@ -223,114 +221,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Investing Game Promotion */}
-      <section className="py-24 bg-gradient-to-b from-slate-800 to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 right-1/3 w-72 h-72 bg-green-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl" />
-        </div>
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-yellow-500/20 backdrop-blur-md text-white border border-green-400/30 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Gamepad2 className="w-4 h-4" />
-                New Interactive Game
-              </div>
-
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-                🎮 Rugpull Simulator: The Investing Game
-              </h2>
-
-              <p className="text-lg text-white/80 mb-8 leading-relaxed">
-                Experience the wild world of crypto investing in our fun, educational game. Start with $100 and learn about risk,
-                volatility, and diversification as you navigate through market events, social media pumps, and the dreaded rug pull!
-              </p>
-
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-red-400 mt-2 flex-shrink-0" />
-                  <div>
-                    <span className="text-white font-semibold">ScamCoin (High Risk)</span>
-                    <span className="text-white/70 block text-sm">Looks promising but will rugpull in the end</span>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-yellow-400 mt-2 flex-shrink-0" />
-                  <div>
-                    <span className="text-white font-semibold">MemeCoin (Volatile)</span>
-                    <span className="text-white/70 block text-sm">Swings wildly based on social media hype</span>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-green-400 mt-2 flex-shrink-0" />
-                  <div>
-                    <span className="text-white font-semibold">Tether (Safe)</span>
-                    <span className="text-white/70 block text-sm">Bond-backed stablecoin with steady 4-6% APY</span>
-                  </div>
-                </div>
-              </div>
-
-              <Link to="/investing-game">
-                <Button size="lg" className="bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white px-8 py-3">
-                  <Gamepad2 className="w-5 h-5 mr-2" />
-                  Play Investing Game
-                </Button>
-              </Link>
-            </div>
-
-            <div className="relative">
-              <Card className="bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
-                <CardContent className="p-8">
-                  <div className="space-y-6">
-                    <div className="text-center">
-                      <h4 className="text-xl font-bold text-white mb-2">Game Dashboard Preview</h4>
-                      <p className="text-white/70 text-sm">Portfolio: $127.50 (+27.50%)</p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
-                        <div className="flex items-center gap-2 mb-2">
-                          <AlertTriangle className="w-4 h-4 text-red-400" />
-                          <span className="text-sm text-white/80">ScamCoin</span>
-                        </div>
-                        <p className="text-lg font-bold text-white">$3.20</p>
-                        <p className="text-sm text-green-400">+540% 🚀</p>
-                      </div>
-                      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Zap className="w-4 h-4 text-yellow-400" />
-                          <span className="text-sm text-white/80">MemeCoin</span>
-                        </div>
-                        <p className="text-lg font-bold text-white">$4.50</p>
-                        <p className="text-sm text-yellow-400">+125% ⚡</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border border-red-400/30 rounded-xl p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <AlertTriangle className="w-4 h-4 text-red-400" />
-                        <span className="font-medium text-red-300">Market Alert</span>
-                      </div>
-                      <p className="text-sm text-red-200">
-                        📰 Elon tweets about memes! 🚀<br />
-                        MemeCoin surges 250%!
-                      </p>
-                    </div>
-
-                    <div className="text-center">
-                      <p className="text-xs text-white/60">
-                        🎯 Learn risk management through interactive gameplay
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
         {/* Glassy background effects */}
@@ -338,7 +228,7 @@ export default function Home() {
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl" />
         </div>
-
+        
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
@@ -348,20 +238,12 @@ export default function Home() {
               Join thousands of users who've learned to spot crypto scams before losing real money.
               Start your risk-free education today.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/investing-game">
-                <Button size="lg" className="bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white px-8 py-3">
-                  <Gamepad2 className="w-5 h-5 mr-2" />
-                  Play Investing Game
-                </Button>
-              </Link>
-              <Link to="/simulator">
-                <Button size="lg" className="bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 px-8 py-3">
-                  <Play className="w-5 h-5 mr-2" />
-                  Launch Simulator
-                </Button>
-              </Link>
-            </div>
+            <Link to="/simulator">
+              <Button size="lg" className="bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 px-8 py-3">
+                <Play className="w-5 h-5 mr-2" />
+                Launch Simulator
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -447,10 +329,11 @@ function ScrollStory({ steps }) {
               className="relative mb-24 last:mb-0 min-h-[85vh] flex items-center"
             >
               <div
-                className={`w-full rounded-3xl p-8 md:p-12 transition-all duration-500 backdrop-blur-md border translate-z-0 ${isActive
-                  ? 'bg-white/25 border-white/40 shadow-2xl ring-2 ring-cyan-300/40 scale-[1.01]'
-                  : 'bg-white/8 border-white/15 opacity-70'
-                  }`}
+                className={`w-full rounded-3xl p-8 md:p-12 transition-all duration-500 backdrop-blur-md border translate-z-0 ${
+                  isActive
+                    ? 'bg-white/25 border-white/40 shadow-2xl ring-2 ring-cyan-300/40 scale-[1.01]'
+                    : 'bg-white/8 border-white/15 opacity-70'
+                }`}
               >
                 <div className="flex items-start gap-6">
                   <div className={`text-5xl font-bold transition-colors ${isActive ? 'text-white/90' : 'text-white/40'}`}>
@@ -499,10 +382,10 @@ function MouseFollowCard() {
         const rect = cardRef.current.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-
+        
         const deltaX = (e.clientX - centerX) * 0.15;
         const deltaY = (e.clientY - centerY) * 0.15;
-
+        
         setMousePosition({ x: deltaX, y: deltaY });
       }
     };
@@ -526,19 +409,20 @@ function MouseFollowCard() {
   };
 
   return (
-    <div
+    <div 
       ref={cardRef}
       className="relative cursor-pointer perspective-1000"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 rounded-3xl blur-3xl -m-4" />
-      <Card
-        className={`relative bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl transition-all duration-300 ease-out ${isHovering ? 'shadow-3xl bg-white/15' : ''
-          }`}
+      <Card 
+        className={`relative bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl transition-all duration-300 ease-out ${
+          isHovering ? 'shadow-3xl bg-white/15' : ''
+        }`}
         style={{
-          transform: isHovering
-            ? `translate(${mousePosition.x}px, ${mousePosition.y}px) rotateX(${mousePosition.y * -0.1}deg) rotateY(${mousePosition.x * 0.1}deg)`
+          transform: isHovering 
+            ? `translate(${mousePosition.x}px, ${mousePosition.y}px) rotateX(${mousePosition.y * -0.1}deg) rotateY(${mousePosition.x * 0.1}deg)` 
             : 'translate(0px, 0px) rotateX(0deg) rotateY(0deg)'
         }}
       >
@@ -550,7 +434,7 @@ function MouseFollowCard() {
                 Suspicious Activity
               </div>
             </div>
-
+            
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
                 <p className="text-sm text-white/70">Token Reserve</p>
@@ -563,7 +447,7 @@ function MouseFollowCard() {
                 <p className="text-sm text-red-400">↓ -95%</p>
               </div>
             </div>
-
+            
             <div className="bg-amber-500/20 backdrop-blur-sm border border-amber-400/30 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <AlertTriangle className="w-4 h-4 text-amber-400" />

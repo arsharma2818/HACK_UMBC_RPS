@@ -104,13 +104,13 @@ export default function CreatePool({ tokens, onPoolCreated }) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+      <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <Droplets className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-white group-hover:text-cyan-200 transition-colors duration-300">
+            <Droplets className="h-5 w-5 group-hover:text-cyan-300 transition-colors duration-300" />
             Create Liquidity Pool
           </CardTitle>
-          <p className="text-sm text-white/70">
+          <p className="text-sm text-white/70 group-hover:text-white/80 transition-colors duration-300">
             Create a liquidity pool for your token. This simulates how AMMs work in real DeFi.
           </p>
         </CardHeader>
@@ -138,8 +138,8 @@ export default function CreatePool({ tokens, onPoolCreated }) {
                       onClick={() => handleTokenSelect(token.id)}
                       className={`p-4 border rounded-lg text-left transition-all backdrop-blur-sm ${
                         selectedToken?.id === token.id
-                          ? 'bg-white/20 border-white/40 text-white shadow-lg'
-                          : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:border-white/30'
+                          ? 'bg-white/20 border-white/40 text-white shadow-lg shadow-cyan-500/20'
+                          : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:border-white/30 hover:shadow-md hover:shadow-cyan-500/10'
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -205,7 +205,7 @@ export default function CreatePool({ tokens, onPoolCreated }) {
                 </div>
 
                 {/* Pool Preview */}
-                <div className="p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 space-y-3">
+                <div className="p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 space-y-3 hover:bg-white/10 hover:border-white/20 hover:shadow-md hover:shadow-cyan-500/10 transition-all duration-200">
                   <h4 className="font-medium text-white">Pool Preview</h4>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="space-y-1">
@@ -224,7 +224,7 @@ export default function CreatePool({ tokens, onPoolCreated }) {
                 </div>
 
                 {/* Educational Info */}
-                <div className="p-4 bg-blue-500/20 border border-blue-400/30 rounded-lg backdrop-blur-sm">
+                <div className="p-4 bg-blue-500/20 border border-blue-400/30 rounded-lg backdrop-blur-sm hover:bg-blue-500/25 hover:border-blue-400/40 hover:shadow-md hover:shadow-blue-500/10 transition-all duration-200">
                   <div className="flex items-start gap-3">
                     <Droplets className="h-5 w-5 text-blue-200 mt-0.5" />
                     <div>
@@ -240,7 +240,7 @@ export default function CreatePool({ tokens, onPoolCreated }) {
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md" 
+                  className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300" 
                   disabled={isLoading || !formData.tokenReserve || !formData.solReserve}
                 >
                   {isLoading ? (

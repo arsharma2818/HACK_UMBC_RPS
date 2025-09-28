@@ -110,7 +110,7 @@ export default function Analytics({ transactions, pools, tokens }) {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20  hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-white group-hover:text-cyan-200 transition-colors duration-300">Total Transactions</CardTitle>
             <Activity className="h-4 w-4 text-white/60 group-hover:text-cyan-300 transition-colors duration-300" />
@@ -123,7 +123,7 @@ export default function Analytics({ transactions, pools, tokens }) {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 group">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20  hover:border-white/30 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300 group">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-white group-hover:text-green-200 transition-colors duration-300">Total Volume</CardTitle>
             <DollarSign className="h-4 w-4 text-white/60 group-hover:text-green-300 transition-colors duration-300" />
@@ -136,7 +136,7 @@ export default function Analytics({ transactions, pools, tokens }) {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 group">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20  hover:border-white/30 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 group">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-white group-hover:text-red-200 transition-colors duration-300">Rug Pulls</CardTitle>
             <AlertTriangle className="h-4 w-4 text-white/60 group-hover:text-red-300 transition-colors duration-300" />
@@ -149,7 +149,7 @@ export default function Analytics({ transactions, pools, tokens }) {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 group">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20  hover:border-white/30 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 group">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-white group-hover:text-purple-200 transition-colors duration-300">Avg Slippage</CardTitle>
             <TrendingUp className="h-4 w-4 text-white/60 group-hover:text-purple-300 transition-colors duration-300" />
@@ -165,7 +165,7 @@ export default function Analytics({ transactions, pools, tokens }) {
 
       {/* Transaction Types */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 group">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20  hover:border-white/30 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 group">
           <CardHeader>
             <CardTitle className="text-white group-hover:text-blue-200 transition-colors duration-300">Transaction Types</CardTitle>
           </CardHeader>
@@ -196,7 +196,7 @@ export default function Analytics({ transactions, pools, tokens }) {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20  hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
           <CardHeader>
             <CardTitle className="text-white group-hover:text-cyan-200 transition-colors duration-300">Token Performance</CardTitle>
           </CardHeader>
@@ -230,7 +230,7 @@ export default function Analytics({ transactions, pools, tokens }) {
       </div>
 
       {/* Recent Activity */}
-      <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300 group">
+      <Card className="bg-white/10 backdrop-blur-md border border-white/20  hover:border-white/30 hover:shadow-lg hover:shadow-indigo-500/20 transition-all duration-300 group">
         <CardHeader>
           <CardTitle className="text-white group-hover:text-indigo-200 transition-colors duration-300">Recent Activity</CardTitle>
         </CardHeader>

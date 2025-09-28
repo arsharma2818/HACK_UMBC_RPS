@@ -142,13 +142,13 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
       </Card>
 
       {/* Pool Selection */}
-      <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+      <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 group">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <TrendingDown className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-white group-hover:text-red-200 transition-colors duration-300">
+            <TrendingDown className="h-5 w-5 group-hover:text-red-300 transition-colors duration-300" />
             Select Pool to Rug
           </CardTitle>
-          <p className="text-sm text-white/70">
+          <p className="text-sm text-white/70 group-hover:text-white/80 transition-colors duration-300">
             Choose an active liquidity pool to simulate a rug pull attack
           </p>
         </CardHeader>
@@ -161,8 +161,8 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
                   onClick={() => handlePoolSelect(pool.id)}
                   className={`w-full p-4 border rounded-lg text-left transition-all backdrop-blur-sm ${
                     selectedPool?.id === pool.id
-                      ? 'bg-red-500/20 border-red-400/40 text-white shadow-lg'
-                      : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:border-white/30'
+                      ? 'bg-red-500/20 border-red-400/40 text-white shadow-lg shadow-red-500/20'
+                      : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:border-white/30 hover:shadow-md hover:shadow-red-500/10'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -194,13 +194,13 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
 
       {/* Rug Pull Simulation */}
       {selectedPool && (
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 group">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-red-300">
-              <AlertTriangle className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-red-300 group-hover:text-red-200 transition-colors duration-300">
+              <AlertTriangle className="h-5 w-5 group-hover:text-red-200 transition-colors duration-300" />
               Rug Pull Simulation
             </CardTitle>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-white/70 group-hover:text-white/80 transition-colors duration-300">
               Simulating a rug pull on {selectedPool.name}
             </p>
           </CardHeader>
@@ -244,7 +244,7 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
 
             <div className="space-y-6">
               {/* Current Pool State */}
-              <div className="p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+              <div className="p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-md hover:shadow-red-500/10 transition-all duration-200">
                 <h4 className="font-medium mb-3 text-white">Current Pool State</h4>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -297,7 +297,7 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
               })()}
 
               {/* Educational Warning */}
-              <div className="p-4 bg-amber-500/20 border border-amber-400/30 rounded-lg backdrop-blur-sm">
+              <div className="p-4 bg-amber-500/20 border border-amber-400/30 rounded-lg backdrop-blur-sm hover:bg-amber-500/25 hover:border-amber-400/40 hover:shadow-md hover:shadow-amber-500/10 transition-all duration-200">
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="h-5 w-5 text-amber-300 mt-0.5" />
                   <div>
@@ -313,7 +313,7 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
 
               <Button 
                 onClick={executeRugPull}
-                className="w-full bg-red-500/20 hover:bg-red-500/30 text-red-200 border border-red-400/30 backdrop-blur-md"
+                className="w-full bg-red-500/20 hover:bg-red-500/30 text-red-200 border border-red-400/30 backdrop-blur-md hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300"
                 disabled={isLoading || selectedPool?.isRugged}
               >
                 {isLoading ? (

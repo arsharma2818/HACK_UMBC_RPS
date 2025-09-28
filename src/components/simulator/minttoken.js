@@ -61,13 +61,13 @@ export default function MintToken({ onTokenCreated }) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+      <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <Coins className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-white group-hover:text-cyan-200 transition-colors duration-300">
+            <Coins className="h-5 w-5 group-hover:text-cyan-300 transition-colors duration-300" />
             Mint New Token
           </CardTitle>
-          <p className="text-sm text-white/70">
+          <p className="text-sm text-white/70 group-hover:text-white/80 transition-colors duration-300">
             Create a new token for your simulation. This is completely safe - no real cryptocurrency is involved.
           </p>
         </CardHeader>
@@ -175,7 +175,7 @@ export default function MintToken({ onTokenCreated }) {
             </div>
 
             {/* Educational Info */}
-            <div className="p-4 bg-amber-500/20 border border-amber-400/30 rounded-lg backdrop-blur-sm">
+            <div className="p-4 bg-amber-500/20 border border-amber-400/30 rounded-lg backdrop-blur-sm hover:bg-amber-500/25 hover:border-amber-400/40 hover:shadow-md hover:shadow-amber-500/10 transition-all duration-200">
               <div className="flex items-start gap-3">
                 <AlertTriangle className="h-5 w-5 text-amber-300 mt-0.5" />
                 <div>
@@ -191,7 +191,7 @@ export default function MintToken({ onTokenCreated }) {
 
             <Button 
               type="submit" 
-              className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md" 
+              className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300" 
               disabled={isLoading || !formData.name || !formData.symbol}
             >
               {isLoading ? (
@@ -210,7 +210,7 @@ export default function MintToken({ onTokenCreated }) {
 
           {/* Token Preview */}
           {formData.name && formData.symbol && (
-            <div className="mt-6 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+            <div className="mt-6 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-md hover:shadow-cyan-500/10 transition-all duration-200">
               <h4 className="font-medium mb-3 text-white">Token Preview</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">

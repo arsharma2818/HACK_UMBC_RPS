@@ -163,10 +163,10 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       {/* Pool Selection */}
-      <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+      <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 group">
         <CardHeader>
-          <CardTitle className="text-white">Select Trading Pool</CardTitle>
-          <p className="text-sm text-white/70">
+          <CardTitle className="text-white group-hover:text-blue-200 transition-colors duration-300">Select Trading Pool</CardTitle>
+          <p className="text-sm text-white/70 group-hover:text-white/80 transition-colors duration-300">
             Choose a liquidity pool to trade against
           </p>
         </CardHeader>
@@ -179,8 +179,8 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
                   onClick={() => handlePoolSelect(pool.id)}
                   className={`w-full p-4 border rounded-lg text-left transition-all backdrop-blur-sm ${
                     selectedPool?.id === pool.id
-                      ? 'bg-white/20 border-white/40 text-white shadow-lg'
-                      : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:border-white/30'
+                      ? 'bg-white/20 border-white/40 text-white shadow-lg shadow-blue-500/20'
+                      : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:border-white/30 hover:shadow-md hover:shadow-blue-500/10'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -214,13 +214,13 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
 
       {/* Swap Interface */}
       {selectedPool && (
-        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 group">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-white">
-              <Zap className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white group-hover:text-cyan-200 transition-colors duration-300">
+              <Zap className="h-5 w-5 group-hover:text-cyan-300 transition-colors duration-300" />
               Token Swap
             </CardTitle>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-white/70 group-hover:text-white/80 transition-colors duration-300">
               Trade {swapData.tokenIn} for {swapData.tokenOut} in the {selectedPool.name}
             </p>
           </CardHeader>
@@ -288,41 +288,41 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
 
               {/* Output Amount */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">
+                <label className="text-sm font-medium text-white">
                   You will receive
                 </label>
                 <div className="relative">
-                  <div className="w-full px-3 py-3 pr-20 border border-slate-200 bg-slate-50 rounded-lg text-lg">
+                  <div className="w-full px-3 py-3 pr-20 border border-white/20 bg-white/5 backdrop-blur-sm rounded-lg text-white text-lg">
                     {swapData.amountIn ? formatNumber(calculateSwapOutput(parseFloat(swapData.amountIn), selectedPool)) : '0.0'}
                   </div>
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <Badge variant="secondary">{swapData.tokenOut}</Badge>
+                    <Badge className="bg-cyan-500/20 text-cyan-200 border-cyan-400/30">{swapData.tokenOut}</Badge>
                   </div>
                 </div>
               </div>
 
               {/* Swap Details */}
               {swapData.amountIn && parseFloat(swapData.amountIn) > 0 && (
-                <div className="p-4 bg-slate-50 rounded-lg space-y-2 text-sm">
+                <div className="p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Price:</span>
-                    <span className="font-medium">
+                    <span className="text-white/60">Price:</span>
+                    <span className="font-medium text-white">
                       1 {swapData.tokenIn} = {formatNumber(calculateSwapOutput(1, selectedPool))} {swapData.tokenOut}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Slippage:</span>
-                    <span className={`font-medium ${
+                    <span className="text-white/60">Slippage:</span>
+                    <span className={`font-medium text-white ${
                       calculateSlippage(parseFloat(swapData.amountIn), selectedPool) > 5 
-                        ? 'text-red-600' 
-                        : 'text-green-600'
+                        ? 'text-red-400' 
+                        : 'text-green-400'
                     }`}>
                       {calculateSlippage(parseFloat(swapData.amountIn), selectedPool).toFixed(2)}%
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Fee (0.3%):</span>
-                    <span className="font-medium">
+                    <span className="text-white/60">Fee (0.3%):</span>
+                    <span className="font-medium text-white">
                       {formatNumber(parseFloat(swapData.amountIn) * 0.003)} {swapData.tokenIn}
                     </span>
                   </div>
@@ -330,12 +330,12 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
               )}
 
               {/* Educational Info */}
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="p-4 bg-blue-500/20 border border-blue-400/30 rounded-lg backdrop-blur-sm hover:bg-blue-500/25 hover:border-blue-400/40 hover:shadow-md hover:shadow-blue-500/10 transition-all duration-200">
                 <div className="flex items-start gap-3">
-                  <Zap className="h-5 w-5 text-blue-600 mt-0.5" />
+                  <Zap className="h-5 w-5 text-blue-200 mt-0.5" />
                   <div>
-                    <p className="font-medium text-blue-800">How Swaps Work</p>
-                    <p className="text-sm text-blue-700 mt-1">
+                    <p className="font-medium text-blue-100">How Swaps Work</p>
+                    <p className="text-sm text-blue-100/90 mt-1">
                       Swaps use the constant product formula. When you trade, you're changing the pool's reserves,
                       which affects the price. Larger trades cause more slippage due to price impact.
                     </p>
@@ -345,7 +345,7 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
 
               <Button 
                 onClick={handleSwap}
-                className="w-full"
+                className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
                 disabled={isLoading || !swapData.amountIn || parseFloat(swapData.amountIn) <= 0 || selectedPool.isRugged}
               >
                 {isLoading ? (
