@@ -150,25 +150,6 @@ export default function Learn() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-12 bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            {stats.map((stat, index) => (
-              <div key={index} className="flex items-center justify-center gap-4">
-                <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
-                  <stat.icon className="w-6 h-6 text-slate-600" />
-                </div>
-                <div className="text-left">
-                  <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
-                  <p className="text-slate-600 text-sm">{stat.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Learning Topics */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
