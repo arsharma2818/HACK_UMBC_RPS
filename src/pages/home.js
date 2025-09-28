@@ -448,8 +448,8 @@ function ScrollStory({ steps }) {
             >
               <div
                 className={`w-full rounded-3xl p-8 md:p-12 transition-all duration-500 backdrop-blur-md border translate-z-0 ${isActive
-                    ? 'bg-white/25 border-white/40 shadow-2xl ring-2 ring-cyan-300/40 scale-[1.01]'
-                    : 'bg-white/8 border-white/15 opacity-70'
+                  ? 'bg-white/25 border-white/40 shadow-2xl ring-2 ring-cyan-300/40 scale-[1.01]'
+                  : 'bg-white/8 border-white/15 opacity-70'
                   }`}
               >
                 <div className="flex items-start gap-6">

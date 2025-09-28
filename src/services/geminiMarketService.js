@@ -7,7 +7,11 @@ class GeminiMarketService {
     this.genAI = null;
     this.model = null;
     this.isInitialized = false;
-    
+
+    // Rug pull tracking
+    this.rugPullHappened = false;
+    this.rugPullRound = null;
+
     this.initializeAI();
   }
 
@@ -15,7 +19,7 @@ class GeminiMarketService {
     try {
       if (this.apiKey) {
         this.genAI = new GoogleGenerativeAI(this.apiKey);
-        this.model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        this.model = this.genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
         this.isInitialized = true;
         console.log("Gemini AI initialized successfully");
       } else {
@@ -27,62 +31,62 @@ class GeminiMarketService {
     }
   }
 
-  // Fallback event templates when AI is not available
+  // Fallback event templates when AI is not available - EXTRA SPICY EDITION
   getFallbackEvents() {
     const eventTemplates = [
       {
         type: 'pump',
-        title: ['🚀 Crypto Rally!', '📈 Bull Market Alert!', '💎 Diamond Hands Unite!'],
+        title: ['🚀 To The Moon!', '💎 Diamond Hands Win!', '📈 Number Go Up!', '🦍 Apes Together Strong!'],
         news: [
-          'Major institutional investor announces crypto allocation',
-          'Regulatory clarity brings market confidence',
-          'Celebrity endorsement drives FOMO',
-          'Technical breakthrough announced',
-          'Major exchange listing confirmed'
+          'Billionaire with anime pfp YOLOs $100M into crypto after watching The Matrix',
+          'Fortune 500 CEO announces "Bitcoin is the way" during earnings call meltdown',
+          'Celebrity chef Gordon Ramsay calls traditional finance "bloody awful" and buys crypto',
+          'NASA confirms crypto is "literally rocket science" and invests pension fund',
+          'Warren Buffett spotted with "HODL" tattoo, Berkshire Hathaway pivots to DeFi'
         ]
       },
       {
         type: 'dump',
-        title: ['📉 Market Correction', '😱 Panic Selling', '💥 Crypto Winter'],
+        title: ['📉 Rekt City', '😱 Panic at the Disco!', '💥 Red Wedding', '🔥 This Is Fine'],
         news: [
-          'Regulatory concerns create uncertainty',
-          'Whale dumps massive position',
-          'Exchange hack rumors spread fear',
-          'Economic downturn affects crypto',
-          'Leveraged positions get liquidated'
+          'Whale accidentally sells entire bag while trying to buy coffee on mobile app',
+          'FUD spreads faster than gossip at a high school reunion',
+          'Paper hands activate after seeing one red candle like they\'re in a horror movie',
+          'Market crashes harder than Windows Vista after "experts" predict doom',
+          'Leveraged longs get liquidated faster than Thanos snapping his fingers'
         ]
       },
       {
         type: 'meme',
-        title: ['🐕 Meme Coin Mania!', '🚀 Social Media Hype!', '💫 Viral Moment!'],
+        title: ['🐕 Much Wow!', '🚀 Viral AF!', '💫 Main Character Energy!', '🔥 Absolutely Sending It!'],
         news: [
-          'Influencer tweets about meme coin',
-          'Viral TikTok trend boosts token',
-          'Reddit community rallies around coin',
-          'Celebrity posts meme about crypto',
-          'Social sentiment reaches peak FOMO'
+          'TikTok trend makes MemeCoin more famous than that dress (you know the one)',
+          'Influencer with 12 followers creates viral meme, token goes parabolic',
+          'Reddit WSB discovers crypto, chaos ensues like Avengers: Endgame portal scene',
+          'Cat video featuring crypto wallet gets 50M views, internet loses collective mind',
+          'Twitter spaces conversation about "gm" philosophy pumps meme coins to Mars'
         ]
       },
       {
         type: 'stable',
-        title: ['🏦 Institutional News', '📊 Market Analysis', '💼 Financial Update'],
+        title: ['🏦 Boring But Rich', '📊 Adult Supervision', '💼 Big Brain Time', '⚖️ Balance Restored'],
         news: [
-          'Federal Reserve adjusts interest rates',
-          'Stablecoin audit results released',
-          'Banking partnership announced',
-          'Treasury bond yields fluctuate',
-          'Institutional demand for stability increases'
+          'Fed Chair Jerome Powell admits "maybe stability is actually pretty cool"',
+          'Tether audit reveals they actually have more money than claimed (plot twist!)',
+          'BlackRock CEO spotted reading "Stablecoins for Dummies" on vacation',
+          'Banking giants realize boring 4% yields beat casino gambling, shocking nobody',
+          'Institutional money flows into bonds like kids running to ice cream truck'
         ]
       },
       {
         type: 'rugpull',
-        title: ['💀 RUG PULL ALERT!', '🚨 SCAM DETECTED!', '⚠️ LIQUIDITY DRAINED!'],
+        title: ['💀 Exit Scammed!', '🚨 Rug Pulled!', '⚠️ Bamboozled!', '🏃‍♂️ Dev Team Vanished!'],
         news: [
-          'Developers vanish with liquidity pool funds',
-          'Smart contract reveals hidden backdoor',
-          'Anonymous team drains treasury wallet',
-          'Fake partnerships exposed as fraud',
-          'Token contract ownership renounced after drain'
+          'ScamCoin devs disappear faster than my dad going to get milk 15 years ago',
+          'Anonymous team reveals they were three kids in a trench coat all along',
+          'Smart contract backdoor wider than the plot holes in Game of Thrones S8',
+          'Founders caught on Ring doorbell cam fleeing with liquidity pool bags',
+          'Project roadmap updated to show single destination: "Cayman Islands"'
         ]
       }
     ];
@@ -90,86 +94,98 @@ class GeminiMarketService {
     return eventTemplates;
   }
 
-  // Generate random market multipliers for realistic volatility
-  generateMarketMultipliers(round, eventType) {
-    const baseVolatility = {
-      SCAM: { min: 0.8, max: 1.5, rugpullRound: 6 },
-      MEME: { min: 0.6, max: 2.2, volatility: 0.4 },
-      TETHER: { min: 0.998, max: 1.002, stability: 0.001 }
-    };
-
-    const multipliers = {};
-
-    // ScamCoin logic - pumps hard then rugpulls
-    if (round < baseVolatility.SCAM.rugpullRound) {
-      // Before rugpull - can pump significantly
-      if (eventType === 'pump' || eventType === 'meme') {
-        multipliers.SCAM = 1 + Math.random() * 2 + (round * 0.3); // Increasing pump potential
-      } else if (eventType === 'dump') {
-        multipliers.SCAM = 0.7 + Math.random() * 0.4; // Minor dumps before rugpull
-      } else {
-        multipliers.SCAM = 0.9 + Math.random() * 0.3;
-      }
-    } else if (round === baseVolatility.SCAM.rugpullRound) {
-      // Rugpull round
-      multipliers.SCAM = 0.005 + Math.random() * 0.01; // Catastrophic drop
-    } else {
-      // Post rugpull - dead coin
-      multipliers.SCAM = 0.001 + Math.random() * 0.004;
+  // AI-driven rugpull and market prediction
+  async generateMarketPrediction(round, previousEvents = [], tokenPrices = {}) {
+    if (!this.isInitialized || !this.model) {
+      return this.getFallbackMarketPrediction(round);
     }
 
-    // MemeCoin logic - very volatile, social media driven
-    if (eventType === 'meme') {
-      multipliers.MEME = 1.5 + Math.random() * 1.5; // Big social media pumps
-    } else if (eventType === 'pump') {
-      multipliers.MEME = 1.1 + Math.random() * 0.8;
-    } else if (eventType === 'dump') {
-      multipliers.MEME = 0.4 + Math.random() * 0.5;
-    } else if (eventType === 'rugpull' && round >= 6) {
-      // Contagion effect from rugpull
-      multipliers.MEME = 0.3 + Math.random() * 0.3;
-    } else {
-      multipliers.MEME = 0.85 + Math.random() * 0.4;
-    }
+    const prompt = `Crypto market analysis for round ${round}/8:
 
-    // Tether logic - stable with tiny bond yield returns
-    const bondYieldRate = 0.0005 + Math.random() * 0.0015; // 0.05% to 0.2% per round
-    if (eventType === 'stable') {
-      multipliers.TETHER = 1 + bondYieldRate * 1.5; // Slightly higher yield on stable events
-    } else if (eventType === 'dump' || eventType === 'rugpull') {
-      multipliers.TETHER = 1 + bondYieldRate * 0.5; // Lower yield during market stress
-    } else {
-      multipliers.TETHER = 1 + bondYieldRate; // Regular bond returns
-    }
+Current state:
+- Round: ${round}
+- ScamCoin price: $${tokenPrices.SCAM?.toFixed(4) || '0.50'}
+- MemeCoin price: $${tokenPrices.MEME?.toFixed(4) || '2.00'} 
+- Tether price: $${tokenPrices.TETHER?.toFixed(4) || '1.00'}
+- Rugpull happened: ${this.rugPullHappened}
+- Previous events: ${previousEvents.slice(-2).map(e => e.title).join(', ')}
 
-    return multipliers;
+Predict this round's market behavior. Consider:
+- Rugpull risk (ScamCoin is suspicious, could happen any round 3+)
+- MemeCoin volatility (social media driven, highly unpredictable)
+- Tether stability (bond-like returns)
+- Market psychology and contagion effects
+
+Return JSON:
+{
+  "shouldRugpull": boolean,
+  "eventType": "pump|dump|meme|stable|rugpull",
+  "marketMultipliers": {
+    "SCAM": number (0.001-3.0),
+    "MEME": number (0.3-2.5), 
+    "TETHER": number (0.999-1.003)
+  },
+  "reasoning": "Brief explanation (50 chars max)"
+}`;
+
+    try {
+      const result = await this.model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      const parsed = JSON.parse(text.replace(/```json\n?|\n?```/g, ''));
+      return parsed;
+    } catch (error) {
+      console.warn('AI market prediction failed:', error);
+      return this.getFallbackMarketPrediction(round);
+    }
   }
 
-  // Generate a random event for the current round
-  async generateRandomEvent(round, previousEvents = []) {
+  // Fallback market prediction when AI fails
+  getFallbackMarketPrediction(round) {
     const eventTypes = ['pump', 'dump', 'meme', 'stable'];
-    
-    // Special logic for rugpull
-    if (round === 6) {
-      return this.generateRugpullEvent(round);
+    let shouldRugpull = false;
+
+    // Simple rugpull logic for fallback
+    if (!this.rugPullHappened && round >= 4) {
+      shouldRugpull = Math.random() < (round - 3) * 0.2;
     }
 
-    // Weight event types based on round
-    let weightedTypes = [...eventTypes];
-    if (round <= 2) {
-      // Early rounds favor pumps and meme activity
-      weightedTypes = [...weightedTypes, 'pump', 'meme'];
-    } else if (round >= 7) {
-      // Later rounds after rugpull favor dumps and stability
-      weightedTypes = [...weightedTypes, 'dump', 'stable'];
+    const eventType = shouldRugpull ? 'rugpull' : eventTypes[Math.floor(Math.random() * eventTypes.length)];
+
+    // Basic multipliers for fallback
+    const multipliers = {
+      SCAM: shouldRugpull ? 0.005 : (0.8 + Math.random() * 1.2),
+      MEME: 0.6 + Math.random() * 1.4,
+      TETHER: 0.999 + Math.random() * 0.003
+    };
+
+    return {
+      shouldRugpull,
+      eventType,
+      marketMultipliers: multipliers,
+      reasoning: 'Fallback random prediction'
+    };
+  }
+
+  // Generate AI-driven market event for the current round
+  async generateRandomEvent(round, previousEvents = [], tokenPrices = {}) {
+    // Get AI market prediction
+    const prediction = await this.generateMarketPrediction(round, previousEvents, tokenPrices);
+
+    // Handle rugpull if AI determines it should happen
+    if (prediction.shouldRugpull && !this.rugPullHappened) {
+      this.rugPullHappened = true;
+      this.rugPullRound = round;
+      return await this.generateRugpullEvent(round, prediction.marketMultipliers);
     }
 
-    const eventType = weightedTypes[Math.floor(Math.random() * weightedTypes.length)];
-    const multipliers = this.generateMarketMultipliers(round, eventType);
+    // Generate regular event based on AI prediction
+    const eventType = prediction.eventType === 'rugpull' ? 'dump' : prediction.eventType;
+    const multipliers = prediction.marketMultipliers;
 
     if (this.isInitialized && this.model) {
       try {
-        return await this.generateAIEvent(round, eventType, multipliers);
+        return await this.generateAIEvent(round, eventType, multipliers, tokenPrices, prediction.reasoning);
       } catch (error) {
         console.warn("AI generation failed, using fallback:", error);
         return this.generateFallbackEvent(round, eventType, multipliers);
@@ -179,35 +195,30 @@ class GeminiMarketService {
     }
   }
 
-  async generateAIEvent(round, eventType, multipliers) {
-    const prompt = `Generate a realistic cryptocurrency market event for round ${round} of a trading simulation game. 
+  async generateAIEvent(round, eventType, multipliers, tokenPrices = {}, reasoning = '') {
+    const mostAffectedToken = this.getMostAffectedToken(multipliers);
 
-Event type: ${eventType}
-Round: ${round}/8
+    const prompt = `Create crypto event for round ${round}. Type: ${eventType}. Token: ${mostAffectedToken}. Context: ${reasoning}
 
-The game has 3 tokens:
-- ScamCoin (SCAM): High risk token that will rugpull in round 6
-- MemeCoin (MEME): Volatile meme token influenced by social media  
-- Tether (USDT): Stable token backed by bonds with small yields
+Make it fun with pop culture refs and crypto slang. Educational but entertaining.
 
-Create a JSON response with:
+Return JSON:
 {
-  "title": "Short catchy title with emoji (max 25 chars)",
-  "description": "Brief event description (max 60 chars)",
-  "news": "Realistic market news headline (max 100 chars)",
+  "title": "Fun title with emoji (30 chars max)",
+  "description": "Brief description (70 chars max)", 
+  "news": "Entertaining headline with pop culture ref (140 chars max)",
   "effects": {
     "SCAM": ${multipliers.SCAM},
-    "MEME": ${multipliers.MEME}, 
+    "MEME": ${multipliers.MEME},
     "TETHER": ${multipliers.TETHER}
-  }
-}
-
-Make it sound like real crypto market news with appropriate excitement/fear based on the event type. Keep it educational but engaging.`;
+  },
+  "primaryToken": "${mostAffectedToken}"
+}`;
 
     const result = await this.model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    
+
     try {
       const parsedEvent = JSON.parse(text.replace(/```json\n?|\n?```/g, ''));
       return {
@@ -224,10 +235,10 @@ Make it sound like real crypto market news with appropriate excitement/fear base
   generateFallbackEvent(round, eventType, multipliers) {
     const templates = this.getFallbackEvents();
     const template = templates.find(t => t.type === eventType) || templates[0];
-    
+
     const title = template.title[Math.floor(Math.random() * template.title.length)];
     const news = template.news[Math.floor(Math.random() * template.news.length)];
-    
+
     return {
       round,
       title,
@@ -238,21 +249,91 @@ Make it sound like real crypto market news with appropriate excitement/fear base
     };
   }
 
-  generateRugpullEvent(round) {
-    const rugpullMultipliers = {
+  async generateRugpullEvent(round, aiMultipliers = null) {
+    const rugpullMultipliers = aiMultipliers || {
       SCAM: 0.001 + Math.random() * 0.01,
       MEME: 0.3 + Math.random() * 0.2,
       TETHER: 1 + (0.0002 + Math.random() * 0.0008) // Flight to safety
     };
 
+    if (this.isInitialized && this.model) {
+      try {
+        return await this.generateAIRugpullEvent(round, rugpullMultipliers);
+      } catch (error) {
+        console.warn("AI rugpull generation failed, using fallback:", error);
+        return this.generateFallbackRugpullEvent(round, rugpullMultipliers);
+      }
+    } else {
+      return this.generateFallbackRugpullEvent(round, rugpullMultipliers);
+    }
+  }
+
+  async generateAIRugpullEvent(round, multipliers) {
+    const prompt = `ScamCoin just rugpulled in round ${round}! Create a darkly funny headline about crypto devs vanishing with liquidity. Use pop culture references and crypto slang. Make it educational about rugpull risks.
+
+Return JSON:
+{
+  "title": "💀 RUGPULL EXECUTED!",
+  "description": "ScamCoin developers drain liquidity and vanish into the void!",
+  "news": "Savage rugpull headline with pop culture ref (140 chars max)",
+  "effects": {
+    "SCAM": ${multipliers.SCAM},
+    "MEME": ${multipliers.MEME},
+    "TETHER": ${multipliers.TETHER}
+  },
+  "primaryToken": "SCAM"
+}`;
+
+    const result = await this.model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    try {
+      const parsedEvent = JSON.parse(text.replace(/```json\n?|\n?```/g, ''));
+      return {
+        round,
+        ...parsedEvent,
+        timestamp: new Date().toISOString()
+      };
+    } catch (parseError) {
+      console.warn("Failed to parse AI rugpull response, using fallback");
+      return this.generateFallbackRugpullEvent(round, multipliers);
+    }
+  }
+
+  generateFallbackRugpullEvent(round, multipliers) {
+    const rugpullNews = [
+      'ScamCoin devs disappear faster than my dad going to get milk 15 years ago',
+      'Anonymous team reveals they were three kids in a trench coat all along',
+      'Smart contract backdoor wider than the plot holes in Game of Thrones S8',
+      'Founders caught on Ring doorbell cam fleeing with liquidity pool bags',
+      'Project roadmap updated to show single destination: "Cayman Islands"'
+    ];
+
     return {
       round,
-      title: "💀 RUGPULL DETECTED!",
-      description: "ScamCoin developers drain liquidity and disappear!",
-      news: "BREAKING: ScamCoin founders vanish with $10M+ in liquidity. Token crashes 99.9%!",
-      effects: rugpullMultipliers,
+      title: "💀 RUGPULL EXECUTED!",
+      description: "ScamCoin developers drain liquidity and vanish into the void!",
+      news: rugpullNews[Math.floor(Math.random() * rugpullNews.length)],
+      effects: multipliers,
       timestamp: new Date().toISOString()
     };
+  }
+
+  getMostAffectedToken(multipliers) {
+    const tokens = ['SCAM', 'MEME', 'TETHER'];
+    let mostAffected = 'SCAM';
+    let largestChange = Math.abs(multipliers.SCAM - 1);
+
+    tokens.forEach(token => {
+      const change = Math.abs(multipliers[token] - 1);
+      if (change > largestChange) {
+        largestChange = change;
+        mostAffected = token;
+      }
+    });
+
+    return mostAffected;
   }
 
   getEventDescription(eventType, round) {
@@ -263,24 +344,48 @@ Make it sound like real crypto market news with appropriate excitement/fear base
       stable: "Institutional flows stabilize the market.",
       rugpull: "Liquidity providers abandon the project!"
     };
-    
+
     return descriptions[eventType] || descriptions.stable;
   }
 
-  // Generate trading advice based on current market conditions
+  // Reset rug pull state for new game
+  resetGameState() {
+    this.rugPullHappened = false;
+    this.rugPullRound = null;
+    console.log("Game state reset - rug pull timing randomized");
+  }
+
+  // Generate trading advice based on current market conditions - CHAD EDITION
   async generateTradingTip(round, portfolioValue, holdings) {
-    const tips = [
-      "💡 Diversification reduces risk - don't put all funds in one token",
-      "⚠️ High returns often come with high risk - be cautious of promises",
-      "📊 Monitor liquidity levels - low liquidity can mean manipulation",
-      "🔍 Research the team behind any project before investing",
-      "💰 Never invest more than you can afford to lose",
-      "📈 Dollar-cost averaging can reduce volatility impact",
-      "🚨 Be extra careful of tokens promising guaranteed returns",
-      "🏦 Stablecoins offer predictable returns but limited upside"
+    const rugPullTips = this.rugPullHappened
+      ? [
+        "💀 Post-rugpull life hits different - diversification isn't just a fancy word, it's survival",
+        "📉 Market contagion spreads faster than drama on Twitter - one token's death affects the whole squad",
+        "🏦 Safe havens like Tether suddenly looking like that reliable friend who always brings snacks",
+        "🤡 The real treasure was the lessons we learned along the way (and the money we lost)",
+        "⚰️ F in the chat for ScamCoin - should've seen those red flags from orbit"
+      ]
+      : [
+        "⚠️ Rug pull season starts round 4 - like horror movie rules, but for your wallet",
+        "🚨 If it sounds too good to be true, it's probably run by someone named 'CryptoPrince2005'",
+        "🔍 DYOR isn't just letters - it's the difference between lambo and ramen",
+        "🎭 Anonymous teams are like dating profiles without photos - proceed with caution",
+        "🚩 More red flags than a communist parade? Time to exit stage left"
+      ];
+
+    const generalTips = [
+      "💡 Diversification is like a balanced breakfast - boring but keeps you alive",
+      "📊 Low liquidity = easier to manipulate than a reality TV show",
+      "💰 Never invest your rent money unless your backup plan is living in a cardboard lambo",
+      "📈 DCA (Dollar Cost Average) - it's like going to the gym but for your portfolio",
+      "🏦 Stablecoins: the vanilla ice cream of crypto - boring but reliable",
+      "🦍 Diamond hands are cool, but paper hands pay the bills sometimes",
+      "📱 Don't FOMO into trades like you're buying concert tickets for your favorite band",
+      "🎰 This isn't a casino, but somehow everyone's acting like they're in Vegas"
     ];
 
-    return tips[Math.floor(Math.random() * tips.length)];
+    const allTips = [...rugPullTips, ...generalTips];
+    return allTips[Math.floor(Math.random() * allTips.length)];
   }
 }
 
