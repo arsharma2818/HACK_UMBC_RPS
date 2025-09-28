@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "../utils/index";
-import { BookOpen, BarChart3, Coins, Shield, Menu, X } from "lucide-react";
+import { BookOpen, BarChart3, Coins, Shield, Menu, X, Gamepad2 } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -18,6 +18,11 @@ const navigationItems = [
     title: "Simulator",
     url: "/simulator",
     icon: BarChart3,
+  },
+  {
+    title: "Investing Game",
+    url: "/investing-game",
+    icon: Gamepad2,
   },
   {
     title: "Learn",
@@ -62,11 +67,10 @@ export default function Layout({ children, currentPageName }) {
       </style>
 
       {/* Header */}
-      <header className={`sticky top-0 z-50 transition-colors duration-300 ${
-        isScrolled
+      <header className={`sticky top-0 z-50 transition-colors duration-300 ${isScrolled
           ? 'bg-transparent backdrop-blur-2xl border-b border-white/20'
           : 'bg-white border-b border-slate-200/60'
-      }`}>
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -86,15 +90,14 @@ export default function Layout({ children, currentPageName }) {
                 <Link
                   key={item.title}
                   to={item.url}
-                  className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 ${
-                    isScrolled
+                  className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 ${isScrolled
                       ? (location.pathname === item.url
-                          ? 'text-white bg-white/25 backdrop-blur-md border border-white/40 shadow-xl shadow-cyan-500/10'
-                          : 'text-white/90 hover:text-white hover:bg-white/15 backdrop-blur-sm border border-white/20 hover:border-white/30 hover:shadow-lg hover:shadow-white/5')
+                        ? 'text-white bg-white/25 backdrop-blur-md border border-white/40 shadow-xl shadow-cyan-500/10'
+                        : 'text-white/90 hover:text-white hover:bg-white/15 backdrop-blur-sm border border-white/20 hover:border-white/30 hover:shadow-lg hover:shadow-white/5')
                       : (location.pathname === item.url
-                          ? 'text-slate-900 bg-slate-100 border border-slate-300 shadow-sm'
-                          : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200')
-                  }`}
+                        ? 'text-slate-900 bg-slate-100 border border-slate-300 shadow-sm'
+                        : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200')
+                    }`}
                 >
                   {item.icon && <item.icon className="w-4 h-4" />}
                   {item.title}
@@ -105,19 +108,17 @@ export default function Layout({ children, currentPageName }) {
             {/* Mobile Menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className={`md:hidden rounded-2xl border ${
-                  isScrolled
+                <Button variant="ghost" size="icon" className={`md:hidden rounded-2xl border ${isScrolled
                     ? 'text-white/90 hover:text-white hover:bg-white/15 border-white/20 hover:border-white/30'
                     : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100 border-slate-200'
-                }`}>
+                  }`}>
                   <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className={`w-80 border-l ${
-                isScrolled
+              <SheetContent side="right" className={`w-80 border-l ${isScrolled
                   ? 'bg-slate-900/95 backdrop-blur-2xl border-white/10'
                   : 'bg-white border-slate-200'
-              }`}>
+                }`}>
                 <div className="flex flex-col gap-6 pt-6">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
@@ -131,15 +132,14 @@ export default function Layout({ children, currentPageName }) {
                         key={item.title}
                         to={item.url}
                         onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-5 py-4 rounded-2xl text-base font-semibold transition-all duration-300 ${
-                          isScrolled
+                        className={`flex items-center gap-3 px-5 py-4 rounded-2xl text-base font-semibold transition-all duration-300 ${isScrolled
                             ? (location.pathname === item.url
-                                ? 'text-white bg-white/25 backdrop-blur-md border border-white/40 shadow-lg'
-                                : 'text-white/90 hover:text-white hover:bg-white/15 backdrop-blur-sm border border-white/20 hover:border-white/30')
+                              ? 'text-white bg-white/25 backdrop-blur-md border border-white/40 shadow-lg'
+                              : 'text-white/90 hover:text-white hover:bg-white/15 backdrop-blur-sm border border-white/20 hover:border-white/30')
                             : (location.pathname === item.url
-                                ? 'text-slate-900 bg-slate-100 border border-slate-300 shadow-sm'
-                                : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200')
-                        }`}
+                              ? 'text-slate-900 bg-slate-100 border border-slate-300 shadow-sm'
+                              : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200')
+                          }`}
                       >
                         {item.icon && <item.icon className="w-5 h-5" />}
                         {item.title}
@@ -178,7 +178,7 @@ export default function Layout({ children, currentPageName }) {
                 </p>
               </div>
             </div>
-            
+
           </div>
           <div className="border-t border-white/10 mt-12 pt-8">
             <p className="text-center text-sm text-white/60">

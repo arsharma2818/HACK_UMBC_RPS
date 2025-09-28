@@ -13,27 +13,28 @@
     "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.31.1",
+    "@solana/spl-token": "^0.4.14",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.263.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
-    "lucide-react": "^0.263.1",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "tailwind-merge": "^1.14.0",
-    "@coral-xyz/anchor": "^0.31.1",
-    "@solana/spl-token": "^0.4.14"
+    "recharts": "^3.2.1",
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.0",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
     "@types/bn.js": "^5.1.0",
     "@types/chai": "^4.3.0",
     "@types/mocha": "^9.0.0",
+    "autoprefixer": "^10.4.14",
     "chai": "^4.3.4",
     "mocha": "^9.0.3",
+    "postcss": "^8.4.24",
     "prettier": "^2.6.2",
+    "tailwindcss": "^3.3.0",
     "ts-mocha": "^10.0.0",
     "typescript": "^5.7.3"
   },

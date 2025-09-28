@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
-import { 
-  AlertTriangle, 
-  Droplets, 
-  TrendingDown, 
-  Shield, 
-  BookOpen, 
+import {
+  AlertTriangle,
+  Droplets,
+  TrendingDown,
+  Shield,
+  BookOpen,
   Eye,
   DollarSign,
   Users,
@@ -32,7 +32,7 @@ export default function Learn() {
       icon: Droplets,
       title: "How AMMs Work",
       description: "Understand automated market makers, liquidity pools, and the constant product formula.",
-      difficulty: "Beginner", 
+      difficulty: "Beginner",
       readTime: "2 min",
       color: "blue",
       link: createPageUrl("Mod2")
@@ -83,7 +83,7 @@ export default function Learn() {
     },
     {
       value: "37%",
-      label: "Of losses from rug pulls", 
+      label: "Of losses from rug pulls",
       icon: TrendingDown
     },
     {
@@ -113,7 +113,7 @@ export default function Learn() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"> Crypto Security</span>
             </h1>
             <p className="text-xl text-white/80 mb-8 leading-relaxed">
-              Comprehensive guides to help you understand DeFi mechanics, spot potential scams, 
+              Comprehensive guides to help you understand DeFi mechanics, spot potential scams,
               and protect your investments in the cryptocurrency space.
             </p>
           </div>
@@ -179,14 +179,14 @@ export default function Learn() {
                       {topic.readTime}
                     </span>
                     <Link to={topic.link}>
-                      <Button 
-                        size="sm" 
+                      <Button
+                        size="sm"
                         className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm"
                       >
                         Read More
                       </Button>
                     </Link>
-                    
+
                   </div>
                 </CardContent>
               </Card>
@@ -206,18 +206,18 @@ export default function Learn() {
             Ready for Hands-On Learning?
           </h2>
           <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-            Put your knowledge to the test with our interactive rug pull simulator. 
+            Put your knowledge to the test with our interactive rug pull simulator.
             Experience how scams work without risking real money.
           </p>
 
           <Link to={createPageUrl("Simulator")}>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md px-8 py-3"
             >
               <Zap className="w-5 h-5 mr-2" />
               Try the Simulator
-          </Button>
+            </Button>
           </Link>
         </div>
       </section>
@@ -228,7 +228,7 @@ export default function Learn() {
           <h2 className="text-3xl font-bold text-white mb-8 text-center">
             Common Questions
           </h2>
-          
+
           <div className="space-y-4">
             {[
               {

@@ -7,6 +7,7 @@ import Home from './pages/home';
 import Simulator from './pages/simulator';
 import Learn from './pages/learn';
 import About from './pages/about';
+import InvestingGame from './pages/investing-game';
 import Mod1 from './pages/rug-pulls';
 import Mod2 from './pages/AMMs';
 import Mod3 from './pages/pull-mechs';
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/simulator" element={<Simulator />} />
+          <Route path="/investing-game" element={<InvestingGame />} />
           <Route path="/learn" element={<Learn />} />
           <Route path="/about" element={<About />} />
           <Route path="/rug-pulls" element={<Mod1 />} />
