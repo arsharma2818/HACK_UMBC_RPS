@@ -10,6 +10,9 @@ import About from './pages/about';
 import Mod1 from './pages/rug-pulls';
 import Mod2 from './pages/AMMs';
 import Mod3 from './pages/pull-mechs';
+import Mod4 from './pages/red-flags';
+import Mod5 from './pages/liq-locks';
+import Mod6 from './pages/protection-strats';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path="/rug-pulls" element={<Mod1 />} />
           <Route path="/AMMs" element={<Mod2 />} />
           <Route path="/pull-mechs" element={<Mod3 />} />
+          <Route path="/red-flags" element={<Mod4 />} />
+          <Route path="/liq-locks" element={<Mod5 />} />
+          <Route path="/protection-strats" element={<Mod6 />} />
         </Routes>
       </Layout>
     </Router>
