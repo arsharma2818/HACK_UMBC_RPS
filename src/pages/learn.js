@@ -42,7 +42,7 @@ export default function Learn() {
       title: "Rug Pull Mechanics",
       description: "Deep dive into how liquidity removal affects token prices and holder positions.",
       difficulty: "Intermediate",
-      readTime: "12 min",
+      readTime: "3 min",
       color: "purple",
       link: createPageUrl("Mod3")
     },
@@ -51,7 +51,7 @@ export default function Learn() {
       title: "Red Flags to Watch",
       description: "Identify warning signs of potential scam projects before investing.",
       difficulty: "Beginner",
-      readTime: "6 min",
+      readTime: "3 min",
       color: "amber",
       link: createPageUrl("Mod4")
     },
@@ -60,7 +60,7 @@ export default function Learn() {
       title: "Liquidity Locks",
       description: "How liquidity locks work and why they're important for project credibility.",
       difficulty: "Intermediate",
-      readTime: "10 min",
+      readTime: "3 min",
       color: "green",
       link: createPageUrl("Mod5")
     },
@@ -69,7 +69,7 @@ export default function Learn() {
       title: "Protection Strategies",
       description: "Best practices for researching projects and protecting your investments.",
       difficulty: "Intermediate",
-      readTime: "15 min",
+      readTime: "3 min",
       color: "indigo",
       link: createPageUrl("Mod6")
     }
@@ -86,11 +86,6 @@ export default function Learn() {
       label: "Of losses from rug pulls",
       icon: TrendingDown
     },
-    {
-      value: "10,000+",
-      label: "Users educated monthly",
-      icon: Users
-    }
   ];
 
 
@@ -123,7 +118,7 @@ export default function Learn() {
       {/* Stats Section */}
       <section className="py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="grid md:grid-cols-2 gap-8 text-center">
             {stats.map((stat, index) => (
               <div key={index} className="flex items-center justify-center gap-4 p-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
