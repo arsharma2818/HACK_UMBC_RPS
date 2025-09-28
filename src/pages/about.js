@@ -157,25 +157,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
-      {/* Contact Section */}
-      <section className="py-24 bg-gradient-to-r from-sky-600 to-blue-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-            Questions or Feedback?
-          </h2>
-          <p className="text-xl text-sky-100 mb-8 max-w-2xl mx-auto">
-            We're always looking to improve our educational platform. 
-            Reach out if you have suggestions or need help.
-          </p>
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 max-w-md mx-auto">
-            <p className="text-sky-100 text-sm">
-              This is an open-source educational project. 
-              Contributions and feedback are welcome!
-            </p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

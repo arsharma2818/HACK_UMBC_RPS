@@ -178,24 +178,7 @@ export default function Layout({ children, currentPageName }) {
                 </p>
               </div>
             </div>
-            <div>
-              <h3 className="font-semibold text-white mb-4">Learn</h3>
-              <ul className="space-y-3 text-sm">
-                <li><Link to="/learn" className="text-white/70 hover:text-white transition-colors duration-200">What are Rug Pulls?</Link></li>
-                <li><Link to="/learn" className="text-white/70 hover:text-white transition-colors duration-200">How AMMs Work</Link></li>
-                <li><Link to="/learn" className="text-white/70 hover:text-white transition-colors duration-200">Safety Best Practices</Link></li>
-                <li><Link to="/learn" className="text-white/70 hover:text-white transition-colors duration-200">Red Flags to Watch</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-white mb-4">Resources</h3>
-              <ul className="space-y-3 text-sm">
-                <li><Link to="/about" className="text-white/70 hover:text-white transition-colors duration-200">About Us</Link></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Documentation</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Contact Support</a></li>
-                <li><a href="#" className="text-white/70 hover:text-white transition-colors duration-200">Privacy Policy</a></li>
-              </ul>
-            </div>
+            
           </div>
           <div className="border-t border-white/10 mt-12 pt-8">
             <p className="text-center text-sm text-white/60">
