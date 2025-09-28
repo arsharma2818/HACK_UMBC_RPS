@@ -265,8 +265,8 @@ export default function Home() {
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 rounded-full bg-green-400 mt-2 flex-shrink-0" />
                   <div>
-                    <span className="text-white font-semibold">StableCoin (Safe)</span>
-                    <span className="text-white/70 block text-sm">Boring but reliable, stays around $1</span>
+                    <span className="text-white font-semibold">Tether (Safe)</span>
+                    <span className="text-white/70 block text-sm">Bond-backed stablecoin with steady 4-6% APY</span>
                   </div>
                 </div>
               </div>
