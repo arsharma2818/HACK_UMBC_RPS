@@ -46,7 +46,13 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
   };
 
   const executeRugPull = async () => {
-    if (!selectedPool) return;
+    if (!selectedPool) {
+      return;
+    }
+
+    if (selectedPool.isRugged) {
+      return;
+    }
 
     setIsLoading(true);
     setSuccess(false);
@@ -56,14 +62,14 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
       const rugImpact = calculateRugImpact(selectedPool);
       
       // Update pool to reflect rug pull
-      const updatedPool = {
+      const updatedPool = new LiquidityPool({
         ...selectedPool,
         isRugged: true,
         rugDate: new Date().toISOString(),
         tokenReserve: rugImpact.newTokenReserve,
         solReserve: rugImpact.newSolReserve,
         totalLiquidity: rugImpact.newTokenReserve * rugImpact.newSolReserve
-      };
+      });
 
       await updatedPool.save();
 
@@ -308,7 +314,7 @@ export default function RugPull({ pools, tokens, onRugComplete }) {
               <Button 
                 onClick={executeRugPull}
                 className="w-full bg-red-600 hover:bg-red-700"
-                disabled={isLoading || selectedPool.isRugged}
+                disabled={isLoading || selectedPool?.isRugged}
               >
                 {isLoading ? (
                   <>
