@@ -4,7 +4,14 @@ export function createPageUrl(pageName) {
     'Home': '/',
     'Simulator': '/simulator',
     'Learn': '/learn',
-    'About': '/about'
+    'About': '/about',
+    // Learning Modules
+    'Mod1': '/rug-pulls',
+    'Mod2': '/AMMs',
+    'Mod3': '/pull-mechs',
+    'Mod4': '/red-flags',
+    'Mod5': '/liq-locks',
+    'Mod6': '/protection-strats'
   };
   
   return routes[pageName] || '/';

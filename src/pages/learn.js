@@ -1,5 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "../utils";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { 
@@ -22,16 +24,18 @@ export default function Learn() {
       title: "What are Rug Pulls?",
       description: "Learn about the most common DeFi scam and how creators steal liquidity from investors.",
       difficulty: "Beginner",
-      readTime: "5 min",
-      color: "red"
+      readTime: "3 min",
+      color: "red",
+      link: createPageUrl("Mod1")
     },
     {
       icon: Droplets,
       title: "How AMMs Work",
       description: "Understand automated market makers, liquidity pools, and the constant product formula.",
       difficulty: "Beginner", 
-      readTime: "8 min",
-      color: "blue"
+      readTime: "2 min",
+      color: "blue",
+      link: createPageUrl("Mod2")
     },
     {
       icon: TrendingDown,
@@ -39,7 +43,8 @@ export default function Learn() {
       description: "Deep dive into how liquidity removal affects token prices and holder positions.",
       difficulty: "Intermediate",
       readTime: "12 min",
-      color: "purple"
+      color: "purple",
+      link: createPageUrl("Mod3")
     },
     {
       icon: Eye,
@@ -47,7 +52,8 @@ export default function Learn() {
       description: "Identify warning signs of potential scam projects before investing.",
       difficulty: "Beginner",
       readTime: "6 min",
-      color: "amber"
+      color: "amber",
+      link: createPageUrl("Mod4")
     },
     {
       icon: Lock,
@@ -55,7 +61,8 @@ export default function Learn() {
       description: "How liquidity locks work and why they're important for project credibility.",
       difficulty: "Intermediate",
       readTime: "10 min",
-      color: "green"
+      color: "green",
+      link: createPageUrl("Mod5")
     },
     {
       icon: Shield,
@@ -63,7 +70,8 @@ export default function Learn() {
       description: "Best practices for researching projects and protecting your investments.",
       difficulty: "Intermediate",
       readTime: "15 min",
-      color: "indigo"
+      color: "indigo",
+      link: createPageUrl("Mod6")
     }
   ];
 
@@ -84,6 +92,8 @@ export default function Learn() {
       icon: Users
     }
   ];
+
+
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
@@ -198,13 +208,16 @@ export default function Learn() {
                       <BookOpen className="w-3 h-3" />
                       {topic.readTime}
                     </span>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="group-hover:bg-blue-50 group-hover:border-blue-200 group-hover:text-blue-700"
-                    >
-                      Read More
-                    </Button>
+                    <Link to={topic.link}>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="group-hover:bg-blue-50 group-hover:border-blue-200 group-hover:text-blue-700"
+                      >
+                        Read More
+                      </Button>
+                    </Link>
+                    
                   </div>
                 </CardContent>
               </Card>
@@ -226,14 +239,17 @@ export default function Learn() {
             Put your knowledge to the test with our interactive rug pull simulator. 
             Experience how scams work without risking real money.
           </p>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3"
-          >
-            <Zap className="w-5 h-5 mr-2" />
-            Try the Simulator
+
+          <Link to={createPageUrl("Simulator")}>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3"
+            >
+              <Zap className="w-5 h-5 mr-2" />
+              Try the Simulator
           </Button>
+          </Link>
         </div>
       </section>
 

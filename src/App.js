@@ -7,6 +7,9 @@ import Home from './pages/home';
 import Simulator from './pages/simulator';
 import Learn from './pages/learn';
 import About from './pages/about';
+import Mod1 from './pages/rug-pulls';
+import Mod2 from './pages/AMMs';
+import Mod3 from './pages/pull-mechs';
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <Route path="/simulator" element={<Simulator />} />
           <Route path="/learn" element={<Learn />} />
           <Route path="/about" element={<About />} />
+          <Route path="/rug-pulls" element={<Mod1 />} />
+          <Route path="/AMMs" element={<Mod2 />} />
+          <Route path="/pull-mechs" element={<Mod3 />} />
         </Routes>
       </Layout>
     </Router>
