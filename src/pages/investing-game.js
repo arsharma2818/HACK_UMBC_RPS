@@ -551,8 +551,6 @@ export default function InvestingGame() {
                 {/* Hero Section - Apple 2025 Vision Pro Inspired */}
                 {!gameStarted ? (
                     <div className="relative min-h-screen overflow-hidden">
-                        {/* Dynamic Background with Multiple Layers */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900"></div>
 
                         {/* Animated Background Orbs */}
                         <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-blue-400/20 via-purple-400/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
@@ -636,7 +634,6 @@ export default function InvestingGame() {
                             {/* Premium CTA with Advanced Effects */}
                             <div className="space-y-8 text-center">
                                 <div className="relative group">
-                                    <div className="absolute inset-0 rounded-3xl blur-lg opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                                     <Button
                                         onClick={startGame}
                                         size="lg"
@@ -677,7 +674,7 @@ export default function InvestingGame() {
                         onClick={nextRound}
                         disabled={currentRound >= TOTAL_ROUNDS || isGeneratingEvent}
                         size="lg"
-                                className={`bg-blue-600 hover:bg-blue-700 ${tutorialActive && tutorialStep === 2 ? 'ring-4 ring-cyan-400/70' : ''}`}
+                                className={`relative bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30 px-8 py-3 rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-cyan-500/20 disabled:opacity-60 disabled:cursor-not-allowed ${tutorialActive && tutorialStep === 2 ? 'ring-4 ring-cyan-400/70' : ''}`}
                     >
                         {isGeneratingEvent ? (
                             <>
@@ -686,7 +683,7 @@ export default function InvestingGame() {
                             </>
                         ) : currentRound >= TOTAL_ROUNDS ? 'Game Over' : `Next Round (${currentRound + 1}/${TOTAL_ROUNDS})`}
                     </Button>
-                    <Button onClick={resetGame} variant="outline" size="lg">
+                    <Button onClick={resetGame} size="lg" className="relative bg-white/10 backdrop-blur-md text-white border border-white/30 hover:bg-white/20 px-8 py-3 rounded-2xl transition-all duration-300">
                         <RotateCcw className="w-5 h-5 mr-2" />
                         Reset
                     </Button>
