@@ -61,23 +61,23 @@ export default function MintToken({ onTokenCreated }) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <Card>
+      <Card className="bg-white/10 backdrop-blur-md border border-white/20">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-white">
             <Coins className="h-5 w-5" />
             Mint New Token
           </CardTitle>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-white/70">
             Create a new token for your simulation. This is completely safe - no real cryptocurrency is involved.
           </p>
         </CardHeader>
         <CardContent>
           {success && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
-              <CheckCircle className="h-5 w-5 text-green-600" />
+            <div className="mb-6 p-4 bg-green-500/20 border border-green-400/30 rounded-lg flex items-center gap-3 backdrop-blur-sm">
+              <CheckCircle className="h-5 w-5 text-green-400" />
               <div>
-                <p className="font-medium text-green-800">Token Created Successfully!</p>
-                <p className="text-sm text-green-700">Your token has been minted and is ready for trading.</p>
+                <p className="font-medium text-green-200">Token Created Successfully!</p>
+                <p className="text-sm text-green-300">Your token has been minted and is ready for trading.</p>
               </div>
             </div>
           )}
@@ -85,7 +85,7 @@ export default function MintToken({ onTokenCreated }) {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
+                <label htmlFor="name" className="text-sm font-medium text-white">
                   Token Name *
                 </label>
                 <input
@@ -96,12 +96,12 @@ export default function MintToken({ onTokenCreated }) {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="e.g., SafeCoin"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-white/50 backdrop-blur-sm"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="symbol" className="text-sm font-medium">
+                <label htmlFor="symbol" className="text-sm font-medium text-white">
                   Token Symbol *
                 </label>
                 <input
@@ -112,7 +112,7 @@ export default function MintToken({ onTokenCreated }) {
                   value={formData.symbol}
                   onChange={handleInputChange}
                   placeholder="e.g., SAFE"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent uppercase"
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-white/50 backdrop-blur-sm uppercase"
                   maxLength="10"
                 />
               </div>
@@ -120,7 +120,7 @@ export default function MintToken({ onTokenCreated }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label htmlFor="totalSupply" className="text-sm font-medium">
+                <label htmlFor="totalSupply" className="text-sm font-medium text-white">
                   Total Supply *
                 </label>
                 <input
@@ -131,15 +131,15 @@ export default function MintToken({ onTokenCreated }) {
                   min="1"
                   value={formData.totalSupply}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-white/50 backdrop-blur-sm"
                 />
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-white/60">
                   Total number of tokens to mint
                 </p>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="decimals" className="text-sm font-medium">
+                <label htmlFor="decimals" className="text-sm font-medium text-white">
                   Decimals *
                 </label>
                 <input
@@ -151,16 +151,16 @@ export default function MintToken({ onTokenCreated }) {
                   max="18"
                   value={formData.decimals}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-white/50 backdrop-blur-sm"
                 />
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-white/60">
                   Number of decimal places (0-18)
                 </p>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="description" className="text-sm font-medium">
+                <label htmlFor="description" className="text-sm font-medium text-white">
                 Description
               </label>
               <textarea
@@ -170,17 +170,17 @@ export default function MintToken({ onTokenCreated }) {
                 onChange={handleInputChange}
                 placeholder="Describe your token..."
                 rows={3}
-                className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent resize-none"
+                className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-white/50 backdrop-blur-sm resize-none"
               />
             </div>
 
             {/* Educational Info */}
-            <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
+            <div className="p-4 bg-amber-500/20 border border-amber-400/30 rounded-lg backdrop-blur-sm">
               <div className="flex items-start gap-3">
-                <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5" />
+                <AlertTriangle className="h-5 w-5 text-amber-300 mt-0.5" />
                 <div>
-                  <p className="font-medium text-amber-800">Educational Simulation</p>
-                  <p className="text-sm text-amber-700 mt-1">
+                  <p className="font-medium text-amber-200">Educational Simulation</p>
+                  <p className="text-sm text-amber-200/90 mt-1">
                     This token minting is purely educational. No real cryptocurrency is created, 
                     and no blockchain transactions occur. This is a safe environment to learn 
                     about token creation and DeFi mechanics.
@@ -191,7 +191,7 @@ export default function MintToken({ onTokenCreated }) {
 
             <Button 
               type="submit" 
-              className="w-full" 
+              className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md" 
               disabled={isLoading || !formData.name || !formData.symbol}
             >
               {isLoading ? (
@@ -210,24 +210,24 @@ export default function MintToken({ onTokenCreated }) {
 
           {/* Token Preview */}
           {formData.name && formData.symbol && (
-            <div className="mt-6 p-4 bg-slate-50 rounded-lg">
-              <h4 className="font-medium mb-3">Token Preview</h4>
+            <div className="mt-6 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+              <h4 className="font-medium mb-3 text-white">Token Preview</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Name:</span>
-                  <span className="font-medium">{formData.name}</span>
+                  <span className="text-white/60">Name:</span>
+                  <span className="font-medium text-white">{formData.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Symbol:</span>
-                  <Badge variant="outline">{formData.symbol.toUpperCase()}</Badge>
+                  <span className="text-white/60">Symbol:</span>
+                  <Badge className="bg-cyan-500/20 text-cyan-200 border-cyan-400/30">{formData.symbol.toUpperCase()}</Badge>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Supply:</span>
-                  <span className="font-medium">{formData.totalSupply.toLocaleString()}</span>
+                  <span className="text-white/60">Supply:</span>
+                  <span className="font-medium text-white">{formData.totalSupply.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Decimals:</span>
-                  <span className="font-medium">{formData.decimals}</span>
+                  <span className="text-white/60">Decimals:</span>
+                  <span className="font-medium text-white">{formData.decimals}</span>
                 </div>
               </div>
             </div>

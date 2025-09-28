@@ -84,8 +84,8 @@ export default function Analytics({ transactions, pools, tokens }) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Analytics Dashboard</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-2xl font-bold text-white">Analytics Dashboard</h2>
+          <p className="text-white/70">
             Insights and metrics from your simulation activity
           </p>
         </div>
@@ -94,7 +94,11 @@ export default function Analytics({ transactions, pools, tokens }) {
           {timeframes.map((timeframe) => (
             <Button
               key={timeframe.value}
-              variant={selectedTimeframe === timeframe.value ? "default" : "outline"}
+              className={`${
+                selectedTimeframe === timeframe.value
+                  ? 'bg-white/25 text-white border-white/40 backdrop-blur-sm'
+                  : 'bg-white/10 text-white/80 border-white/20 hover:bg-white/20 hover:border-white/30'
+              } backdrop-blur-sm`}
               size="sm"
               onClick={() => setSelectedTimeframe(timeframe.value)}
             >
@@ -106,53 +110,53 @@ export default function Analytics({ transactions, pools, tokens }) {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Transactions</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-white">Total Transactions</CardTitle>
+            <Activity className="h-4 w-4 text-white/60" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{analyticsData.totalTransactions}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-white">{analyticsData.totalTransactions}</div>
+            <p className="text-xs text-white/60">
               {selectedTimeframe !== 'all' && `Last ${timeframes.find(t => t.value === selectedTimeframe)?.label}`}
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Volume</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-white">Total Volume</CardTitle>
+            <DollarSign className="h-4 w-4 text-white/60" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(analyticsData.totalVolume)}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-white">{formatCurrency(analyticsData.totalVolume)}</div>
+            <p className="text-xs text-white/60">
               Across all transactions
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Rug Pulls</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-white">Rug Pulls</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-white/60" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">{analyticsData.rugPulls}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-red-300">{analyticsData.rugPulls}</div>
+            <p className="text-xs text-white/60">
               {formatCurrency(analyticsData.totalRuggedValue)} stolen
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Slippage</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-white">Avg Slippage</CardTitle>
+            <TrendingUp className="h-4 w-4 text-white/60" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{analyticsData.averageSlippage.toFixed(2)}%</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-white">{analyticsData.averageSlippage.toFixed(2)}%</div>
+            <p className="text-xs text-white/60">
               On swap transactions
             </p>
           </CardContent>
@@ -161,9 +165,9 @@ export default function Analytics({ transactions, pools, tokens }) {
 
       {/* Transaction Types */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
           <CardHeader>
-            <CardTitle>Transaction Types</CardTitle>
+            <CardTitle className="text-white">Transaction Types</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -171,18 +175,18 @@ export default function Analytics({ transactions, pools, tokens }) {
                 <div key={type} className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className={`w-3 h-3 rounded-full ${
-                      type === 'rug_pull' ? 'bg-red-500' :
-                      type === 'swap' ? 'bg-blue-500' :
-                      type === 'create_pool' ? 'bg-green-500' :
-                      type === 'mint_token' ? 'bg-purple-500' : 'bg-slate-500'
+                      type === 'rug_pull' ? 'bg-red-400' :
+                      type === 'swap' ? 'bg-blue-400' :
+                      type === 'create_pool' ? 'bg-green-400' :
+                      type === 'mint_token' ? 'bg-purple-400' : 'bg-slate-400'
                     }`} />
-                    <span className="capitalize font-medium">
+                    <span className="capitalize font-medium text-white">
                       {type.replace('_', ' ')}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="font-bold">{count}</span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="font-bold text-white">{count}</span>
+                    <span className="text-sm text-white/60">
                       ({((count / analyticsData.totalTransactions) * 100).toFixed(1)}%)
                     </span>
                   </div>
@@ -192,28 +196,28 @@ export default function Analytics({ transactions, pools, tokens }) {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
           <CardHeader>
-            <CardTitle>Token Performance</CardTitle>
+            <CardTitle className="text-white">Token Performance</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {analyticsData.tokenPerformance.slice(0, 5).map((token) => (
-                <div key={token.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div key={token.id} className="flex items-center justify-between p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
                   <div className="flex items-center space-x-3">
-                    <div className={`w-3 h-3 rounded-full ${token.isRugged ? 'bg-red-500' : 'bg-green-500'}`} />
+                    <div className={`w-3 h-3 rounded-full ${token.isRugged ? 'bg-red-400' : 'bg-green-400'}`} />
                     <div>
-                      <p className="font-medium">{token.symbol}</p>
-                      <p className="text-sm text-muted-foreground">{token.transactionCount} transactions</p>
+                      <p className="font-medium text-white">{token.symbol}</p>
+                      <p className="text-sm text-white/60">{token.transactionCount} transactions</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold">{formatCurrency(token.totalVolume)}</p>
+                    <p className="font-bold text-white">{formatCurrency(token.totalVolume)}</p>
                     <div className="flex items-center space-x-2">
-                      <Badge variant={token.isRugged ? "destructive" : "outline"}>
+                      <Badge className={token.isRugged ? "bg-red-500/20 text-red-200 border-red-400/30" : "bg-cyan-500/20 text-cyan-200 border-cyan-400/30"}>
                         {token.isRugged ? 'Rugged' : 'Active'}
                       </Badge>
-                      <span className="text-sm text-muted-foreground">
+                      <span className="text-sm text-white/60">
                         {token.poolCount} pool{token.poolCount !== 1 ? 's' : ''}
                       </span>
                     </div>
@@ -226,33 +230,33 @@ export default function Analytics({ transactions, pools, tokens }) {
       </div>
 
       {/* Recent Activity */}
-      <Card>
+      <Card className="bg-white/10 backdrop-blur-md border border-white/20">
         <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
+          <CardTitle className="text-white">Recent Activity</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             {transactions.slice(0, 10).map((tx) => (
-              <div key={tx.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+              <div key={tx.id} className="flex items-center justify-between p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
                 <div className="flex items-center space-x-3">
                   <div className={`w-2 h-2 rounded-full ${
-                    tx.type === 'rug_pull' ? 'bg-red-500' :
-                    tx.type === 'swap' ? 'bg-blue-500' :
-                    tx.type === 'create_pool' ? 'bg-green-500' :
-                    tx.type === 'mint_token' ? 'bg-purple-500' : 'bg-slate-500'
+                    tx.type === 'rug_pull' ? 'bg-red-400' :
+                    tx.type === 'swap' ? 'bg-blue-400' :
+                    tx.type === 'create_pool' ? 'bg-green-400' :
+                    tx.type === 'mint_token' ? 'bg-purple-400' : 'bg-slate-400'
                   }`} />
                   <div>
-                    <p className="font-medium capitalize">{tx.type.replace('_', ' ')}</p>
-                    <p className="text-sm text-muted-foreground">{tx.tokenSymbol}</p>
+                    <p className="font-medium capitalize text-white">{tx.type.replace('_', ' ')}</p>
+                    <p className="text-sm text-white/60">{tx.tokenSymbol}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-medium">
+                  <p className="font-medium text-white">
                     {tx.type === 'rug_pull' ? formatCurrency(tx.amountIn) : 
                      tx.type === 'swap' ? `${formatNumber(tx.amountIn)} → ${formatNumber(tx.amountOut)}` :
                      formatNumber(tx.amountIn)}
                   </p>
-                  <p className="text-sm text-muted-foreground">{formatDate(tx.timestamp)}</p>
+                  <p className="text-sm text-white/60">{formatDate(tx.timestamp)}</p>
                 </div>
               </div>
             ))}
@@ -261,14 +265,14 @@ export default function Analytics({ transactions, pools, tokens }) {
       </Card>
 
       {/* Educational Insights */}
-      <Card className="border-blue-200 bg-blue-50">
+      <Card className="bg-blue-500/20 border-blue-400/30 backdrop-blur-md">
         <CardHeader>
-          <CardTitle className="text-blue-800">Educational Insights</CardTitle>
+          <CardTitle className="text-blue-200">Educational Insights</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4 text-blue-700">
+          <div className="space-y-4 text-blue-200">
             <div>
-              <h4 className="font-medium mb-2">What These Metrics Tell Us:</h4>
+              <h4 className="font-medium mb-2 text-blue-100">What These Metrics Tell Us:</h4>
               <ul className="space-y-1 text-sm">
                 <li>• <strong>High slippage</strong> indicates low liquidity or large trade sizes</li>
                 <li>• <strong>Rug pulls</strong> can happen at any time, causing 95%+ losses</li>
@@ -277,7 +281,7 @@ export default function Analytics({ transactions, pools, tokens }) {
               </ul>
             </div>
             <div>
-              <h4 className="font-medium mb-2">Real-World Implications:</h4>
+              <h4 className="font-medium mb-2 text-blue-100">Real-World Implications:</h4>
               <ul className="space-y-1 text-sm">
                 <li>• Always check liquidity depth before large trades</li>
                 <li>• Diversify across multiple projects to reduce risk</li>

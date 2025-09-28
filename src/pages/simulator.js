@@ -38,22 +38,22 @@ export default function Simulator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       {/* Context Bar */}
-      <div className="bg-white/80 backdrop-blur-xl border-b border-slate-200/60 sticky top-16 z-40">
+      <div className="bg-black/20 backdrop-blur-2xl border-b border-white/10 sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
+              <Badge className="bg-amber-500/20 text-amber-200 border-amber-400/30 backdrop-blur-sm">
                 <AlertTriangle className="w-3 h-3 mr-1" />
                 Educational Sandbox
               </Badge>
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-white/70">
                 {tokens.length} tokens • {pools.length} pools • {transactions.length} transactions
               </div>
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            <div className="flex items-center gap-2 text-xs text-white/60">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               Simulation Active • No Real Funds
             </div>
           </div>
@@ -63,54 +63,54 @@ export default function Simulator() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">
+          <h1 className="text-3xl font-bold text-white mb-2">
             Rug Pull Simulator
           </h1>
-          <p className="text-slate-600">
+          <p className="text-white/70">
             Learn how cryptocurrency scams work in a safe, controlled environment
           </p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 h-auto p-1 bg-slate-100/60 backdrop-blur-sm">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 h-auto p-1 bg-white/10 backdrop-blur-md border border-white/20">
             <TabsTrigger 
               value="dashboard" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
             >
               <BarChart3 className="w-4 h-4" />
               <span className="hidden sm:inline">Dashboard</span>
             </TabsTrigger>
             <TabsTrigger 
               value="mint" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
             >
               <Coins className="w-4 h-4" />
               <span className="hidden sm:inline">Mint</span>
             </TabsTrigger>
             <TabsTrigger 
               value="pool" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
             >
               <Droplets className="w-4 h-4" />
               <span className="hidden sm:inline">Pool</span>
             </TabsTrigger>
             <TabsTrigger 
               value="swap" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
             >
               <Zap className="w-4 h-4" />
               <span className="hidden sm:inline">Swap</span>
             </TabsTrigger>
             <TabsTrigger 
               value="rug" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
             >
               <TrendingDown className="w-4 h-4" />
               <span className="hidden sm:inline">Rug</span>
             </TabsTrigger>
             <TabsTrigger 
               value="analytics" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
             >
               <BookOpen className="w-4 h-4" />
               <span className="hidden sm:inline">Analytics</span>

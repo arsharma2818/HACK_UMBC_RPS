@@ -163,10 +163,10 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       {/* Pool Selection */}
-      <Card>
+      <Card className="bg-white/10 backdrop-blur-md border border-white/20">
         <CardHeader>
-          <CardTitle>Select Trading Pool</CardTitle>
-          <p className="text-sm text-muted-foreground">
+          <CardTitle className="text-white">Select Trading Pool</CardTitle>
+          <p className="text-sm text-white/70">
             Choose a liquidity pool to trade against
           </p>
         </CardHeader>
@@ -177,24 +177,24 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
                 <button
                   key={pool.id}
                   onClick={() => handlePoolSelect(pool.id)}
-                  className={`w-full p-4 border rounded-lg text-left transition-colors ${
+                  className={`w-full p-4 border rounded-lg text-left transition-all backdrop-blur-sm ${
                     selectedPool?.id === pool.id
-                      ? 'border-sky-500 bg-sky-50'
-                      : 'border-slate-300 hover:border-slate-400 hover:bg-slate-50'
+                      ? 'bg-white/20 border-white/40 text-white shadow-lg'
+                      : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10 hover:border-white/30'
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">{pool.name}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="font-medium text-white">{pool.name}</p>
+                      <p className="text-sm text-white/60">
                         {formatNumber(pool.tokenReserve)} {pool.tokenSymbol} • {formatNumber(pool.solReserve)} SOL
                       </p>
                     </div>
                     <div className="text-right">
-                      <Badge variant={pool.isRugged ? "destructive" : "outline"}>
+                      <Badge className={pool.isRugged ? "bg-red-500/20 text-red-200 border-red-400/30" : "bg-cyan-500/20 text-cyan-200 border-cyan-400/30"}>
                         {pool.isRugged ? 'Rugged' : 'Active'}
                       </Badge>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-sm text-white/60 mt-1">
                         {formatCurrency(pool.getTokenPrice())} SOL/{pool.tokenSymbol}
                       </p>
                     </div>
@@ -203,8 +203,8 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              <AlertTriangle className="h-8 w-8 mx-auto mb-2" />
+            <div className="text-center py-8 text-white/60">
+              <AlertTriangle className="h-8 w-8 mx-auto mb-2 opacity-70" />
               <p>No liquidity pools available</p>
               <p className="text-sm">Create a pool first to enable trading</p>
             </div>
@@ -214,35 +214,35 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
 
       {/* Swap Interface */}
       {selectedPool && (
-        <Card>
+        <Card className="bg-white/10 backdrop-blur-md border border-white/20">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-white">
               <Zap className="h-5 w-5" />
               Token Swap
             </CardTitle>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-white/70">
               Trade {swapData.tokenIn} for {swapData.tokenOut} in the {selectedPool.name}
             </p>
           </CardHeader>
           <CardContent>
             {success && swapResult && (
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div className="mb-6 p-4 bg-green-500/20 border border-green-400/30 rounded-lg backdrop-blur-sm">
                 <div className="flex items-center gap-3 mb-3">
-                  <TrendingUp className="h-5 w-5 text-green-600" />
+                  <TrendingUp className="h-5 w-5 text-green-400" />
                   <div>
-                    <p className="font-medium text-green-800">Swap Successful!</p>
+                    <p className="font-medium text-green-200">Swap Successful!</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-green-700">You received:</span>
-                    <span className="font-medium text-green-800">
+                    <span className="text-green-300">You received:</span>
+                    <span className="font-medium text-green-200">
                       {formatNumber(swapResult.amountOut)} {swapResult.tokenOut}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-green-700">Slippage:</span>
-                    <span className="font-medium text-green-800">
+                    <span className="text-green-300">Slippage:</span>
+                    <span className="font-medium text-green-200">
                       {swapResult.slippage.toFixed(2)}%
                     </span>
                   </div>
@@ -253,7 +253,7 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
             <div className="space-y-4">
               {/* Input Amount */}
               <div className="space-y-2">
-                <label className="text-sm font-medium">
+                <label className="text-sm font-medium text-white">
                   Amount to {swapData.tokenIn === 'SOL' ? 'Sell' : 'Spend'}
                 </label>
                 <div className="relative">
@@ -265,10 +265,10 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
                     placeholder="0.0"
                     min="0"
                     step="0.001"
-                    className="w-full px-3 py-3 pr-20 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-lg"
+                    className="w-full px-3 py-3 pr-20 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-white/50 text-lg backdrop-blur-sm"
                   />
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <Badge variant="outline">{swapData.tokenIn}</Badge>
+                    <Badge className="bg-cyan-500/20 text-cyan-200 border-cyan-400/30">{swapData.tokenIn}</Badge>
                   </div>
                 </div>
               </div>
@@ -280,7 +280,7 @@ export default function SwapInterface({ pools, tokens, onSwapComplete }) {
                   variant="outline"
                   size="icon"
                   onClick={handleReverseSwap}
-                  className="rounded-full"
+                  className="rounded-full bg-white/10 border-white/20 text-white hover:bg-white/20"
                 >
                   <ArrowUpDown className="h-4 w-4" />
                 </Button>
