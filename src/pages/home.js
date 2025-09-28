@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-16 pb-24 lg:pt-24 lg:pb-32 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] pt-16 pb-24 lg:pt-24 lg:pb-32 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
         {/* Glassy background effects */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
@@ -123,7 +123,7 @@ export default function Home() {
         </div>
         
          {/* Scroll indicator */}
-         <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce select-none pointer-events-none">
            <div className="flex flex-col items-center gap-2 text-white/60">
              <span className="text-sm font-medium text-center">Scroll to explore</span>
              <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-center justify-center backdrop-blur-sm bg-white/5">
