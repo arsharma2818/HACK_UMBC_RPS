@@ -75,50 +75,50 @@ export default function Simulator() {
           <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 h-auto p-1 bg-white/10 backdrop-blur-md border border-white/20">
             <TabsTrigger 
               value="dashboard" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="tab-trigger-hover flex items-center gap-2 py-3 px-4 rounded-lg data-[state=active]:!bg-white data-[state=active]:!text-black data-[state=active]:!border-2 data-[state=active]:!border-cyan-400 data-[state=active]:!shadow-2xl data-[state=active]:!shadow-cyan-400/50 data-[state=active]:!font-bold data-[state=active]:!ring-2 data-[state=active]:!ring-cyan-300/50 text-white/60 hover:text-white hover:bg-white/15 transition-all duration-500 ease-in-out"
             >
-              <BarChart3 className="w-4 h-4" />
-              <span className="hidden sm:inline">Dashboard</span>
+              <BarChart3 className="w-4 h-4 transition-transform duration-300 data-[state=active]:scale-125 data-[state=active]:!text-black" />
+              <span className="hidden sm:inline font-medium">Dashboard</span>
             </TabsTrigger>
             <TabsTrigger 
               value="mint" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="tab-trigger-hover flex items-center gap-2 py-3 px-4 rounded-lg data-[state=active]:!bg-white data-[state=active]:!text-black data-[state=active]:!border-2 data-[state=active]:!border-cyan-400 data-[state=active]:!shadow-2xl data-[state=active]:!shadow-cyan-400/50 data-[state=active]:!font-bold data-[state=active]:!ring-2 data-[state=active]:!ring-cyan-300/50 text-white/60 hover:text-white hover:bg-white/15 transition-all duration-500 ease-in-out"
             >
-              <Coins className="w-4 h-4" />
-              <span className="hidden sm:inline">Mint</span>
+              <Coins className="w-4 h-4 transition-transform duration-300 data-[state=active]:scale-125 data-[state=active]:!text-black" />
+              <span className="hidden sm:inline font-medium">Mint</span>
             </TabsTrigger>
             <TabsTrigger 
               value="pool" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="tab-trigger-hover flex items-center gap-2 py-3 px-4 rounded-lg data-[state=active]:!bg-white data-[state=active]:!text-black data-[state=active]:!border-2 data-[state=active]:!border-cyan-400 data-[state=active]:!shadow-2xl data-[state=active]:!shadow-cyan-400/50 data-[state=active]:!font-bold data-[state=active]:!ring-2 data-[state=active]:!ring-cyan-300/50 text-white/60 hover:text-white hover:bg-white/15 transition-all duration-500 ease-in-out"
             >
-              <Droplets className="w-4 h-4" />
-              <span className="hidden sm:inline">Pool</span>
+              <Droplets className="w-4 h-4 transition-transform duration-300 data-[state=active]:scale-125 data-[state=active]:!text-black" />
+              <span className="hidden sm:inline font-medium">Pool</span>
             </TabsTrigger>
             <TabsTrigger 
               value="swap" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="tab-trigger-hover flex items-center gap-2 py-3 px-4 rounded-lg data-[state=active]:!bg-white data-[state=active]:!text-black data-[state=active]:!border-2 data-[state=active]:!border-cyan-400 data-[state=active]:!shadow-2xl data-[state=active]:!shadow-cyan-400/50 data-[state=active]:!font-bold data-[state=active]:!ring-2 data-[state=active]:!ring-cyan-300/50 text-white/60 hover:text-white hover:bg-white/15 transition-all duration-500 ease-in-out"
             >
-              <Zap className="w-4 h-4" />
-              <span className="hidden sm:inline">Swap</span>
+              <Zap className="w-4 h-4 transition-transform duration-300 data-[state=active]:scale-125 data-[state=active]:!text-black" />
+              <span className="hidden sm:inline font-medium">Swap</span>
             </TabsTrigger>
             <TabsTrigger 
               value="rug" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="tab-trigger-hover flex items-center gap-2 py-3 px-4 rounded-lg data-[state=active]:!bg-white data-[state=active]:!text-black data-[state=active]:!border-2 data-[state=active]:!border-cyan-400 data-[state=active]:!shadow-2xl data-[state=active]:!shadow-cyan-400/50 data-[state=active]:!font-bold data-[state=active]:!ring-2 data-[state=active]:!ring-cyan-300/50 text-white/60 hover:text-white hover:bg-white/15 transition-all duration-500 ease-in-out"
             >
-              <TrendingDown className="w-4 h-4" />
-              <span className="hidden sm:inline">Rug</span>
+              <TrendingDown className="w-4 h-4 transition-transform duration-300 data-[state=active]:scale-125 data-[state=active]:!text-black" />
+              <span className="hidden sm:inline font-medium">Rug</span>
             </TabsTrigger>
             <TabsTrigger 
               value="analytics" 
-              className="flex items-center gap-2 py-3 data-[state=active]:bg-white/25 data-[state=active]:text-white data-[state=active]:backdrop-blur-sm data-[state=active]:border data-[state=active]:border-white/40 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="tab-trigger-hover flex items-center gap-2 py-3 px-4 rounded-lg data-[state=active]:!bg-white data-[state=active]:!text-black data-[state=active]:!border-2 data-[state=active]:!border-cyan-400 data-[state=active]:!shadow-2xl data-[state=active]:!shadow-cyan-400/50 data-[state=active]:!font-bold data-[state=active]:!ring-2 data-[state=active]:!ring-cyan-300/50 text-white/60 hover:text-white hover:bg-white/15 transition-all duration-500 ease-in-out"
             >
-              <BookOpen className="w-4 h-4" />
-              <span className="hidden sm:inline">Analytics</span>
+              <BookOpen className="w-4 h-4 transition-transform duration-300 data-[state=active]:scale-125 data-[state=active]:!text-black" />
+              <span className="hidden sm:inline font-medium">Analytics</span>
             </TabsTrigger>
           </TabsList>
 
           <div className="mt-6">
-            <TabsContent value="dashboard" className="space-y-6">
+            <TabsContent value="dashboard" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <Dashboard 
                 tokens={tokens} 
                 pools={pools} 
@@ -127,23 +127,23 @@ export default function Simulator() {
               />
             </TabsContent>
             
-            <TabsContent value="mint" className="space-y-6">
+            <TabsContent value="mint" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <MintToken onTokenCreated={refreshData} />
             </TabsContent>
             
-            <TabsContent value="pool" className="space-y-6">
+            <TabsContent value="pool" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <CreatePool tokens={tokens} onPoolCreated={refreshData} />
             </TabsContent>
             
-            <TabsContent value="swap" className="space-y-6">
+            <TabsContent value="swap" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <SwapInterface pools={pools} tokens={tokens} onSwapComplete={refreshData} />
             </TabsContent>
             
-            <TabsContent value="rug" className="space-y-6">
+            <TabsContent value="rug" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <RugPull pools={pools} tokens={tokens} onRugComplete={refreshData} />
             </TabsContent>
             
-            <TabsContent value="analytics" className="space-y-6">
+            <TabsContent value="analytics" className="space-y-6 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <Analytics transactions={transactions} pools={pools} tokens={tokens} />
             </TabsContent>
           </div>

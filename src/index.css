@@ -91,3 +91,55 @@ code {
 .perspective-1000 {
   perspective: 1000px;
 }
+
+/* Smooth tab transitions */
+@keyframes tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tab-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.tab-content-enter {
+  animation: tab-fade-in 0.5s ease-out;
+}
+
+.tab-content-slide {
+  animation: tab-slide-in 0.4s ease-out;
+}
+
+/* Enhanced tab trigger hover effects */
+.tab-trigger-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-trigger-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.tab-trigger-hover:hover::before {
+  left: 100%;
+}

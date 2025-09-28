@@ -95,54 +95,24 @@ export default function Learn() {
 
 
 
-  const getDifficultyColor = (difficulty) => {
-    switch (difficulty) {
-      case 'Beginner': return 'bg-green-100 text-green-800';
-      case 'Intermediate': return 'bg-blue-100 text-blue-800';
-      case 'Advanced': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getIconColor = (color) => {
-    const colors = {
-      red: 'text-red-600',
-      blue: 'text-blue-600',
-      purple: 'text-purple-600',
-      amber: 'text-amber-600',
-      green: 'text-green-600',
-      indigo: 'text-indigo-600'
-    };
-    return colors[color] || 'text-gray-600';
-  };
-
-  const getBgColor = (color) => {
-    const colors = {
-      red: 'bg-red-100',
-      blue: 'bg-blue-100', 
-      purple: 'bg-purple-100',
-      amber: 'bg-amber-100',
-      green: 'bg-green-100',
-      indigo: 'bg-indigo-100'
-    };
-    return colors[color] || 'bg-gray-100';
-  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       {/* Hero Section */}
-      <section className="pt-16 pb-12 bg-gradient-to-r from-slate-50 via-white to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-16 pb-12 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900"></div>
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white border border-white/20 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <BookOpen className="w-4 h-4" />
               Educational Resources
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               Learn About
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"> Crypto Security</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"> Crypto Security</span>
             </h1>
-            <p className="text-xl text-slate-600 mb-8 leading-relaxed">
+            <p className="text-xl text-white/80 mb-8 leading-relaxed">
               Comprehensive guides to help you understand DeFi mechanics, spot potential scams, 
               and protect your investments in the cryptocurrency space.
             </p>
@@ -151,17 +121,17 @@ export default function Learn() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-white border-b border-slate-200">
+      <section className="py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             {stats.map((stat, index) => (
-              <div key={index} className="flex items-center justify-center gap-4">
-                <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
-                  <stat.icon className="w-6 h-6 text-slate-600" />
+              <div key={index} className="flex items-center justify-center gap-4 p-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <stat.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-left">
-                  <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
-                  <p className="text-slate-600 text-sm">{stat.label}</p>
+                  <div className="text-2xl font-bold text-white">{stat.value}</div>
+                  <p className="text-white/70 text-sm">{stat.label}</p>
                 </div>
               </div>
             ))}
@@ -173,46 +143,45 @@ export default function Learn() {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               Learning Topics
             </h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-white/70 max-w-2xl mx-auto">
               Start with the basics and work your way up to advanced protection strategies
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {topics.map((topic, index) => (
-              <Card key={index} className="border-0 shadow-sm hover:shadow-lg transition-all duration-300 group cursor-pointer">
+              <Card key={index} className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 group cursor-pointer">
                 <CardHeader className="pb-4">
                   <div className="flex items-start justify-between">
-                    <div className={`w-12 h-12 ${getBgColor(topic.color)} rounded-xl flex items-center justify-center mb-4`}>
-                      <topic.icon className={`w-6 h-6 ${getIconColor(topic.color)}`} />
+                    <div className={`w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4`}>
+                      <topic.icon className={`w-6 h-6 text-white`} />
                     </div>
                     <div className="flex gap-2">
-                      <Badge className={getDifficultyColor(topic.difficulty)}>
+                      <Badge className="bg-cyan-500/20 text-cyan-200 border-cyan-400/30">
                         {topic.difficulty}
                       </Badge>
                     </div>
                   </div>
-                  <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
+                  <CardTitle className="text-lg text-white group-hover:text-cyan-300 transition-colors">
                     {topic.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-slate-600 mb-4 leading-relaxed">
+                  <p className="text-white/70 mb-4 leading-relaxed">
                     {topic.description}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-500 flex items-center gap-1">
+                    <span className="text-sm text-white/60 flex items-center gap-1">
                       <BookOpen className="w-3 h-3" />
                       {topic.readTime}
                     </span>
                     <Link to={topic.link}>
                       <Button 
                         size="sm" 
-                        variant="outline" 
-                        className="group-hover:bg-blue-50 group-hover:border-blue-200 group-hover:text-blue-700"
+                        className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm"
                       >
                         Read More
                       </Button>
@@ -227,15 +196,16 @@ export default function Learn() {
       </section>
 
       {/* Interactive Learning CTA */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+      <section className="py-16 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-sm"></div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="w-16 h-16 bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <Zap className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-3xl font-bold text-white mb-6">
             Ready for Hands-On Learning?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
             Put your knowledge to the test with our interactive rug pull simulator. 
             Experience how scams work without risking real money.
           </p>
@@ -243,8 +213,7 @@ export default function Learn() {
           <Link to={createPageUrl("Simulator")}>
             <Button 
               size="lg" 
-              variant="outline" 
-              className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3"
+              className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-md px-8 py-3"
             >
               <Zap className="w-5 h-5 mr-2" />
               Try the Simulator
@@ -254,9 +223,9 @@ export default function Learn() {
       </section>
 
       {/* FAQ Preview */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center">
             Common Questions
           </h2>
           
@@ -275,10 +244,10 @@ export default function Learn() {
                 answer: "Look for red flags like anonymous teams, lack of locked liquidity, concentrated token ownership, and unrealistic promises of returns."
               }
             ].map((faq, index) => (
-              <Card key={index} className="border-l-4 border-l-blue-500">
+              <Card key={index} className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/15 transition-all duration-300">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-slate-900 mb-2">{faq.question}</h3>
-                  <p className="text-slate-600">{faq.answer}</p>
+                  <h3 className="font-semibold text-white mb-2">{faq.question}</h3>
+                  <p className="text-white/70">{faq.answer}</p>
                 </CardContent>
               </Card>
             ))}
