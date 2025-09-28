@@ -323,7 +323,6 @@ export default function InvestingGame() {
                                     <span className="font-semibold text-white"> AI-powered market simulation</span> and
                                     <span className="font-semibold text-white"> real-time risk assessment</span>.
                                 </p>
-
                                 {/* Feature Tiles aligned in a perfect grid */}
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 max-w-5xl mx-auto">
                                     <div className="group aspect-square min-h-[140px] bg-white/10 backdrop-blur-md rounded-2xl border border-white/30 text-white shadow-lg hover:bg-white/15 hover:border-white/40 hover:shadow-xl transition-all duration-300 flex items-center justify-center">
