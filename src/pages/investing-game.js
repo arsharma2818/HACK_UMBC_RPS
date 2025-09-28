@@ -17,6 +17,7 @@ import {
     BarChart3
 } from "lucide-react";
 import { PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { unlock } from '../services/achievements';
 
 const INITIAL_BALANCE = 100;
 const TOTAL_ROUNDS = 8;
@@ -41,7 +42,7 @@ const TOKENS = {
         icon: Zap,
         description: 'Volatile meme token - influenced by social media',
         initialPrice: 2.00,
-        riskLevel: 'Medium'
+        riskLevel: 'High'
     },
     TETHER: {
         id: 'TETHER',
@@ -54,6 +55,56 @@ const TOKENS = {
         riskLevel: 'Low',
         bondBacked: true,
         expectedApy: 0.05
+    },
+    BTC: {
+        id: 'BTC',
+        name: 'Bitcoin',
+        symbol: 'BTC',
+        color: '#fbbf24',
+        icon: TrendingUp,
+        description: 'Blue-chip crypto - macro sensitive, moderate volatility',
+        initialPrice: 60000.00,
+        riskLevel: 'Medium'
+    },
+    ETH: {
+        id: 'ETH',
+        name: 'Ethereum',
+        symbol: 'ETH',
+        color: '#60a5fa',
+        icon: TrendingUp,
+        description: 'Smart contracts leader - tech/news driven swings',
+        initialPrice: 3000.00,
+        riskLevel: 'Medium'
+    },
+    SOL: {
+        id: 'SOL',
+        name: 'Solana',
+        symbol: 'SOL',
+        color: '#14b8a6',
+        icon: TrendingUp,
+        description: 'High throughput L1 - higher beta to market',
+        initialPrice: 150.00,
+        riskLevel: 'High'
+    },
+    AI: {
+        id: 'AI',
+        name: 'AICoin',
+        symbol: 'AI',
+        color: '#a78bfa',
+        icon: Zap,
+        description: 'AI narrative token - hype cycles, sharp moves',
+        initialPrice: 5.00,
+        riskLevel: 'High'
+    },
+    DEFI: {
+        id: 'DEFI',
+        name: 'DeFi Index',
+        symbol: 'DEFI',
+        color: '#10b981',
+        icon: TrendingUp,
+        description: 'Basket of DeFi tokens - cyclical risk-on behavior',
+        initialPrice: 50.00,
+        riskLevel: 'Medium'
     }
 };
 
@@ -64,17 +115,35 @@ export default function InvestingGame() {
     const [gameStarted, setGameStarted] = useState(false);
     const [currentRound, setCurrentRound] = useState(0);
     const [cashBalance, setCashBalance] = useState(INITIAL_BALANCE);
-    const [holdings, setHoldings] = useState({ SCAM: 0, MEME: 0, TETHER: 0 });
+    const [holdings, setHoldings] = useState({ SCAM: 0, MEME: 0, TETHER: 0, BTC: 0, ETH: 0, SOL: 0, AI: 0, DEFI: 0 });
     const [tokenPrices, setTokenPrices] = useState({
         SCAM: TOKENS.SCAM.initialPrice,
         MEME: TOKENS.MEME.initialPrice,
-        TETHER: TOKENS.TETHER.initialPrice
+        TETHER: TOKENS.TETHER.initialPrice,
+        BTC: TOKENS.BTC.initialPrice,
+        ETH: TOKENS.ETH.initialPrice,
+        SOL: TOKENS.SOL.initialPrice,
+        AI: TOKENS.AI.initialPrice,
+        DEFI: TOKENS.DEFI.initialPrice
     });
     const [portfolioHistory, setPortfolioHistory] = useState([]);
     const [eventFeed, setEventFeed] = useState([]);
-    const [buyAmounts, setBuyAmounts] = useState({ SCAM: '', MEME: '', TETHER: '' });
+    const [buyAmounts, setBuyAmounts] = useState({ SCAM: '', MEME: '', TETHER: '', BTC: '', ETH: '', SOL: '', AI: '', DEFI: '' });
     const [currentEvent, setCurrentEvent] = useState(null);
     const [isGeneratingEvent, setIsGeneratingEvent] = useState(false);
+
+    // Trading analytics and automation
+    const [costBasis, setCostBasis] = useState({ SCAM: 0, MEME: 0, TETHER: 0, BTC: 0, ETH: 0, SOL: 0, AI: 0, DEFI: 0 });
+    const [rules, setRules] = useState({
+        SCAM: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+        MEME: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+        TETHER: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+        BTC: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+        ETH: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+        SOL: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+        AI: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+        DEFI: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 }
+    });
 
     // Tutorial state
     const [tutorialActive, setTutorialActive] = useState(false);
@@ -106,10 +175,10 @@ export default function InvestingGame() {
         if (tutorialStep === 2 && currentRound > 1) {
             setTutorialStep(3);
         }
-        // Step 3: Sell MEME
-        if (tutorialStep === 3 && hasBoughtOnceRef.current && holdings.MEME === 0) {
-            setTutorialStep(4);
-        }
+            // Step 3: Sell MEME
+            if (tutorialStep === 3 && hasBoughtOnceRef.current && holdings.MEME === 0) {
+                setTutorialStep(4);
+            }
     }, [tutorialActive, tutorialStep, gameStarted, holdings, currentRound]);
 
     const completeTutorial = () => {
@@ -128,7 +197,7 @@ export default function InvestingGame() {
             startGame();
             return;
         }
-        setTutorialStep((s) => Math.min(4, s + 1));
+        setTutorialStep((s) => Math.min(5, s + 1));
     };
     const onTutorialBack = () => setTutorialStep((s) => Math.max(0, s - 1));
 
@@ -163,16 +232,32 @@ export default function InvestingGame() {
         setGameStarted(false);
         setCurrentRound(0);
         setCashBalance(INITIAL_BALANCE);
-        setHoldings({ SCAM: 0, MEME: 0, TETHER: 0 });
+        setHoldings({ SCAM: 0, MEME: 0, TETHER: 0, BTC: 0, ETH: 0, SOL: 0, AI: 0, DEFI: 0 });
         setTokenPrices({
             SCAM: TOKENS.SCAM.initialPrice,
             MEME: TOKENS.MEME.initialPrice,
-            TETHER: TOKENS.TETHER.initialPrice
+            TETHER: TOKENS.TETHER.initialPrice,
+            BTC: TOKENS.BTC.initialPrice,
+            ETH: TOKENS.ETH.initialPrice,
+            SOL: TOKENS.SOL.initialPrice,
+            AI: TOKENS.AI.initialPrice,
+            DEFI: TOKENS.DEFI.initialPrice
         });
         setPortfolioHistory([]);
         setEventFeed([]);
-        setBuyAmounts({ SCAM: '', MEME: '', TETHER: '' });
+        setBuyAmounts({ SCAM: '', MEME: '', TETHER: '', BTC: '', ETH: '', SOL: '', AI: '', DEFI: '' });
         setCurrentEvent(null);
+        setCostBasis({ SCAM: 0, MEME: 0, TETHER: 0, BTC: 0, ETH: 0, SOL: 0, AI: 0, DEFI: 0 });
+        setRules({
+            SCAM: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+            MEME: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+            TETHER: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+            BTC: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+            ETH: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+            SOL: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+            AI: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 },
+            DEFI: { sl: '', tp: '', dcaAmount: '', dcaRoundsRemaining: 0 }
+        });
     };
 
     // Process round with AI-generated events
@@ -208,6 +293,10 @@ export default function InvestingGame() {
                 type: eventType
             };
             setEventFeed(prev => [newEventFeedItem, ...prev]);
+            try {
+                const distinct = Object.keys(holdings).filter(k => holdings[k] * newPrices[k] > 0.01).length;
+                if (distinct >= 3) unlock('diversified_3');
+            } catch {}
 
             // Update portfolio history
             const newPortfolioValue = cashBalance +
@@ -215,6 +304,80 @@ export default function InvestingGame() {
                     total + (holdings[tokenId] * newPrices[tokenId]), 0
                 );
             setPortfolioHistory(prev => [...prev, { round: currentRound + 1, value: newPortfolioValue }]);
+            try {
+                if (newPortfolioValue >= 300) unlock('portfolio_300');
+                else if (newPortfolioValue >= 200) unlock('portfolio_200');
+                else if (newPortfolioValue >= 150) unlock('portfolio_150');
+            } catch {}
+
+            // Apply automation rules (TP/SL/DCA) after prices update
+            const pendingEvents = [];
+
+            // Auto-sell helper
+            const performAutoSell = (tokenId, reasonLabel) => {
+                if (holdings[tokenId] <= 0) return;
+                const value = holdings[tokenId] * newPrices[tokenId];
+                const soldAmount = holdings[tokenId];
+                setCashBalance(prev => prev + value);
+                setHoldings(prev => ({ ...prev, [tokenId]: 0 }));
+                setCostBasis(prev => ({ ...prev, [tokenId]: 0 }));
+                pendingEvents.push({
+                    id: Date.now() + Math.random(),
+                    round: currentRound + 1,
+                    message: `${reasonLabel}: sold ${soldAmount.toFixed(4)} ${TOKENS[tokenId].symbol} for $${value.toFixed(2)}`,
+                    timestamp: new Date().toLocaleTimeString(),
+                    type: 'trade'
+                });
+            };
+
+            // Auto-buy helper (DCA)
+            const performAutoBuy = (tokenId, usdAmount) => {
+                if (usdAmount <= 0) return;
+                if (usdAmount > cashBalance) return;
+                const tokenAmount = usdAmount / newPrices[tokenId];
+                setHoldings(prev => ({ ...prev, [tokenId]: prev[tokenId] + tokenAmount }));
+                setCashBalance(prev => prev - usdAmount);
+                setCostBasis(prev => ({ ...prev, [tokenId]: prev[tokenId] + usdAmount }));
+                pendingEvents.push({
+                    id: Date.now() + Math.random(),
+                    round: currentRound + 1,
+                    message: `🧠 DCA bought ${tokenAmount.toFixed(4)} ${TOKENS[tokenId].symbol} for $${usdAmount.toFixed(2)}`,
+                    timestamp: new Date().toLocaleTimeString(),
+                    type: 'trade'
+                });
+            };
+
+            // Evaluate rules per token
+            Object.keys(holdings).forEach(tokenId => {
+                const r = rules[tokenId] || {};
+                const position = holdings[tokenId];
+                if (position > 0) {
+                    const avgCost = position > 0 ? (costBasis[tokenId] || 0) / position : 0;
+                    if (r.tp && avgCost > 0 && newPrices[tokenId] >= avgCost * (1 + parseFloat(r.tp) / 100)) {
+                        performAutoSell(tokenId, '🎯 Take-profit hit');
+                        try { unlock('tp_hit'); } catch {}
+                        return; // skip SL if TP executed
+                    }
+                    if (r.sl && avgCost > 0 && newPrices[tokenId] <= avgCost * (1 - parseFloat(r.sl) / 100)) {
+                        performAutoSell(tokenId, '🛑 Stop-loss hit');
+                        try { unlock('sl_hit'); } catch {}
+                        return;
+                    }
+                }
+                // DCA
+                if (r.dcaAmount && parseFloat(r.dcaAmount) > 0 && r.dcaRoundsRemaining && r.dcaRoundsRemaining > 0) {
+                    const spend = Math.min(parseFloat(r.dcaAmount), cashBalance);
+                    if (spend > 0) {
+                        performAutoBuy(tokenId, spend);
+                        setRules(prev => ({ ...prev, [tokenId]: { ...prev[tokenId], dcaRoundsRemaining: prev[tokenId].dcaRoundsRemaining - 1 } }));
+                        try { unlock('dca_started'); } catch {}
+                    }
+                }
+            });
+
+            if (pendingEvents.length) {
+                setEventFeed(prev => [...pendingEvents, ...prev]);
+            }
 
             // Add trading tip occasionally
             if (Math.random() < 0.3) {
@@ -233,14 +396,9 @@ export default function InvestingGame() {
             setCurrentRound(prev => prev + 1);
         } catch (error) {
             console.error('Error generating event:', error);
-            // Fallback to basic event generation
-            const basicEvent = {
-                title: '📊 Market Update',
-                description: 'Standard market movement',
-                news: 'Markets continue trading with normal volatility',
-                effects: { SCAM: 0.95 + Math.random() * 0.1, MEME: 0.9 + Math.random() * 0.2, TETHER: 1.001 }
-            };
-            
+            // Fallback to basic event generation using service helper
+            const basicEvent = geminiMarketService.generateBasicEvent(currentRound + 1, tokenPrices);
+
             setCurrentEvent(basicEvent);
             const newPrices = { ...tokenPrices };
             Object.keys(basicEvent.effects).forEach(tokenId => {
@@ -265,16 +423,13 @@ export default function InvestingGame() {
     };
 
     // Buy token function
-    const buyToken = (tokenId) => {
-        const amount = parseFloat(buyAmounts[tokenId]);
+    const executeBuy = (tokenId, amount) => {
         if (!amount || amount <= 0 || amount > cashBalance) return;
-
         const tokenAmount = amount / tokenPrices[tokenId];
         setHoldings(prev => ({ ...prev, [tokenId]: prev[tokenId] + tokenAmount }));
         setCashBalance(prev => prev - amount);
-        setBuyAmounts(prev => ({ ...prev, [tokenId]: '' }));
-
-        // Add to event feed
+        setCostBasis(prev => ({ ...prev, [tokenId]: prev[tokenId] + amount }));
+        try { unlock('first_buy'); } catch {}
         setEventFeed(prev => [{
             id: Date.now(),
             round: currentRound,
@@ -282,6 +437,13 @@ export default function InvestingGame() {
             timestamp: new Date().toLocaleTimeString(),
             type: 'trade'
         }, ...prev]);
+    };
+
+    const buyToken = (tokenId) => {
+        const amount = parseFloat(buyAmounts[tokenId]);
+        if (!amount || amount <= 0 || amount > cashBalance) return;
+        executeBuy(tokenId, amount);
+        setBuyAmounts(prev => ({ ...prev, [tokenId]: '' }));
     };
 
     // Sell token function
@@ -292,6 +454,8 @@ export default function InvestingGame() {
         setCashBalance(prev => prev + value);
         const soldAmount = holdings[tokenId];
         setHoldings(prev => ({ ...prev, [tokenId]: 0 }));
+        setCostBasis(prev => ({ ...prev, [tokenId]: 0 }));
+        try { unlock('first_sell'); } catch {}
 
         // Add to event feed
         setEventFeed(prev => [{
@@ -327,7 +491,7 @@ export default function InvestingGame() {
                                 <div className="px-6 py-5">
                                     {tutorialStep === 0 && (
                                         <>
-                                            <h3 className="text-xl font-semibold mb-2">Welcome to Coin Risk Arena</h3>
+                                            <h3 className="text-xl font-semibold mb-2">Welcome to Coin Arena</h3>
                                             <p className="text-sm text-slate-700">This short interactive tour will help you get started. Click <span className="font-semibold">Begin Your Journey</span> or press <span className="font-semibold">Next</span> to start the simulation.</p>
                                         </>
                                     )}
@@ -351,6 +515,17 @@ export default function InvestingGame() {
                                     )}
                                     {tutorialStep === 4 && (
                                         <>
+                                            <h3 className="text-xl font-semibold mb-2">Risk Controls & Automation</h3>
+                                            <ul className="text-sm text-slate-700 list-disc pl-5 space-y-1">
+                                                <li><span className="font-semibold">Stop-Loss (SL):</span> auto-sell if price drops a set % below average cost.</li>
+                                                <li><span className="font-semibold">Take-Profit (TP):</span> auto-sell if price rises a set % above average cost.</li>
+                                                <li><span className="font-semibold">DCA:</span> auto-buy a fixed $ each round for several rounds.</li>
+                                            </ul>
+                                            <p className="text-xs text-slate-600 mt-2">Configure per token below the Buy/Sell controls. Rules execute after each round’s price update.</p>
+                                        </>
+                                    )}
+                                    {tutorialStep === 5 && (
+                                        <>
                                             <h3 className="text-xl font-semibold mb-2">News & Insights</h3>
                                             <p className="text-sm text-slate-700">This panel shows market news, tips, and alerts. You’re ready to explore the full app now.</p>
                                         </>
@@ -359,10 +534,10 @@ export default function InvestingGame() {
                                 <div className="px-6 py-4 bg-white/80 border-t border-white/60 flex items-center justify-between">
                                     <button onClick={skipTutorial} className="text-sm text-slate-600 hover:text-slate-900">Skip tutorial</button>
                                     <div className="flex items-center gap-2">
-                                        {tutorialStep > 0 && tutorialStep < 4 && (
+                                        {tutorialStep > 0 && tutorialStep < 5 && (
                                             <button onClick={onTutorialBack} className="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 hover:bg-slate-300">Back</button>
                                         )}
-                                        {tutorialStep < 4 ? (
+                                        {tutorialStep < 5 ? (
                                             <button onClick={() => { if (tutorialStep === 2) { nextRound(); } else { onTutorialNext(); } }} className="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-white hover:bg-black/90">Next</button>
                                         ) : (
                                             <button onClick={completeTutorial} className="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-white hover:bg-black/90">Finish</button>
@@ -414,7 +589,7 @@ export default function InvestingGame() {
                         {/* Main Title with Advanced Typography */}
                         <div className="text-center mb-16 max-w-6xl mx-auto px-4">
                             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-black text-white mb-6 leading-[0.85] tracking-tight break-words">
-                                Coin Risk
+                                Coin
                             </h1>
                             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-black text-white mb-8 leading-[0.85] tracking-tight break-words">
                                 Arena
@@ -602,7 +777,7 @@ export default function InvestingGame() {
                         </Card>
                     )}
 
-                    {geminiMarketService.rugPullHappened && (
+                    {geminiMarketService.rugPullHappened && (() => { try { unlock('rugpull_seen'); } catch {} return true; })() && (
                         <Card className="mb-4 border-red-200 bg-red-50">
                             <CardContent className="p-4">
                                 <div className="flex items-center gap-3">
@@ -715,10 +890,13 @@ export default function InvestingGame() {
                                                     </Badge>
                                                 </div>
 
-                                            <div className="grid grid-cols-2 gap-4 mb-3 text-sm text-white/80">
+                                                <div className="grid grid-cols-2 gap-4 mb-3 text-sm text-white/80">
                                                 <div>Price: <span className="font-mono text-white">${tokenPrices[token.id].toFixed(4)}</span></div>
                                                 <div>Owned: <span className="font-mono text-white">{holdings[token.id].toFixed(4)}</span></div>
                                                 <div>Value: <span className="font-mono text-white">${holdingValue.toFixed(2)}</span></div>
+                                                <div>
+                                                    Avg Cost: <span className="font-mono text-white">${(holdings[token.id] > 0 ? ((costBasis[token.id] || 0) / holdings[token.id]) : 0).toFixed(4)}</span>
+                                                </div>
                                                 </div>
 
                                                 <div className="flex gap-2">
@@ -732,6 +910,11 @@ export default function InvestingGame() {
                                                         max={cashBalance}
                                                         step="0.01"
                                                     />
+                                                    <div className="flex gap-1">
+                                                        <Button size="sm" variant="outline" onClick={() => setBuyAmounts(prev => ({ ...prev, [token.id]: Math.max(0, cashBalance * 0.25).toFixed(2) }))}>25%</Button>
+                                                        <Button size="sm" variant="outline" onClick={() => setBuyAmounts(prev => ({ ...prev, [token.id]: Math.max(0, cashBalance * 0.5).toFixed(2) }))}>50%</Button>
+                                                        <Button size="sm" variant="outline" onClick={() => { setBuyAmounts(prev => ({ ...prev, [token.id]: cashBalance.toFixed(2) })); try { if (cashBalance > 0) unlock('all_in'); } catch {} }}>Max</Button>
+                                                    </div>
                                                     <Button
                                                         onClick={() => buyToken(token.id)}
                                                         disabled={!buyAmounts[token.id] || parseFloat(buyAmounts[token.id]) <= 0 || parseFloat(buyAmounts[token.id]) > cashBalance}
@@ -749,6 +932,39 @@ export default function InvestingGame() {
                                                         Sell All
                                                     </Button>
                                                 </div>
+                                                <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-3 text-xs">
+                                                    <input
+                                                        type="number"
+                                                        placeholder="Stop-Loss %"
+                                                        value={rules[token.id]?.sl}
+                                                        onChange={(e) => setRules(prev => ({ ...prev, [token.id]: { ...prev[token.id], sl: e.target.value } }))}
+                                                        className="px-2 py-1 bg-white/5 border border-white/20 rounded text-white placeholder-white/50"
+                                                        min="0"
+                                                        step="0.1"
+                                                    />
+                                                    <input
+                                                        type="number"
+                                                        placeholder="Take-Profit %"
+                                                        value={rules[token.id]?.tp}
+                                                        onChange={(e) => setRules(prev => ({ ...prev, [token.id]: { ...prev[token.id], tp: e.target.value } }))}
+                                                        className="px-2 py-1 bg-white/5 border border-white/20 rounded text-white placeholder-white/50"
+                                                        min="0"
+                                                        step="0.1"
+                                                    />
+                                                    <input
+                                                        type="number"
+                                                        placeholder="DCA $/round"
+                                                        value={rules[token.id]?.dcaAmount}
+                                                        onChange={(e) => setRules(prev => ({ ...prev, [token.id]: { ...prev[token.id], dcaAmount: e.target.value } }))}
+                                                        className="px-2 py-1 bg-white/5 border border-white/20 rounded text-white placeholder-white/50"
+                                                        min="0"
+                                                        step="0.01"
+                                                    />
+                                                    <div className="flex flex-wrap gap-2 w-full md:w-auto">
+                                                        <Button size="sm" variant="outline" onClick={() => setRules(prev => ({ ...prev, [token.id]: { ...prev[token.id], dcaRoundsRemaining: (prev[token.id]?.dcaRoundsRemaining || 0) + 4 } }))}>Start DCA (4r)</Button>
+                                                        <Button size="sm" variant="outline" onClick={() => setRules(prev => ({ ...prev, [token.id]: { ...prev[token.id], dcaRoundsRemaining: 0 } }))}>Stop DCA</Button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         );
                                     })}
@@ -756,7 +972,7 @@ export default function InvestingGame() {
                             </Card>
 
                             {/* Event Feed */}
-                        <Card className={`bg-white/10 backdrop-blur-md border border-white/20 text-white ${tutorialActive && tutorialStep === 4 ? 'ring-2 ring-cyan-300/50' : ''}`}>
+                        <Card className={`bg-white/10 backdrop-blur-md border border-white/20 text-white ${tutorialActive && tutorialStep === 5 ? 'ring-2 ring-cyan-300/50' : ''}`}>
                                 <CardHeader>
                                 <CardTitle className="text-white">Market News & Events</CardTitle>
                                 <CardDescription className="text-white/70">

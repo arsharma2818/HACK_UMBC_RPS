@@ -78,7 +78,7 @@ export default function About() {
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             About
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"> RugGuard</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"> CryptoCanary</span>
           </h1>
           <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto">
             We protect cryptocurrency investors through education and hands-on, risk-free simulations.
@@ -149,7 +149,7 @@ export default function About() {
                 The best defense is understanding. We show exactly how scams work so you can recognize the warning signs.
               </p>
               <p className="text-amber-100 text-lg leading-relaxed">
-                RugGuard provides a safe environment to experience DeFi mechanics firsthand, without risking real money.
+                CryptoCanary provides a safe environment to experience DeFi mechanics firsthand, without risking real money.
               </p>
             </CardContent>
           </Card>
@@ -197,7 +197,7 @@ export default function About() {
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">Open Source & Community</h2>
           <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
-            RugGuard is open source and community-driven. Security education should be transparent and accessible to everyone.
+            CryptoCanary is open source and community-driven. Security education should be transparent and accessible to everyone.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mb-10">
             <Button className="bg-white/20 backdrop-blur-md text-white border border-white/30 hover:bg-white/30">
@@ -216,7 +216,7 @@ export default function About() {
           <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-left max-w-2xl mx-auto">
             <h3 className="text-lg font-semibold text-white mb-3">Disclaimer</h3>
             <p className="text-white/80 text-sm leading-relaxed">
-              RugGuard is an educational tool only. No real cryptocurrency transactions occur on this platform. This tool
+              CryptoCanary is an educational tool only. No real cryptocurrency transactions occur on this platform. This tool
               is designed for learning purposes and should not be considered financial advice. Always do your own research
               before making investment decisions.
             </p>

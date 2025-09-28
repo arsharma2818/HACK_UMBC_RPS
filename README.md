@@ -1,10 +1,10 @@
-# RugGuard - Educational DeFi Simulator
+# CryptoCanary - Educational DeFi Simulator
 
-RugGuard is an educational platform designed to help users understand cryptocurrency scams through safe, hands-on simulations. Learn about rug pulls, liquidity pools, and DeFi mechanics without risking real funds.
+CryptoCanary is an educational platform designed to help users understand cryptocurrency scams through safe, hands-on simulations. Learn about rug pulls, liquidity pools, and DeFi mechanics without risking real funds.
 
-## 🎯 What is RugGuard?
+## 🎯 What is CryptoCanary?
 
-RugGuard is a **completely safe, educational simulation** that teaches users about:
+CryptoCanary is a **completely safe, educational simulation** that teaches users about:
 - How rug pulls work in practice
 - Automated Market Maker (AMM) mechanics
 - Liquidity pool dynamics
@@ -26,7 +26,7 @@ RugGuard is a **completely safe, educational simulation** that teaches users abo
    ```bash
    # If you have git
    git clone <repository-url>
-   cd rug-guard
+   cd crypto-canary
    
    # Or download and extract the ZIP file
    ```

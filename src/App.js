@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout';
+import AchievementToaster from './components/ui/toast-achievement';
 
 // Import pages
 import Home from './pages/home';
@@ -8,6 +9,7 @@ import Simulator from './pages/simulator';
 import Learn from './pages/learn';
 import About from './pages/about';
 import InvestingGame from './pages/investing-game';
+import AchievementsPage from './pages/achievements';
 import Mod1 from './pages/rug-pulls';
 import Mod2 from './pages/AMMs';
 import Mod3 from './pages/pull-mechs';
@@ -19,10 +21,12 @@ function App() {
   return (
     <Router>
       <Layout>
+        <AchievementToaster />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/simulator" element={<Simulator />} />
           <Route path="/investing-game" element={<InvestingGame />} />
+          <Route path="/achievements" element={<AchievementsPage />} />
           <Route path="/learn" element={<Learn />} />
           <Route path="/about" element={<About />} />
           <Route path="/rug-pulls" element={<Mod1 />} />

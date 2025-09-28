@@ -178,12 +178,13 @@ Return JSON:
     if (prediction.shouldRugpull && !this.rugPullHappened) {
       this.rugPullHappened = true;
       this.rugPullRound = round;
-      return await this.generateRugpullEvent(round, prediction.marketMultipliers);
+      const expandedRug = this.expandMultipliers(tokenPrices, prediction.marketMultipliers, 'rugpull', true);
+      return await this.generateRugpullEvent(round, expandedRug);
     }
 
     // Generate regular event based on AI prediction
     const eventType = prediction.eventType === 'rugpull' ? 'dump' : prediction.eventType;
-    const multipliers = prediction.marketMultipliers;
+    const multipliers = this.expandMultipliers(tokenPrices, prediction.marketMultipliers, eventType, false);
 
     if (this.isInitialized && this.model) {
       try {
@@ -200,7 +201,7 @@ Return JSON:
   async generateAIEvent(round, eventType, multipliers, tokenPrices = {}, reasoning = '') {
     const mostAffectedToken = this.getMostAffectedToken(multipliers);
 
-    const prompt = `Create crypto event for round ${round}. Type: ${eventType}. Token: ${mostAffectedToken}. Context: ${reasoning}
+    const prompt = `Create crypto event for round ${round}. Type: ${eventType}. Focus token: ${mostAffectedToken}. Context: ${reasoning}
 
 Make it fun with pop culture refs and crypto slang. Educational but entertaining.
 
@@ -209,11 +210,6 @@ Return JSON:
   "title": "Fun title with emoji (30 chars max)",
   "description": "Brief description (70 chars max)", 
   "news": "Entertaining headline with pop culture ref (140 chars max)",
-  "effects": {
-    "SCAM": ${multipliers.SCAM},
-    "MEME": ${multipliers.MEME},
-    "TETHER": ${multipliers.TETHER}
-  },
   "primaryToken": "${mostAffectedToken}"
 }`;
 
@@ -226,6 +222,7 @@ Return JSON:
       return {
         round,
         ...parsedEvent,
+        effects: multipliers,
         timestamp: new Date().toISOString()
       };
     } catch (parseError) {
@@ -278,11 +275,6 @@ Return JSON:
   "title": "💀 RUGPULL EXECUTED!",
   "description": "ScamCoin developers drain liquidity and vanish into the void!",
   "news": "Savage rugpull headline with pop culture ref (140 chars max)",
-  "effects": {
-    "SCAM": ${multipliers.SCAM},
-    "MEME": ${multipliers.MEME},
-    "TETHER": ${multipliers.TETHER}
-  },
   "primaryToken": "SCAM"
 }`;
 
@@ -295,6 +287,7 @@ Return JSON:
       return {
         round,
         ...parsedEvent,
+        effects: multipliers,
         timestamp: new Date().toISOString()
       };
     } catch (parseError) {
@@ -323,18 +316,17 @@ Return JSON:
   }
 
   getMostAffectedToken(multipliers) {
-    const tokens = ['SCAM', 'MEME', 'TETHER'];
-    let mostAffected = 'SCAM';
-    let largestChange = Math.abs(multipliers.SCAM - 1);
-
+    const tokens = Object.keys(multipliers || {});
+    if (!tokens.length) return 'SCAM';
+    let mostAffected = tokens[0];
+    let largestChange = Math.abs((multipliers[mostAffected] || 1) - 1);
     tokens.forEach(token => {
-      const change = Math.abs(multipliers[token] - 1);
+      const change = Math.abs((multipliers[token] || 1) - 1);
       if (change > largestChange) {
         largestChange = change;
         mostAffected = token;
       }
     });
-
     return mostAffected;
   }
 
@@ -388,6 +380,85 @@ Return JSON:
 
     const allTips = [...rugPullTips, ...generalTips];
     return allTips[Math.floor(Math.random() * allTips.length)];
+  }
+
+  // Public helper used by UI fallback
+  generateBasicEvent(round, tokenPrices = {}) {
+    const eventTypes = ['pump', 'dump', 'meme', 'stable'];
+    const eventType = eventTypes[Math.floor(Math.random() * eventTypes.length)];
+    const baseMultipliers = {
+      SCAM: eventType === 'dump' ? 0.8 + Math.random() * 0.2 : 0.9 + Math.random() * 0.2,
+      MEME: eventType === 'meme' ? 0.1 + Math.random() * 3.9 : 0.85 + Math.random() * 0.4,
+      TETHER: 0.999 + Math.random() * 0.003
+    };
+    const effects = this.expandMultipliers(tokenPrices, baseMultipliers, eventType, false);
+    const templates = this.getFallbackEvents();
+    const template = templates.find(t => t.type === eventType) || templates[0];
+    const title = template.title[Math.floor(Math.random() * template.title.length)];
+    const news = template.news[Math.floor(Math.random() * template.news.length)];
+    return {
+      round,
+      title,
+      description: this.getEventDescription(eventType, round),
+      news,
+      effects,
+      timestamp: new Date().toISOString()
+    };
+  }
+
+  // Expand base multipliers to all provided token symbols
+  expandMultipliers(tokenPrices = {}, baseMultipliers = {}, eventType = 'stable', isRugpull = false) {
+    const keys = Object.keys(tokenPrices || {});
+    const effects = {};
+    keys.forEach(key => {
+      if (baseMultipliers[key] != null) {
+        effects[key] = baseMultipliers[key];
+        return;
+      }
+      const sym = key.toUpperCase();
+      if (isRugpull) {
+        if (sym === 'SCAM') {
+          effects[key] = 0.001 + Math.random() * 0.01;
+        } else if (sym === 'TETHER' || sym === 'USDT') {
+          effects[key] = 1.0002 + Math.random() * 0.0008;
+        } else {
+          effects[key] = 0.85 + Math.random() * 0.2; // contagion
+        }
+        return;
+      }
+      switch (eventType) {
+        case 'pump':
+          if (sym === 'BTC' || sym === 'ETH' || sym === 'DEFI') effects[key] = 1.02 + Math.random() * 0.18;
+          else if (sym === 'SOL' || sym === 'AI' || sym === 'MEME') effects[key] = 1.05 + Math.random() * 0.35;
+          else if (sym === 'TETHER' || sym === 'USDT') effects[key] = 0.999 + Math.random() * 0.003;
+          else effects[key] = 0.95 + Math.random() * 0.3;
+          break;
+        case 'dump':
+          if (sym === 'BTC' || sym === 'ETH' || sym === 'DEFI') effects[key] = 0.85 + Math.random() * 0.13;
+          else if (sym === 'SOL' || sym === 'AI' || sym === 'MEME') effects[key] = 0.6 + Math.random() * 0.35;
+          else if (sym === 'TETHER' || sym === 'USDT') effects[key] = 0.999 + Math.random() * 0.003;
+          else effects[key] = 0.7 + Math.random() * 0.25;
+          break;
+        case 'meme':
+          if (sym === 'MEME' || sym === 'AI') effects[key] = 0.1 + Math.random() * 3.9;
+          else if (sym === 'BTC' || sym === 'ETH' || sym === 'DEFI') effects[key] = 0.95 + Math.random() * 0.2;
+          else if (sym === 'TETHER' || sym === 'USDT') effects[key] = 0.999 + Math.random() * 0.003;
+          else effects[key] = 0.9 + Math.random() * 0.3;
+          break;
+        default: // stable
+          if (sym === 'TETHER' || sym === 'USDT') effects[key] = 1.0002 + Math.random() * 0.0028;
+          else effects[key] = 0.98 + Math.random() * 0.04;
+      }
+    });
+    return effects;
+  }
+
+  // Probability helper for UI banner
+  calculateRugPullProbability(round) {
+    if (this.rugPullHappened) return 1;
+    if (round < 4) return 0.05 * round; // gentle ramp
+    const p = Math.min(0.85, 0.2 * (round - 3));
+    return p;
   }
 }
 

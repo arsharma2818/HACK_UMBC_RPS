@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "../utils/index";
-import { BookOpen, BarChart3, Coins, Shield, Menu, X, Gamepad2 } from "lucide-react";
+import { BookOpen, BarChart3, Coins, Shield, Menu, X, Gamepad2, Trophy } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -23,6 +23,11 @@ const navigationItems = [
     title: "Investing Game",
     url: "/investing-game",
     icon: Gamepad2,
+  },
+  {
+    title: "Achievements",
+    url: "/achievements",
+    icon: Trophy,
   },
   {
     title: "Learn",
@@ -79,7 +84,7 @@ export default function Layout({ children, currentPageName }) {
                 <Shield className="w-5 h-5 text-white" />
               </div>
               <div className="hidden sm:block">
-                <span className={`text-xl font-semibold tracking-tight ${isScrolled ? 'text-white' : 'text-slate-900'}`}>RugGuard</span>
+                <span className={`text-xl font-semibold tracking-tight ${isScrolled ? 'text-white' : 'text-slate-900'}`}>CryptoCanary</span>
                 <span className={`text-xs ml-3 font-medium tracking-wide ${isScrolled ? 'text-white/70' : 'text-slate-500'}`}>Learn • Practice • Protect</span>
               </div>
             </Link>
@@ -124,7 +129,7 @@ export default function Layout({ children, currentPageName }) {
                     <div className="w-9 h-9 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
                       <Shield className="w-5 h-5 text-white" />
                     </div>
-                    <span className={`text-xl font-semibold ${isScrolled ? 'text-white' : 'text-slate-900'}`}>RugGuard</span>
+                    <span className={`text-xl font-semibold ${isScrolled ? 'text-white' : 'text-slate-900'}`}>CryptoCanary</span>
                   </div>
                   <nav className="flex flex-col gap-2">
                     {navigationItems.map((item) => (
@@ -167,7 +172,7 @@ export default function Layout({ children, currentPageName }) {
                 <div className="w-9 h-9 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-semibold text-white">RugGuard</span>
+                <span className="text-xl font-semibold text-white">CryptoCanary</span>
               </div>
               <p className="text-white/70 mb-6 max-w-md leading-relaxed">
                 Educational platform helping you understand and recognize cryptocurrency scams through safe, controlled simulations.
@@ -182,7 +187,7 @@ export default function Layout({ children, currentPageName }) {
           </div>
           <div className="border-t border-white/10 mt-12 pt-8">
             <p className="text-center text-sm text-white/60">
-              © 2025 RugGuard. Made for educational purposes only. No real funds at risk.
+              © 2025 CryptoCanary. Made for educational purposes only. No real funds at risk.
             </p>
           </div>
         </div>

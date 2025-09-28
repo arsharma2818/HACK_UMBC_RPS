@@ -144,7 +144,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              Why RugGuard Works
+              Why CryptoCanary Works
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
               The best way to understand cryptocurrency scams is to see them in action. 
