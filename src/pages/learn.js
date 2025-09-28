@@ -120,7 +120,6 @@ export default function Learn() {
         </div>
       </section>
 
-<<<<<<< HEAD
       {/* Stats Section */}
       <section className="py-12 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -140,8 +139,6 @@ export default function Learn() {
         </div>
       </section>
 
-=======
->>>>>>> 5675f973b2939e5c97a1e114c9b795f315acf3cd
       {/* Learning Topics */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
